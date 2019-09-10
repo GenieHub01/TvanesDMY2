@@ -1,0 +1,47 @@
+<?php
+use yii\helpers\Html;
+?>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark static-top">
+    <div class="container">
+
+
+    <a class="navbar-brand" href="/"><?= Yii::$app->name ?></a>
+
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+
+
+<!--            <form class="form-inline my-2 my-lg-0 mr-auto">-->
+<!--                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+<!--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--            </form>-->
+
+
+
+        </ul>
+
+<!--        <ul class="navbar-nav ml-auto">-->
+<!--            --><?// if (Yii::$app->user->isGuest): ?>
+<!--                <li class="nav-item">-->
+<!---->
+<!--                    --><?//= Html::a('<i class="far fa-user"></i> Login',['/site/login'],['class'=>'nav-link']) ?>
+<!---->
+<!--                </li>-->
+<!--            --><?// else:
+//                echo  '<li  class="nav-item">'
+//                    . Html::beginForm(['/site/logout'], 'post')
+//                    . Html::submitButton(
+//                        'Logout (' . Yii::$app->user->identity->username . ')',
+//                        ['class' => 'btn btn-link logout']
+//                    )
+//                    . Html::endForm()
+//                    . '</li>';
+//
+//            endif; ?>
+<!--        </ul>-->
+
+    </div>
+    </div>
+</nav>
