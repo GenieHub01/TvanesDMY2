@@ -34,9 +34,11 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-          'username'  =>'Логин',
-          'rememberMe'  =>'Запомнить меня',
-          'password'  =>'Пароль',
+          'username'  =>Yii::t('app','Username'),
+          'rememberMe'  =>Yii::t('app','Remember me'),
+          'password'  =>Yii::t('app','Password'),
+
+           
         ];
     }
 

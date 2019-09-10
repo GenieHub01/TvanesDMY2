@@ -7,7 +7,7 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = 'Resend verification email';
+$this->title = Yii::t('app','Resend verification email');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="regular-page clear-filter page-header-small">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-sm-6 border-left border-right">
                 <h1><?= Html::encode($this->title) ?></h1>
 
-                <p>Пожалуйста, заполните следующую форму.</p>
+                <p><?= Yii::t('app','Please fill out your email. A verification email will be sent there.') ?></p>
 
 
                 <?php $form = ActiveForm::begin(['id' => 'resend-verification-email-form']); ?>
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton('Send', ['class' => 'btn btn-primary']) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>

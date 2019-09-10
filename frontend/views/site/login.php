@@ -8,7 +8,7 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = 'Вход';
+$this->title = Yii::t('app','Login');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="regular-page clear-filter page-header-small">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-sm-6 border-left border-right">
                 <h1><?= Html::encode($this->title) ?></h1>
 
-                <p>Пожалуйста, заполните данные для входа:</p>
+                <p><?= Yii::t('app','Please fill out the following fields to login:') ?></p>
 
 
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
@@ -35,14 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'rememberMe'
                 ]) ?>
 
+
                 <div style="color:#999;margin:1em 0">
-                    Если вы забыли пароль, вы можете <?= Html::a('сбросить его', ['site/request-password-reset']) ?>.
+                   <?=Yii::t('app','If you forgot your password you can')?> <?= Html::a('reset it', ['site/request-password-reset']) ?>.
                     <br>
-                    Нужно новое письмо для верицикации Email? <?= Html::a('Выслать', ['site/resend-verification-email']) ?>.
+                    <?=Yii::t('app','Need new verification email?')?> <?= Html::a('Resend', ['site/resend-verification-email']) ?>
                 </div>
 
+
                 <div class="form-group">
-                    <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
