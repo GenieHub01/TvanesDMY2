@@ -432,6 +432,7 @@ inner join wp.wp_products y on w.import_id=y.product_id
                         'brand'=>$brand
                     ])->queryAll(),'engine_capacity','engine_capacity' );
 
+
             return $this->asJson([
                 'items'=>$out
             ]);
@@ -439,8 +440,28 @@ inner join wp.wp_products y on w.import_id=y.product_id
             $sql = 'select  `year` from goods g
 inner join years y on  g.id=y.goods_id
         where brand=:brand and model=:model and engine_capacity=:capacity
-        
         group by `year`
+        ';
+
+            $out =
+                ArrayHelper::map(
+                    Yii::$app->db->createCommand($sql,[
+                        'model'=>$model,
+                        'brand'=>$brand,
+                        'capacity'=>$capacity
+                    ])->queryAll(),'year','year' );
+
+            $out['all']='all';
+
+            return $this->asJson([
+                'items'=>$out
+            ]);
+        }elseif ($brand && $model && $capacity && $year && $year=='all') {
+            $sql = 'select  `id`, title from goods g
+ 
+        where brand=:brand and model=:model and engine_capacity=:capacity  
+        
+        group by `id`, title
         
         ';
 
@@ -451,7 +472,7 @@ inner join years y on  g.id=y.goods_id
                         'model'=>$model,
                         'brand'=>$brand,
                         'capacity'=>$capacity
-                    ])->queryAll(),'year','year' );
+                    ])->queryAll(),'id','title' );
 
             return $this->asJson([
                 'items'=>$out
