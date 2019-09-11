@@ -15,13 +15,175 @@ $('a.available-soon').click(function(e){
 function showError(xhr, code, text) {
     'use strict';
     if (xhr.responseJSON) {
-        $.growl.error({message: 'Ошибка(' + xhr.status + '): ' + xhr.responseJSON.error_text});
+        $.growl.error({message: 'Error(' + xhr.status + '): ' + xhr.responseJSON.error_text});
     } else {
-        $.growl.error({message: 'Ошибка(' + xhr.status + '): ' + text});
+        $.growl.error({message: 'Error(' + xhr.status + '): ' + text});
     }
 }
 
 
 $("img").on("error", function () {
     $(this).attr("src", "/img/no_image.jpg");
+});
+
+
+
+$('select[name="brand"]').change(function(){
+    $('select[name="model"]').prop("disabled", true);
+    $('select[name="capacity"]').prop("disabled", true);
+    $('select[name="year"]').prop("disabled", true);
+    $('select[name="product"]').prop("disabled", true);
+
+    if (!$(this).val()){
+        return false;
+    }
+    var data = {
+        brand: $(this).val()
+    };
+    $.get(
+        '/site/product-search',
+        data
+        ,
+        function (respond) {
+            $('select[name="model"]').find('option').remove();
+            $('select[name="model"]').append('<option value="">-- Model --</option>"');
+            $.each(respond.items,function(key, value){
+                $('select[name="model"]').append('<option value=' + key + '>' + value + '</option>');
+            });
+            $('select[name="model"]').prop("disabled", false);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
+
+
+$('select[name="model"]').change(function(){
+    // $('select[name="model"]').prop("disabled", true);
+    $('select[name="capacity"]').prop("disabled", true);
+    $('select[name="capacity"]').append('<option value="">-- Engine Capacity --</option>"');
+    $('select[name="year"]').prop("disabled", true);
+    $('select[name="year"]').append('<option value="">-- Year --</option>"');
+    $('select[name="product"]').prop("disabled", true);
+    $('select[name="product"]').append('<option value="">-- Product --</option>"');
+
+
+    if (!$(this).val()){
+        return false;
+    }
+    var data = {
+        brand: $('select[name="brand"]').val(),
+        model: $(this).val()
+    };
+    $.get(
+        '/site/product-search',
+        data
+        ,
+        function (respond) {
+            $('select[name="capacity"]').find('option').remove();
+            $('select[name="capacity"]').append('<option value="">-- Capacity --</option>"');
+            $.each(respond.items,function(key, value){
+
+                $('select[name="capacity"]').append('<option value=' + key + '>' + value + '</option>');
+            });
+            $('select[name="capacity"]').prop("disabled", false);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
+
+
+
+$('select[name="capacity"]').change(function(){
+    // $('select[name="model"]').prop("disabled", true);
+    // $('select[name="capacity"]').prop("disabled", true);
+    // $('select[name="capacity"]').append('<option value="">-- Engine Capacity --</option>"');
+    $('select[name="year"]').prop("disabled", true);
+    $('select[name="year"]').append('<option value="">-- Year --</option>"');
+    $('select[name="product"]').prop("disabled", true);
+    $('select[name="product"]').append('<option value="">-- Product --</option>"');
+
+
+    if (!$(this).val()){
+        return false;
+    }
+    var data = {
+        brand: $('select[name="brand"]').val(),
+        model:$('select[name="model"]').val(),
+        capacity: $(this).val()
+    };
+    $.get(
+        '/site/product-search',
+        data
+        ,
+        function (respond) {
+            $('select[name="year"]').find('option').remove();
+            $('select[name="year"]').append('<option value="">-- Year --</option>"');
+            $.each(respond.items,function(key, value){
+
+                $('select[name="year"]').append('<option value=' + key + '>' + value + '</option>');
+            });
+            $('select[name="year"]').prop("disabled", false);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
+
+
+$('select[name="year"]').change(function(){
+    // $('select[name="model"]').prop("disabled", true);
+    // $('select[name="capacity"]').prop("disabled", true);
+    // $('select[name="capacity"]').append('<option value="">-- Engine Capacity --</option>"');
+    // $('select[name="year"]').prop("disabled", true);
+    // $('select[name="year"]').append('<option value="">-- Year --</option>"');
+    $('select[name="product"]').prop("disabled", true);
+    $('select[name="product"]').append('<option value="">-- Product --</option>"');
+
+
+    if (!$(this).val()){
+        return false;
+    }
+    var data = {
+        brand: $('select[name="brand"]').val(),
+        model:$('select[name="model"]').val(),
+        year:$('select[name="year"]').val(),
+        capacity:$('select[name="capacity"]').val()
+
+    };
+    $.get(
+        '/site/product-search',
+        data
+        ,
+        function (respond) {
+            $('select[name="product"]').find('option').remove();
+            $('select[name="product"]').append('<option value="">-- Product --</option>"');
+            $.each(respond.items,function(key, value){
+
+                $('select[name="product"]').append('<option value=' + key + '>' + value + '</option>');
+            });
+            $('select[name="product"]').prop("disabled", false);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
+
+$('#showproduct').click(function(e){
+
+    e.preventDefault();
+    var val =  $('select[name="product"]').val();
+    if (!val){
+        return false;
+    }
+    window.location.replace("/store/view?id="+val);
 });

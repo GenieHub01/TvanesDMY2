@@ -1,0 +1,21 @@
+RewriteEngine on
+
+## Completely hide some files and directories.
+RedirectMatch 404 "(?:.*)/(?:[.#].*)$"
+RedirectMatch 404 "(?:.*)~$"
+RedirectMatch 404 "(?:.*)/(?:CVS|RCS|_darcs)(?:/.*)?$"
+
+#RewriteCond %{HTTPS} off
+#RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+php_value error_reporting 1
+# otherwise forward it to index.php
+#RewriteRule . index.php
+RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
+
+AddDefaultCharset utf-8
+

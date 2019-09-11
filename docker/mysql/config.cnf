@@ -1,3 +1,4 @@
+max_allowed_packet=1000M
 [client]
 default-character-set = utf8
 

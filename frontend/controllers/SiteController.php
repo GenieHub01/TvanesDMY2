@@ -3,24 +3,25 @@
 namespace frontend\controllers;
 
 use common\components\BaseController;
-use common\models\Files;
 use common\models\LoginForm;
 use common\models\Restaurant;
 use common\models\RestaurantFiles;
 use common\models\User;
+use frontend\models\Category;
 use frontend\models\ContactForm;
+use frontend\models\Goods;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\VerifyEmailForm;
+use frontend\models\Years;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
-use yii\web\Response;
-use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -57,6 +58,235 @@ class SiteController extends BaseController
             ],
         ];
     }
+
+    public function actionCsv()
+    {
+        set_time_limit(0);
+
+        $csv = array_map('str_getcsv', file('1.csv'));
+        $row = 1;
+        $out = [];
+
+
+        foreach ($csv as $key => $data) {
+
+            $num = count($data);
+
+
+            if ($num <> 80) {
+                echo "<p> $num полей в строке $key: <br /></p>\n";
+                continue;
+//                    var_dump($data);
+            }
+
+//                continue;
+            $row++;
+
+
+
+
+                if ($key == 0) {
+                    $labels = [];
+                    for ($c = 0; $c < $num; $c++) {
+
+
+                        if ($c == 0) {
+                            $labels[$c] = 'title';
+                        } elseif ($c == 1) {
+                            $labels[$c] = 'uri';
+                        } elseif ($c == 2) {
+                            $labels[$c] = 'import_id';
+                        } elseif ($c == 4) {
+                            $labels[$c] = 'description';
+                        } elseif ($c == 41) {
+                            $labels[$c] = 'category';
+                        } elseif ($c == 50) {
+                            $labels[$c] = 'years_string';
+                        } elseif ($c == 68) {
+                            $labels[$c] = 'brand';
+                        } elseif ($c == 71) {
+                            $labels[$c] = 'model';
+                        } elseif ($c == 65) {
+                            $labels[$c] = 'fuel';
+                        } elseif ($c == 62) {
+                            $labels[$c] = 'engine_type';
+                        } elseif ($c == 56) {
+                            $labels[$c] = 'engine_capacity';
+                        } elseif ($c == 47) {
+                            $labels[$c] = 'add_info';
+                        } elseif ($c == 74) {
+                            $labels[$c] = 'oem_exchange';
+                        } elseif ($c == 59) {
+                            $labels[$c] = 'engine_power';
+                        } elseif ($c == 77) {
+                            $labels[$c] = 'part_number_list';
+                        } elseif ($c == 53) {
+                            $labels[$c] = 'comparison_number_list';
+                        } elseif ($c == 44) {
+                            $labels[$c] = 'sku';
+                        } //                        elseif($c==44){  $labels[$c] = 'sku';   }
+
+                        else {
+
+                            if (in_array($c, [
+                                14, 15, 37, 22, 25
+                            ]))
+//                            continue;
+                                $labels[$c] = $data[$c];
+                        }
+
+                        echo $c . ') ' . $data[$c] . '<br>';
+                    }
+                }
+                else {
+
+
+                    for ($c = 0; $c < $num; $c++) {
+//                        echo $c.') '.$labels[$c]. " : " .$data[$c] . "<br />\n";
+
+//                        if ($c == 4){
+//                            $out[$row][$labels[$c]] = explode(' | ',$data[$c]);
+//                        } else {
+                        if (isset($labels[$c])) {
+
+
+                            if ($labels[$c] == 'images' || $labels[$c] == 'part_number_list' || $labels[$c] == 'comparison_number_list') {
+                                if ($data[$c]) {
+
+                                    $images = explode(',', $data[$c]);
+                                    if ($images) {
+                                        foreach ($images as $k => $image) {
+                                            $images[$k] = trim($image);
+                                        }
+                                    }
+
+                                    $out[$row][$labels[$c]] = $images;
+                                } else {
+                                    $out[$row][$labels[$c]] = null;
+                                }
+                            } elseif ($labels[$c] == 'stock_status') {
+                                $out[$row]['stock_status'] = 1;
+                            } elseif ($labels[$c] == 'engine_capacity') {
+                                $out[$row]['engine_capacity'] = $data[$c];
+
+                            } elseif ($labels[$c] == 'tax_status') {
+                                $tax[$data[$c]] = 5;
+                            } elseif ($labels[$c] == 'fuel') {
+
+                                if ($data[$c]=='Petrol'){
+                                    $out[$row]['fuel'] = Goods::FUEL_PETROL;
+                                } elseif ($data[$c]=='Diesel'){
+                                    $out[$row]['fuel'] = Goods::FUEL_DIESEL;
+                                } else {
+                                    $out[$row]['fuel'] = null;
+                                }
+
+
+                                $fuel[$data[$c]] = 1;
+                            } elseif ($labels[$c] == 'category') {
+
+
+                                $category = Category::findOne(['title' => $data[$c]]);
+                                if (!$category) {
+                                    $category = new Category();
+                                    $category->title = $data[$c];
+                                    $category->save();
+                                }
+                                $out[$row]['category_id'] = $category->id;
+                                $out[$row]['category_string'] = $data[$c];
+
+                            } else {
+                                $out[$row][$labels[$c]] = $data[$c];
+                            }
+
+
+                        }
+
+//                        }
+
+
+                    }
+                }
+
+
+                if ($row == 10) {
+//                    break;
+
+                }
+
+//                exit;
+//            }
+//            fclose($handle);
+        }
+
+//        var_dump($status); echo '<br>';
+//        var_dump($tax); echo '<br>';
+//        var_dump($fuel); echo '<br>';
+////
+////
+//        exit;
+
+        unset($csv);
+        foreach ($out as $item) {
+            $model = Goods::findOne(['import_id' => $item['import_id']]);
+
+//            $model = false;
+            if (!$model) {
+                $model = new Goods();
+                $model->setAttributes($item);
+                $model->status = Goods::STATUS_DEFAULT;
+//               var_dump($item);
+                echo '<pre>';
+//               var_dump($model->attributes);
+               echo '</pre>';
+
+               try{
+                   if (!$model->save()) {
+                       echo '<pre>';
+                       var_dump($model->getFirstErrors());
+                       echo '</pre>';
+//                    exit;
+                   }
+               }catch (\Exception $exception) {
+
+                   echo $exception->getMessage().'<br>';
+               }
+
+            }
+        }
+        exit;
+
+
+    }
+
+    public function actionYear(){
+        set_time_limit(0);
+        $sql = "select w.id, w.title, w.years_string, y.p_year_list from carparts.goods w  
+inner join wp.wp_products y on w.import_id=y.product_id 
+ ";
+        $rows = Yii::$app->db->createCommand($sql)->queryAll();
+
+        foreach ($rows as $row){
+            echo $row['years_string'].' : '.$row['p_year_list'].'<br>';
+
+            $years = unserialize($row['p_year_list']);
+
+            foreach ($years as $year){
+              $model = new Years();
+              $model->goods_id = $row['id'];
+              $model->year = $year;
+
+              try{
+                  $model->save(false);
+              } catch (\Exception $exception){
+                  echo $exception->getMessage().'<br>';
+              }
+
+
+            }
+        }
+    }
+
 
 
     public function beforeAction($action)
@@ -164,9 +394,95 @@ class SiteController extends BaseController
     public function actionIndex()
     {
 
-        return $this->render('index');
+        $sql = 'select brand from goods group by brand having brand <> ""';
+        $brandList = ArrayHelper::map(Yii::$app->db->createCommand($sql)->queryAll(),'brand','brand');
+
+        return $this->render('index',[
+            'brandList'=>$brandList
+        ]);
     }
 
+    public function actionProductSearch($brand, $model  = null, $capacity = null, $year = null){
+
+        if ($brand && !$model && !$capacity && !$year) {
+            $sql = 'select  model from goods g
+        where brand=:brand 
+        group by model
+        ';
+            $out =
+                ArrayHelper::map(
+                    Yii::$app->db->createCommand($sql,[
+                        'brand'=>$brand
+                    ])->queryAll(),'model','model' );
+
+            return $this->asJson([
+                'items'=>$out
+            ]);
+        } elseif ($brand && $model && !$capacity && !$year) {
+            $sql = 'select  engine_capacity from goods g
+        where brand=:brand and model=:model
+        group by engine_capacity
+        ';
+
+
+            $out =
+                ArrayHelper::map(
+                    Yii::$app->db->createCommand($sql,[
+                        'model'=>$model,
+                        'brand'=>$brand
+                    ])->queryAll(),'engine_capacity','engine_capacity' );
+
+            return $this->asJson([
+                'items'=>$out
+            ]);
+        } elseif ($brand && $model && $capacity && !$year) {
+            $sql = 'select  `year` from goods g
+inner join years y on  g.id=y.goods_id
+        where brand=:brand and model=:model and engine_capacity=:capacity
+        
+        group by `year`
+        
+        ';
+
+
+            $out =
+                ArrayHelper::map(
+                    Yii::$app->db->createCommand($sql,[
+                        'model'=>$model,
+                        'brand'=>$brand,
+                        'capacity'=>$capacity
+                    ])->queryAll(),'year','year' );
+
+            return $this->asJson([
+                'items'=>$out
+            ]);
+        }elseif ($brand && $model && $capacity && $year) {
+            $sql = 'select  `id`, title from goods g
+inner join years y on  g.id=y.goods_id
+        where brand=:brand and model=:model and engine_capacity=:capacity and `year`=:year
+        
+        group by `id`, title
+        
+        ';
+
+
+            $out =
+                ArrayHelper::map(
+                    Yii::$app->db->createCommand($sql,[
+                        'model'=>$model,
+                        'brand'=>$brand,
+                        'capacity'=>$capacity,
+                        'year'=>$year,
+                    ])->queryAll(),'id','title' );
+
+            return $this->asJson([
+                'items'=>$out
+            ]);
+        } else {
+            return self::returnError(self::ERROR_BADREQUEST);
+        }
+
+    }
 
     public function actionPrivacy()
     {
@@ -241,8 +557,6 @@ class SiteController extends BaseController
             ]);
         }
     }
-
-
 
 
     /**
