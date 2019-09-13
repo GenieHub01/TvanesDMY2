@@ -70,7 +70,7 @@ class Cart extends \yii\base\Component
 
     public function getItems()
     {
-        return count($this->_cart) > 0 ? $this->_cart : false;
+        return count($this->_cart) > 0 ? $this->_cart : [];
     }
 
 
