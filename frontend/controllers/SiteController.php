@@ -13,6 +13,7 @@ use frontend\models\Goods;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\ResetPasswordForm;
+use frontend\models\SettingsForm;
 use frontend\models\SignupForm;
 use frontend\models\VerifyEmailForm;
 use frontend\models\Years;
@@ -36,7 +37,7 @@ class SiteController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup','edit-profile'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -44,7 +45,7 @@ class SiteController extends BaseController
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'upload-image', 'test'],
+                        'actions' => ['logout', 'upload-image', 'test','edit-profile'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -57,6 +58,16 @@ class SiteController extends BaseController
                 ],
             ],
         ];
+    }
+
+    public function actionEditProfile(){
+        $model = new SettingsForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()){
+            Yii::$app->session->setFlash('success', 'Saved.');
+        }
+
+        return $this->render('edit-profile',['model'=>$model]);
     }
 
     public function actionCsv()
@@ -394,8 +405,11 @@ inner join wp.wp_products y on w.import_id=y.product_id
     public function actionIndex()
     {
 
+
         $sql = 'select brand from goods group by brand having brand <> ""';
         $brandList = ArrayHelper::map(Yii::$app->db->createCommand($sql)->queryAll(),'brand','brand');
+
+
 
         return $this->render('index',[
             'brandList'=>$brandList

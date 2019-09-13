@@ -6,6 +6,81 @@
 // $.growl.warning({ message: "The kitten is ugly!" });
 
 
+function updateCartCount(count) {
+    $('.cart_count').html(count > 0 ? count : '');
+}
+
+$('a.add_to_cart').click(function (e) {
+    e.preventDefault();
+    var data = {
+        id: $(this).attr('data-id')
+    };
+
+    $.get(
+        '/cart/add-item',
+        data
+        ,
+        function (respond) {
+            $.growl({title: "Cart", message: "Item added."});
+            updateCartCount(respond.count);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
+function updateCartLine(id, line, sum) {
+    var idDiv = '#cartItem_' + id;
+    $(idDiv).html(line);
+    $('.cart_total_sum').html(sum);
+
+}
+
+$('body').on('click', 'a.cart-plus-item', function (e) {
+    e.preventDefault();
+    var data = {
+        id: $(this).attr('data-id')
+    };
+
+    $.get(
+        '/cart/add-item',
+        data
+        ,
+        function (respond) {
+            // $.growl({title: "Cart", message: "Item added." });
+            updateCartCount(respond.count);
+            updateCartLine(respond.id, respond.line, respond.sum);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
+
+$('body').on('click', 'a.cart-minus-item', function (e) {
+    e.preventDefault();
+    var data = {
+        id: $(this).attr('data-id')
+    };
+
+    $.get(
+        '/cart/delete-item',
+        data
+        ,
+        function (respond) {
+            // $.growl({title: "Cart", message: "Item added." });
+            updateCartCount(respond.count);
+            updateCartLine(respond.id, respond.line, respond.sum);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
+
 $('a.available-soon').click(function(e){
     e.preventDefault();
 

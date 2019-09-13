@@ -16,7 +16,7 @@
     "require": {
         "php": ">=7.2",
         "yiisoft/yii2": "~2.0.14",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
+        "yiisoft/yii2-bootstrap4": "~2.0.6",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "vlucas/phpdotenv": "^2.4",
         "ext-gd": "*",
@@ -28,6 +28,7 @@
         "php-http/guzzle6-adapter": "^1.1",
         "detailnet/blitline": "^1.0",
         "frostealth/yii2-aws-s3": "~2.0"
+
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

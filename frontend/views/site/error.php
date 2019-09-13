@@ -11,7 +11,6 @@ $this->title = $name;
 ?>
 
 
-<?= $this->render('../layouts/_top_menu') ?>
 
 <div class="page-header clear-filter" filter-color="orange">
     <div class="page-header-image" data-parallax="true" style="background-image:url('/img/main-back.jpeg');">
@@ -23,7 +22,7 @@ $this->title = $name;
             <p><?= nl2br(Html::encode($message)) ?> </p>
 
                 <p>
-                    Пожалуйста, свяжитесь с нами, если считаете что это ошибка сервера. Спасибо!
+                    Please, Contact Us, if you think, that is Server Error.
                 </p>
         </div>
     </div>

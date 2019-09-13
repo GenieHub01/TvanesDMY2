@@ -23,7 +23,7 @@ return [
             //'class' => 'yii\swiftmailer\Mailer',
 //            'class' => \YarCode\Yii2\Mailgun\Mailer::class,
             'class' =>\common\components\Mailer::class,
-            'apiEndpoint' => 'api.eu.mailgun.net',
+            'apiEndpoint' =>  getenv('MAILGUN_ZONE') == 'eu' ? 'api.eu.mailgun.net' : 'api.mailgun.net' ,
 //            'apiEndpoint' => getenv('MAILGUN_DOMAIN'),
             'domain' => getenv('MAILGUN_DOMAIN'),
             'apiKey' => getenv('MAILGUN_API_KEY'),
@@ -43,6 +43,13 @@ return [
             'region' => getenv('S3_REGION'),
             'defaultBucket' => getenv('S3_DEFAULTBUCKET'),
             'defaultAcl' => 'public-read',
+        ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'thousandSeparator' => '.',
+            'decimalSeparator' => ',',
+            'currencyCode' => 'GBP',
+
         ],
     ],
 ];

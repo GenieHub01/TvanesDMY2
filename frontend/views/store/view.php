@@ -17,9 +17,13 @@
             <?endforeach;?>
         <?endif;?>
 
+
+
     </div>
 
     <div class="col-md-6">
+        <?= \yii\helpers\Html::a('Add to CART','#',['class'=>'btn btn-primary add_to_cart ','data-id'=>$model->id])  ?>
+
         <p>Category: <?= $model->category_string ?></p>
         <p>Price: <?= $model->regular_price ?></p>
         <p>Description: <?= $model->description ?></p>

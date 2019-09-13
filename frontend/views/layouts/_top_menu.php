@@ -22,25 +22,39 @@ use yii\helpers\Html;
 
         </ul>
 
-<!--        <ul class="navbar-nav ml-auto">-->
-<!--            --><?// if (Yii::$app->user->isGuest): ?>
-<!--                <li class="nav-item">-->
-<!---->
-<!--                    --><?//= Html::a('<i class="far fa-user"></i> Login',['/site/login'],['class'=>'nav-link']) ?>
-<!---->
-<!--                </li>-->
-<!--            --><?// else:
-//                echo  '<li  class="nav-item">'
-//                    . Html::beginForm(['/site/logout'], 'post')
-//                    . Html::submitButton(
-//                        'Logout (' . Yii::$app->user->identity->username . ')',
-//                        ['class' => 'btn btn-link logout']
-//                    )
-//                    . Html::endForm()
-//                    . '</li>';
-//
-//            endif; ?>
-<!--        </ul>-->
+        <ul class="navbar-nav ml-auto">
+            <? if (Yii::$app->user->isGuest): ?>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-cart"></i> Cart'.(Yii::$app->cart->count>0 ?  ' <span class="badge badge-light cart_count">'.Yii::$app->cart->count.'</span>' : '' ),['/cart/index'],['class'=>'nav-link']) ?>
+                </li>
+                <li class="nav-item">
+
+                    <?= Html::a('Login',['/site/login'],['class'=>'nav-link']) ?>
+
+                </li>
+                <li class="nav-item">
+                    <?= Html::a('Signup',['/site/signup'],['class'=>'nav-link']) ?>
+                </li>
+
+            <? else: ?>
+
+                <li class="nav-item">
+                    <?= Html::a('My orders',['/orders/index'],['class'=>'nav-link']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-cart"></i> Cart'.(Yii::$app->cart->count>0 ?  ' <span class="badge badge-light cart_count">'.Yii::$app->cart->count.'</span>' : '' ),['/cart/index'],['class'=>'nav-link']) ?>
+                </li>
+               <? echo  '<li  class="nav-item">'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>';
+
+            endif; ?>
+        </ul>
 
     </div>
     </div>

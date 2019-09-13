@@ -12,10 +12,10 @@ RedirectMatch 404 "(?:.*)/(?:CVS|RCS|_darcs)(?:/.*)?$"
 # if a directory or a file exists, use it directly
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-php_value error_reporting 1
+
 # otherwise forward it to index.php
-#RewriteRule . index.php
-RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
+RewriteRule . index.php
+#RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
 
 AddDefaultCharset utf-8
 

@@ -37,6 +37,7 @@ AppAsset::register($this);
           ]
     ]) ?>
     <main class="container">
+        <?= \common\widgets\Alert::widget() ?>
         <?= $content ?>
 
     </main>
