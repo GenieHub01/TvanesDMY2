@@ -33,13 +33,14 @@ use yii\helpers\Html; ?>
 
     <div class="d-flex justify-content-end my-2">
         <div class="w-50">
-            <?= \yii\helpers\Html::a('Proceed To Checkout',['/cart/order'],['class'=>'btn btn-sm btn-primary float-right']) ?>
+<!--            --><?//= \yii\helpers\Html::a('Proceed To Checkout',['/cart/order'],['class'=>'btn btn-sm btn-primary float-right']) ?>
             Total: <span class="cart_total_sum"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->sum) ?></span>
         </div>
     </div>
 
 
     <div class="newOrder">
+        <h5>Proceed To Checkout</h5>
         <?php $form = ActiveForm::begin(['id' => 'newOrder']); ?>
 
         <?= $form->field($order,'first_name') ?>

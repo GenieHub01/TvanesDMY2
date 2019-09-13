@@ -72,6 +72,9 @@ class Goods extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getLink(){
+        return ['/store/view','id'=>$this->id];
+    }
     /**
      * {@inheritdoc}
      */
