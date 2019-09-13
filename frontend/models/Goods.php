@@ -72,7 +72,7 @@ class Goods extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getLink(){
+    public function getUrl(){
         return ['/store/view','id'=>$this->id];
     }
     /**

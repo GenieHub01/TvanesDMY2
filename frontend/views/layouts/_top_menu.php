@@ -47,7 +47,7 @@ use yii\helpers\Html;
                <? echo  '<li  class="nav-item">'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        'Logout (' . Yii::$app->user->identity->publicname . ')',
                         ['class' => 'btn btn-link logout']
                     )
                     . Html::endForm()

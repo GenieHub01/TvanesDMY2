@@ -11,6 +11,7 @@ use yii\base\Model;
  */
 class SettingsForm extends Model
 {
+    public $username;
     public $email;
     public $password;
     public $first_name;
@@ -41,6 +42,7 @@ class SettingsForm extends Model
         $this->setAttributes([
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
+            'username' => $this->user->username,
 //            'email'    => $this->user->email,
             'shipping_address' => $this->user->shipping_address,
             'shipping_address_optional' => $this->user->shipping_address_optional,
@@ -57,7 +59,10 @@ class SettingsForm extends Model
     public function rules()
     {
         return [
-
+            ['username', 'trim'],
+//            ['username', 'required'],
+//            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'trim'],
             ['email', 'email'],
 //            ['email', 'unique'],
@@ -89,6 +94,7 @@ class SettingsForm extends Model
             $this->user->setAttributes([
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
+                'username' => $this->username,
                 'shipping_address' => $this->shipping_address,
                 'shipping_address_optional' => $this->shipping_address_optional,
                 'shipping_city' => $this->shipping_city,

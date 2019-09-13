@@ -17,7 +17,12 @@ class CartController extends BaseController
     public function actionIndex()
     {
         $items = \Yii::$app->cart->items;
-        $models = Goods::find()->andWhere(['id' => array_keys($items)])->indexBy('id')->all();
+
+        $models = false;
+        if ($items) {
+            $models = Goods::find()->andWhere(['id' => array_keys($items)])->indexBy('id')->all();
+        }
+
 
         $order = new Order();
 

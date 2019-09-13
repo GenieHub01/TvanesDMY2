@@ -75,6 +75,17 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function getPublicname(){
+        if ($this->username) {
+            return $this->username;
+        }
+        if ($this->first_name) {
+            return $this->first_name;
+        } else {
+            return $this->email;
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -102,6 +113,10 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
+    public static function findByEmail($email)
+    {
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+    }
     /**
      * Finds user by password reset token
      *

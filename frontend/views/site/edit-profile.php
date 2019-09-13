@@ -13,6 +13,7 @@ use yii\helpers\Html; ?>
         <?php $form = ActiveForm::begin(['id' => 'newOrder']); ?>
 
         <h5>Main information</h5>
+        <?= $form->field($model,'username') ?>
         <?= $form->field($model,'first_name') ?>
         <?= $form->field($model,'last_name') ?>
 

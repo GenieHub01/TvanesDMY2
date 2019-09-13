@@ -9,6 +9,7 @@ use yii\helpers\Html; ?>
 <div class="  border border-info  p-3 y-3 " style="min-height: 75vh">
 
 
+    <?if (count($items) <> 0){?>
     <h5>Cart (<?= count($items) ?>)</h5>
     <? if ($items): ?>
 
@@ -61,6 +62,10 @@ use yii\helpers\Html; ?>
 
         <?php ActiveForm::end(); ?>
     </div>
+
+    <?}else {?>
+        <h5>Cart is empty</h5>
+    <?}?>
 
 
 </div>
