@@ -1,4 +1,4 @@
-<div class="w-50"><?= $model->title ?></div>
+<div class="w-50"><?= \yii\helpers\Html::a($model->title,$model->url) ?></div>
 
 <div class="w-25"><span
         class="badge badge-info"><?= $count ?> x <?= Yii::$app->formatter->asCurrency($model->regular_price) ?> = <?= Yii::$app->formatter->asCurrency($count * $model->regular_price) ?></span>
