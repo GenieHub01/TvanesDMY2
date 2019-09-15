@@ -109,8 +109,11 @@ class SettingsForm extends Model
                 ], false);
             }
 
-            $this->user->setPassword($this->password);
-            $this->user->generateAuthKey();
+            if ($this->password){
+                $this->user->setPassword($this->password);
+                $this->user->generateAuthKey();
+            }
+
 
             return $this->user->save();
         }
