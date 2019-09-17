@@ -206,4 +206,7 @@ a.desc:after {
     opacity: 0;
 }
 
+.hidden{
+    display: none;
+}
 

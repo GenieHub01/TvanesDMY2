@@ -25,7 +25,7 @@
         <?= \yii\helpers\Html::a('Add to CART','#',['class'=>'btn btn-primary add_to_cart ','data-id'=>$model->id])  ?>
 
         <p>Category: <?= $model->category_string ?></p>
-        <p>Price: <?= $model->regular_price ?></p>
+        <p>Price: <?= $model->totalPrice ?></p>
         <p>Description: <?= $model->description ?></p>
         <p>Brand: <?= $model->brand ?></p>
         <p>Model: <?= $model->model ?></p>

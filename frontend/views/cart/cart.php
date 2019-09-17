@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $order \common\models\Order
+ * @var $order \frontend\models\Order
  */
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html; ?>
@@ -16,11 +16,11 @@ use yii\helpers\Html; ?>
         <? foreach ($items as $key => $count): ?>
 
             <? if (isset($models[$key])) : ?>
-                <div class="d-flex   border-info border-bottom py-2 justify-content-between" id="cartItem_<?=$key?>">
+
                     <? $model = $models[$key]; ?>
 
-                    <?= $this->render('_cart_view', ['model' => $model, 'count' => $count]) ?>
-                </div>
+                    <?= $this->render('_cart_view', ['model' => $model, 'count' => $count,'key'=>$key]) ?>
+
 
             <? else: ?>
                 <div class="d-flex   border-info border-bottom py-2 justify-content-between">
@@ -34,9 +34,34 @@ use yii\helpers\Html; ?>
 
     <div class="d-flex justify-content-end my-2">
         <div class="w-50">
+            <?$sum =Yii::$app->cart->sum ?>
 <!--            --><?//= \yii\helpers\Html::a('Proceed To Checkout',['/cart/order'],['class'=>'btn btn-sm btn-primary float-right']) ?>
-            Total: <span class="cart_total_sum"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->sum) ?></span>
+            <div>
+                Subtotal: <span class="cart_total_sum"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->sum) ?></span>
+            </div>
+
+            <div>
+                Shipping: <?= Yii::$app->formatter->asCurrency(Yii::$app->params['SHIPPINGCOST']) ?>
+            </div>
+            <div>
+                Total: <span class="cart_total_sum"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->sum + Yii::$app->params['SHIPPINGCOST']) ?></span>
+            </div>
+            <div class="promocode_apply hidden border  border-warning p-2">
+                After Applied Promocode: <span id="promocodeSum"></span> <span id="promocodeDesc"></span>
+            </div>
+            <br>
+            <br>
+
+            <?php $form = ActiveForm::begin(['id' => 'promocodeApply','action'=>'/cart/promocode-apply']); ?>
+            Do you have Promocode?
+            <div class="d-flex">
+                <?= Html::textInput('promocode','',['class'=>'form-control','placeholder'=>'Promocode']) ?>
+                <?= Html::submitButton('Apply',['class'=>'btn btn-primary']) ?>
+            </div>
+            <?php ActiveForm::end(); ?>
+
         </div>
+
     </div>
 
 
@@ -53,6 +78,7 @@ use yii\helpers\Html; ?>
         <?= $form->field($order,'address_optional') ?>
         <?= $form->field($order,'city') ?>
         <?= $form->field($order,'postcode') ?>
+        <?= $form->field($order,'promocode') ?>
         <?= $form->field($order,'phone') ?>
         <?= $form->field($order,'email') ?>
 
@@ -69,3 +95,33 @@ use yii\helpers\Html; ?>
 
 
 </div>
+
+
+<?
+$js = <<<JS
+$('#promocodeApply').on('beforeSubmit', function () {
+        var form = jQuery(this);
+        jQuery.get(
+            form.attr("action"),
+            form.serialize()
+        )
+            .done(function (respond) { 
+                
+                    // data is saved
+                    $.growl({ title: "Success", message: "Promocode applied!" });
+                     // $('#id' + respond.id).replaceWith(respond.html);
+                     $('#promocodeSum').html(respond.totalSum);
+                     $('#promocodeDesc').html('code :'+respond.code+' -'+respond.desc);
+                     $('#order-promocode').val(respond.code);
+                
+            })
+            .fail(function (xhr, status, error) {
+                showError(xhr, status, error);
+            });
+        return false;
+    });
+
+JS;
+$this->registerJs($js, \yii\web\View::POS_READY);
+
+?>

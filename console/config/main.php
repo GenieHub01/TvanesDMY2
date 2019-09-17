@@ -6,7 +6,7 @@ $params = array_merge(
     require __DIR__ . '/params-local.php'
 );
 
-return [
+$config =  [
     'id' => 'app-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -30,8 +30,11 @@ return [
                 ],
             ],
         ],
+
+
     ],
     'params' => $params,
 ];
 
-
+unset($config['components']['user']);
+return $config;

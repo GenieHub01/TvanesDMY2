@@ -17,6 +17,14 @@
             <div>Status: <?=$model::$_status[$model->status]?></div>
             <div>Time: <?=Yii::$app->formatter->asDatetime($model->created_ts)?></div>
             <div>Sum: <?=Yii::$app->formatter->asCurrency($model->total_sum)?></div>
+            <?if ($model->total_sum_discount):?>
+               <div>Sum After Discount: <?=Yii::$app->formatter->asCurrency($model->total_sum_discount)?></div>
+            <?endif;?>
+            <div>Shipping: <?=Yii::$app->formatter->asCurrency($model->shipping_cost)?></div>
+            <div>Total: <?=Yii::$app->formatter->asCurrency(  ($model->total_sum_discount ? $model->total_sum_discount : $model->total_sum) + $model->shipping_cost)?></div>
+
+
+
 
         </div>
         <div class="d-flex p-3 flex-column border-bottom ">

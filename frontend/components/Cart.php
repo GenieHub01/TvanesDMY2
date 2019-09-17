@@ -2,6 +2,7 @@
 
 namespace frontend\components;
 
+use common\models\Promocodes;
 use frontend\models\Goods;
 use yii\helpers\Json;
 
@@ -10,6 +11,7 @@ class Cart extends \yii\base\Component
 
 
     private $_cart = [];
+    private $_promocode_id ;
 
     public function init()
     {
@@ -20,6 +22,8 @@ class Cart extends \yii\base\Component
             $this->_cart = Json::decode($items);
         }
 
+//        $session->get('promocode');
+//        $this->_promocode_id = $session->get('promocode');
     }
 
     public function addItem($id, $count = 1)
@@ -83,7 +87,7 @@ class Cart extends \yii\base\Component
             foreach ($this->_cart as $key => $count) {
 
                 if (isset($models[$key])) {
-                    $sum += $models[$key]->regular_price;
+                    $sum += $models[$key]->totalPrice * $count;
                 }
             }
         }

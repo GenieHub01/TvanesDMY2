@@ -32,7 +32,7 @@ $('a.add_to_cart').click(function (e) {
 
 function updateCartLine(id, line, sum) {
     var idDiv = '#cartItem_' + id;
-    $(idDiv).html(line);
+    $(idDiv).replaceWith(line);
     $('.cart_total_sum').html(sum);
 
 }
