@@ -35,16 +35,20 @@ use yii\helpers\Html; ?>
     <div class="d-flex justify-content-end my-2">
         <div class="w-50">
             <?$sum =Yii::$app->cart->sum ?>
+            <?$tax =Yii::$app->cart->tax ?>
 <!--            --><?//= \yii\helpers\Html::a('Proceed To Checkout',['/cart/order'],['class'=>'btn btn-sm btn-primary float-right']) ?>
             <div>
                 Subtotal: <span class="cart_total_sum"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->sum) ?></span>
+            </div>
+            <div>
+                Tax: <span class="cart_total_tax"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->tax) ?></span>
             </div>
 
             <div>
                 Shipping: <?= Yii::$app->formatter->asCurrency(Yii::$app->params['SHIPPINGCOST']) ?>
             </div>
             <div>
-                Total: <span class="cart_total_sum"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->sum + Yii::$app->params['SHIPPINGCOST']) ?></span>
+                Total: <span class="cart_total_sumtotal"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->sum + Yii::$app->params['SHIPPINGCOST']) ?></span>
             </div>
             <div class="promocode_apply hidden border  border-warning p-2">
                 After Applied Promocode: <span id="promocodeSum"></span> <span id="promocodeDesc"></span>

@@ -30,6 +30,8 @@ class PasswordResetRequestForm extends Model
         ];
     }
 
+
+
     /**
      * Sends an email with a link, for resetting the password.
      *
@@ -43,16 +45,21 @@ class PasswordResetRequestForm extends Model
             'email' => $this->email,
         ]);
 
+
+
         if (!$user) {
             return false;
         }
         
         if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
             $user->generatePasswordResetToken();
-            if (!$user->save()) {
+            if (!$user->save(false)) {
+
                 return false;
             }
         }
+
+
 
         return Yii::$app
             ->mailer

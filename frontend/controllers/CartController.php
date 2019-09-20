@@ -107,6 +107,8 @@ class CartController extends BaseController
             'id' =>$id,
             'count' => \Yii::$app->cart->count,
             'sum' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->sum),
+            'tax' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->tax),
+            'sumtotal' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->sum + Yii::$app->params['SHIPPINGCOST']),
             'line'=>$this->renderPartial('_cart_view',['model'=>$model,'count'=>\Yii::$app->cart->getItemCount($id)])
         ];
     }
@@ -130,10 +132,6 @@ class CartController extends BaseController
         }
 
 
-
-
-
-
         return [
             'id' => $model->id,
             'code' => $model->code,
@@ -141,6 +139,7 @@ class CartController extends BaseController
             'discount_sum' => \Yii::$app->formatter->asCurrency($model->sum),
             'discount_percent' => \Yii::$app->formatter->asPercent($model->percent/100),
             'sum'=>\Yii::$app->formatter->asCurrency($sum),
+            'sumtotal' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->tax + Yii::$app->params['SHIPPINGCOST']), // todo rewrite this
             'totalSum'=>\Yii::$app->formatter->asCurrency($totalSum),
 
         ];
@@ -164,6 +163,8 @@ class CartController extends BaseController
             'id' =>$id,
             'count' => \Yii::$app->cart->count,
             'sum' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->sum),
+            'tax' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->tax),
+            'sumtotal' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->sum + Yii::$app->params['SHIPPINGCOST']),
             'line'=>$this->renderPartial('_cart_view',['model'=>$model,'count'=>\Yii::$app->cart->getItemCount($id)])
         ];
     }

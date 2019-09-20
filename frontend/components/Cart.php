@@ -80,18 +80,29 @@ class Cart extends \yii\base\Component
 
     public function getSum()
     {
-
         $sum = 0;
         $models = Goods::find()->andWhere(['id' => array_keys($this->_cart)])->indexBy('id')->all();
         if ($this->_cart) {
             foreach ($this->_cart as $key => $count) {
-
                 if (isset($models[$key])) {
                     $sum += $models[$key]->totalPrice * $count;
                 }
             }
         }
+        return $sum;
+    }
 
+    public function getTax()
+    {
+        $sum = 0;
+        $models = Goods::find()->andWhere(['id' => array_keys($this->_cart)])->indexBy('id')->all();
+        if ($this->_cart) {
+            foreach ($this->_cart as $key => $count) {
+                if (isset($models[$key])) {
+                    $sum += $models[$key]->tax * $count;
+                }
+            }
+        }
         return $sum;
     }
 }

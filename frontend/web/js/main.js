@@ -30,10 +30,12 @@ $('a.add_to_cart').click(function (e) {
     });
 });
 
-function updateCartLine(id, line, sum) {
+function updateCartLine(id, line, sum, tax, sumtotal) {
     var idDiv = '#cartItem_' + id;
     $(idDiv).replaceWith(line);
     $('.cart_total_sum').html(sum);
+    $('.cart_total_tax').html(tax);
+    $('.cart_total_sumtotal').html(sumtotal);
 
 }
 
@@ -50,7 +52,7 @@ $('body').on('click', 'a.cart-plus-item', function (e) {
         function (respond) {
             // $.growl({title: "Cart", message: "Item added." });
             updateCartCount(respond.count);
-            updateCartLine(respond.id, respond.line, respond.sum);
+            updateCartLine(respond.id, respond.line, respond.sum, respond.tax,respond.sumtotal);
 
         },
     ).fail(function (xhr, status, error) {
@@ -72,7 +74,7 @@ $('body').on('click', 'a.cart-minus-item', function (e) {
         function (respond) {
             // $.growl({title: "Cart", message: "Item added." });
             updateCartCount(respond.count);
-            updateCartLine(respond.id, respond.line, respond.sum);
+            updateCartLine(respond.id, respond.line, respond.sum, respond.tax,respond.sumtotal);
 
         },
     ).fail(function (xhr, status, error) {

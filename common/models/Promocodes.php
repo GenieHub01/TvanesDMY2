@@ -44,7 +44,7 @@ class Promocodes extends \yii\db\ActiveRecord
     static function findPromocode($code){
         return  self::find()
 //            ->andWhere(['>=','start_date',date('Y-m-d')])->orWhere(['start_date'=>null])
-            ->andWhere("start_date<=".date('Y-m-d').' or start_date is null')
+            ->andWhere("start_date<='".date('Y-m-d').'\' or start_date is null')
             ->andWhere(['code'=>$code,'status'=>Promocodes::STATUS_ACTIVE])
             ->andWhere(['>=','end_date',date('Y-m-d')])->one();
 

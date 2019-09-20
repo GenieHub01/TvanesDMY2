@@ -622,6 +622,7 @@ inner join years y on  g.id=y.goods_id
         ]);
     }
 
+
     /**
      * Requests password reset.
      *
