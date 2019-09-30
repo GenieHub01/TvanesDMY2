@@ -71,7 +71,7 @@ if (!YII_ENV_TEST) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        'allowedIPs' => ['127.0.0.1','192.168.0.1', '::1', getenv('YII_DEBUG_ALLOW_IP')],
+        'allowedIPs' => ['127.0.0.1','192.168.0.1','5.44.168.166','192.168.*.*', '::1', getenv('YII_DEBUG_ALLOW_IP')],
     ];
 }
 

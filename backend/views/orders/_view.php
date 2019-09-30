@@ -18,7 +18,7 @@ use yii\helpers\Html;
     <div class="d-flex">
         <div class="w-50">Total sum: <?= Yii::$app->formatter->asCurrency(100) ?></div>
         <div class="w-25">Items: <?= Yii::$app->formatter->asInteger(5) ?></div>
-        <div class="w-25">Email: <?= Yii::$app->formatter->asEmail('baydmitry@gmail.com') ?></div>
+        <div class="w-25">Email: <?= Yii::$app->formatter->asEmail($model->email) ?></div>
     </div>
     <div>
 

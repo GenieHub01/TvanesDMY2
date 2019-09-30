@@ -19,8 +19,15 @@
 
         [
             'label' => 'Login',
-            'url' => ['site/login'],
+            'url' => ['/site/login'],
             'visible' => Yii::$app->user->isGuest
+        ],
+        [
+            'label' => 'Users',
+            'url' => ['/user/index'],
+            'active'=> Yii::$app->controller->id == 'user',
+            'linkOptions' => [ 'class'=>'nav-item'],
+//            'visible' => Yii::$app->user->isGuest
         ],
     ],
     'options' => ['class' =>'nav flex-column nav-pills'], // set this to nav-tab to get tab-styled navigation

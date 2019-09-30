@@ -33,6 +33,17 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_MODER = 5;
     const ROLE_ADMIN = 10;
 
+    static $_role = [
+      self::ROLE_USER => 'User',
+      self::ROLE_ADMIN => 'Admin',
+
+    ];
+    static $_status = [
+        self::STATUS_DELETED => 'Deleted',
+        self::STATUS_INACTIVE => 'Inactive',
+        self::STATUS_ACTIVE => 'Active',
+
+    ];
 
     /**
      * {@inheritdoc}
@@ -67,12 +78,20 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            'status_default'=>['status', 'default', 'value' => self::STATUS_INACTIVE],
+
+//            ['password', 'required'],
+            'pass_length'=>['password', 'string', 'min' => 6],
+            [['first_name', 'last_name', 'shipping_address', 'shipping_address_optional'
+                , 'shipping_city', 'shipping_postcode', 'shipping_phone'], 'string', 'max' => 40],
+
+             'status_default'=>['status', 'default', 'value' => self::STATUS_INACTIVE],
             'status_range'=>['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
 
             'role_default'=>['role', 'default', 'value' => self::ROLE_USER],
             'role_range'=>['role', 'in', 'range' => [self::ROLE_MODER, self::ROLE_USER ]],
+
         ];
+
     }
 
     public function getPublicname(){
@@ -179,6 +198,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuthKey()
     {
         return $this->auth_key;
+    }
+
+    public function attributeLabels()
+    {
+       return [
+         'created_at'=>'Registration Date'
+       ];
     }
 
     /**
