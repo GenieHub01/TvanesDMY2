@@ -6,7 +6,7 @@
  * Time: 2:37 PM
  */
 
-namespace app\widgets\uploader;
+namespace common\widgets\uploader;
 
 use yii\web\View;
 use yii\widgets\InputWidget;
@@ -65,13 +65,9 @@ class ImagesUploadWidget extends InputWidget
                     '<div class="img_block">' +
                     '<div class="img" style="background: url(' + escapeTags('{filePreview}') + ') center no-repeat; background-size: cover; "></div>' +
                     '<div class="shadow">' +
-                    ' <a href="#" class="revert"></a>' +
-                    ' <a href="#" class="revert_n"></a> <br>' +
-                    '<a href="#" class="checkbox"></a>' +
+                    
                     '<a href="#" class="delete"></a>' +
-                    '</div>' +
-                     '<div class="loader hidden">' +
-                    ' <i class="fa  fa-spinner  fa-pulse"  aria-hidden="true" ></i>' +
+                    '</div>' +  
                    
                     '</div>' +
                     '<input type="hidden" name="' +

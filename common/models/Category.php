@@ -16,6 +16,10 @@ use Yii;
  */
 class Category extends \yii\db\ActiveRecord
 {
+
+    static function getDropDownArray(){
+        return \yii\helpers\ArrayHelper::map(self::find()->all(),'id','title');
+    }
     /**
      * {@inheritdoc}
      */

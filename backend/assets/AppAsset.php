@@ -16,6 +16,8 @@ class AppAsset extends AssetBundle
         'https://use.fontawesome.com/releases/v5.4.1/css/all.css',
     ];
     public $js = [
+        '/js/main.js',
+        '/dist/js/jquery-ui-custom.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

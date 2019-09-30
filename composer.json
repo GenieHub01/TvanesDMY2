@@ -29,7 +29,8 @@
         "detailnet/blitline": "^1.0",
         "frostealth/yii2-aws-s3": "~2.0",
         "kartik-v/yii2-date-range": "dev-master","kartik-v/yii2-datecontrol": "dev-master",
-        "kartik-v/yii2-widgets": "@dev"
+        "kartik-v/yii2-widgets": "@dev",
+        "yiisoft/yii2-imagine": "^2.2"
 
     },
     "require-dev": {

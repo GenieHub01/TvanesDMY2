@@ -1,11 +1,19 @@
 <?php
 namespace backend\controllers;
 
+use common\models\Files;
+use common\models\Restaurant;
+use common\models\RestaurantFiles;
+use Imagine\Gd\Imagine;
+use Imagine\Image\Box;
 use Yii;
+use yii\imagine\Image;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\models\LoginForm;
+use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -26,7 +34,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index','upload-image'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -39,6 +47,52 @@ class SiteController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function beforeAction($action)
+    {
+        // ...set `$this->enableCsrfValidation` here based on some conditions...
+        // call parent method that will check CSRF if such property is true.
+        if ($action->id === 'upload-image') {
+            # code...
+            $this->enableCsrfValidation = false;
+        }
+
+        if ($action->id === 'rotate-image') {
+            # code...
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
+
+    public function actionUploadImage()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $file = UploadedFile::getInstanceByName('uploadfile');
+
+        if ($file) {
+
+            $filename = Files::getUniqueFilename(true);
+            $imagine = new Imagine();
+            $image = $imagine->open($file->tempName);
+
+            $image
+                ->resize(new Box(1000,1000))->save($filename,['jpeg_quality' => 75])
+                ->resize(new Box(300,300))->save(str_replace('_big','_small', $filename),['jpeg_quality' => 75]);
+
+            // @todo add auto moderation
+//            $model->updateAttributes(['status' => Files::DEFAULT_STATUS]);
+
+            return [
+                'success' => true,
+                'filename' => '/'.$filename,
+                'preview' => '/'.str_replace('_big','_small', $filename),
+            ];
+        } else {
+            return self::returnError(self::ERROR_BADREQUEST, 'NO_FILE');
+
+        }
     }
 
     /**

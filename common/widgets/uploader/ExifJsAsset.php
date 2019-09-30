@@ -7,7 +7,7 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace app\widgets\uploader;
+namespace common\widgets\uploader;
 
 use yii\web\AssetBundle;
 

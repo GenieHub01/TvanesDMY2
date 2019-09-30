@@ -6,7 +6,7 @@
  * @version   1.7.6
  */
 
-namespace app\widgets\uploader;
+namespace common\widgets\uploader;
 
 use Yii;
 use kartik\base\AssetBundle;
@@ -27,13 +27,13 @@ class FilesUploadAsset extends AssetBundle
 //        $this->setupAssets('js', ['js/editable']);
         parent::init();
     }
-    public $sourcePath = '@app/widgets/uploader/src';
+    public $sourcePath = '@common/widgets/uploader/src';
 
     public $css = [
         'css/imagesuploader.css'
     ];
     public $js = [
-        'js/SimpleAjaxUploader.js',
+        'js/SimpleAjaxUploader.min.js',
         'js/imagesuploader.js'
     ];
 

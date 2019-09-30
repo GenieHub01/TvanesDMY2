@@ -29,6 +29,13 @@
             'linkOptions' => [ 'class'=>'nav-item'],
 //            'visible' => Yii::$app->user->isGuest
         ],
+        [
+            'label' => 'Products',
+            'url' => ['/products/index'],
+            'active'=> Yii::$app->controller->id == 'products',
+            'linkOptions' => [ 'class'=>'nav-item'],
+//            'visible' => Yii::$app->user->isGuest
+        ],
     ],
     'options' => ['class' =>'nav flex-column nav-pills'], // set this to nav-tab to get tab-styled navigation
 ]);?>

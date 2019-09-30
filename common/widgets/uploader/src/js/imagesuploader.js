@@ -46,10 +46,10 @@ function startUploader(widgetId) {
         },
         onComplete: function (filename, response) {
             // btn.innerHTML = 'Choose Another File';
-            progressOuter.style.display = 'none'; // hide progress bar when upload is completed
+            // progressOuter.style.display = 'none'; // hide progress bar when upload is completed
 
             if (!response) {
-                msgBox.innerHTML = 'Unable to upload file [no response]';
+                // msgBox.innerHTML = 'Unable to upload file [no response]';
                 return;
             }
 
@@ -62,9 +62,9 @@ function startUploader(widgetId) {
 
                 var template = (uploaderTemplate);
                 // template.replace(/{fileId}/g,response.file.id);
-                template = template.replace('{fileId}',response.file.id);
-                template = template.replace('{fileId}',response.file.id);
-                template = template.replace('{filePreview}',response.file.preview);
+                template = template.replace('{fileId}',response.filename);
+                template = template.replace('{fileId}',response.filename);
+                template = template.replace('{filePreview}',response.preview);
                 $filesBlock.find('ul').append(template);
 
             } else {
@@ -86,7 +86,7 @@ function startUploader(widgetId) {
             $(uploadBtn).html('<i class="fa fa-plus"></i> Add image');
             var json = JSON.parse(response);
             // showError(JSON.parse(response), status);
-            $.growl.error({message: 'Error(' + status + '): ' + json.error_text})
+            // $.growl.error({message: 'Error(' + status + '): ' + json.error_text})
             // console.log(filename, type, status, statusText, response, uploadBtn, size);
         }
         // onError: function () {
@@ -105,6 +105,7 @@ function startUploader(widgetId) {
         $(this).closest('li').remove();
         if (size_ul == 0) {
             ul_papa.hide();
+            ul_papa.html('<input type="hidden" name="Goods[images]" value="">');
         }
         return false;
     });
