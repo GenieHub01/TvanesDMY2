@@ -31,6 +31,7 @@ class User extends BaseUser implements IdentityInterface
         $rules = parent::rules();
 
         $rules[] = ['username', 'trim'];
+        $rules[] = ['country_id', 'integer'];
 //            ['username', 'required'],
         $rules[] =['username', 'unique',   'message' => 'This username has already been taken.'];
             $rules[] =['username', 'string', 'min' => 2, 'max' => 255];

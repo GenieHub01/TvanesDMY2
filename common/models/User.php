@@ -203,7 +203,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
        return [
-         'created_at'=>'Registration Date'
+         'created_at'=>'Registration Date',
+         'country_id'=>'Country',
        ];
     }
 

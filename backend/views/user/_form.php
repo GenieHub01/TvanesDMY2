@@ -28,6 +28,7 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="col-md-6">
             <h5>Shipping information</h5>
+            <?= $form->field($model,'country_id')->dropDownList(\common\models\Countries::getList(),['prompt'=>'-- Select --']) ?>
             <?= $form->field($model, 'shipping_address')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'shipping_address_optional')->textInput(['maxlength' => true]) ?>
