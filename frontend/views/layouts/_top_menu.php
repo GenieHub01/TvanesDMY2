@@ -23,6 +23,20 @@ use yii\helpers\Html;
         </ul>
 
         <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?=Yii::$app->cart->country->title?>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <?$countries = \common\models\Countries::getList()?>
+                    <? foreach ($countries as $key=>$country):?>
+                        <?= Html::a($country,['/site/set-country','id'=>$key],['class'=>'dropdown-item']) ?>
+                    <?endforeach;?>
+
+                </div>
+            </li>
+
             <? if (Yii::$app->user->isGuest): ?>
                 <li class="nav-item">
                     <?= Html::a('<i class="fas fa-cart"></i> Cart'.(Yii::$app->cart->count>0 ?  ' <span class="badge badge-light cart_count">'.Yii::$app->cart->count.'</span>' : '' ),['/cart/index'],['class'=>'nav-link']) ?>

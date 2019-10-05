@@ -84,8 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value'=> join(', ',$model->comparison_number_list )
                     ],
 //            'sku',
-            'stock_status',
-            'tax_status',
+            'stock_status:boolean',
+//            'tax_status',
                     [
                         'attribute'=>'status',
 //                    'format'=>'raw',
@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value'=> join(', ', \yii\helpers\ArrayHelper::map($model->years, 'year','year'))
                     ],
 //            'tax_id',
-            'use_holdingcharge:boolean',
+//            'use_holdingcharge:boolean',
                 ],
             ]) ?>
 

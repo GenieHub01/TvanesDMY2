@@ -23,18 +23,6 @@ return [
     'GoogleJsAPI' => getenv('GOOGLE_JS_API'),
     'GoogleServerAPI' => getenv('GOOGLE_SERVER_API'),
     'GoogleAnalytics' => getenv('GOOGLE_ANALYTICS'),
-    'SHIPPINGCOST' => getenv('SHIPPINGCOST'),
-    'HOLDINGCHARGE' => getenv('HOLDINGCHARGE'),
-    'tax'=>[
-     1=>   getenv('T1'),
-     2=>   getenv('T2'),
-     3=>   getenv('T3'),
-//     'T4'=>   getenv('T4'),
-//     'T5'=>   getenv('T5'),
-//     'T6'=>   getenv('T6'),
-//     'T7'=>   getenv('T7'),
-//     'T8'=>   getenv('T8'),
-//     'T9'=>   getenv('T9'),
-//     'T10'=>   getenv('T10'),
-    ]
+    'default_country' => getenv('default_country'),
+
 ];

@@ -17,16 +17,10 @@ class Order extends BaseOrder
     /** @inheritdoc */
     public function __construct( $config = [])
     {
-        $this->setAttributes([
-            'first_name' => $this->user->first_name,
-            'last_name'    => $this->user->last_name,
-            'email'    => $this->user->email,
-            'address'    => $this->user->shipping_address,
-            'address_optional'    => $this->user->shipping_address_optional,
-            'city'    => $this->user->shipping_city,
-            'postcode'    => $this->user->shipping_postcode,
-            'phone'    => $this->user->shipping_phone,
-        ], false);
+//        if ($this->isNewRecord){
+
+//        }
+
         parent::__construct($config);
     }
 

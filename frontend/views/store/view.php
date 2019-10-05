@@ -25,7 +25,11 @@
         <?= \yii\helpers\Html::a('Add to CART','#',['class'=>'btn btn-primary add_to_cart ','data-id'=>$model->id])  ?>
 
         <p>Category: <?= $model->category_string ?></p>
-        <p>Price: <?= $model->totalPrice ?></p>
+        <p>Price: <?= Yii::$app->formatter->asCurrency($model->total) ?> (incl. tax <?= Yii::$app->formatter->asCurrency($model->tax) ?>)</p>
+         <?php if ($model->virtualItem):?>
+            <p>Holding charge: <?= Yii::$app->formatter->asCurrency($model->virtualItem['total']) ?> (incl. tax <?= Yii::$app->formatter->asCurrency($model->virtualItem['tax']) ?>) </p>
+
+        <?php endif; ?>
         <p>Description: <?= $model->description ?></p>
         <p>Brand: <?= $model->brand ?></p>
         <p>Model: <?= $model->model ?></p>

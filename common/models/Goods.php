@@ -15,6 +15,8 @@ use yii\helpers\ArrayHelper;
  * @property string $purchase_price
  * @property string $regular_price
  * @property string $sale_price
+ * @property string $holdingcharge
+ * @property string $extra_shipping
  * @property array $images
  * @property int $category_id
  * @property string $brand
@@ -64,30 +66,30 @@ class Goods extends \yii\db\ActiveRecord
 
     public function getPrice(){
         $price = $this->regular_price;
-
-
-        $charge = $this->use_holdingcharge ? \Yii::$app->params['HOLDINGCHARGE'] : 0;
-
-        return $price+$charge;
+//        $charge = $this->use_holdingcharge ? \Yii::$app->params['HOLDINGCHARGE'] : 0;
+        return $price;
     }
-
     public function getTax(){
-       return  $this->tax_id ?    \Yii::$app->params['tax'][$this->tax_id]  : 0 ;
+       return  $this->regular_price* \Yii::$app->cart->tax/100;
     }
-
-
-
-     public function getTotalPrice(){
-        $price = $this->getPrice();
-        $tax = $this->tax;
-
-        if ($tax){
-            return $price + ($price*$tax/100);
-        } else {
-            return $price;
-        }
-
+     public function getTotal(){
+        return  $this->price + $this->tax;
      }
+
+     public function getVirtualItem(){
+        if ($this->holdingcharge){
+            return
+                [
+                    'price'=>$this->holdingcharge,
+                    'tax'=>$this->holdingcharge* \Yii::$app->cart->tax/100,
+                    'total'=> $this->holdingcharge + ($this->holdingcharge* \Yii::$app->cart->tax/100)
+                ];
+        } else {
+            return false;
+        }
+     }
+
+
 
     /**
      * {@inheritdoc}
@@ -96,7 +98,7 @@ class Goods extends \yii\db\ActiveRecord
     {
         return [
             [['import_id', 'category_id', 'fuel', 'stock_status', 'tax_status', 'status'], 'integer'],
-            [['purchase_price', 'regular_price', 'sale_price'], 'number'],
+            [['purchase_price', 'regular_price', 'sale_price','holdingcharge', 'extra_shipping'], 'number'],
             [['images', 'part_number_list', 'comparison_number_list'], 'safe'],
             [['title', 'brand', 'model', 'add_info', 'years_string', 'category_string','uri'], 'string', 'max' => 255],
             [['images'], 'each', 'rule' => ['string']],

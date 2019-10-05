@@ -13,6 +13,9 @@ use Yii;
  * @property int $goods_id
  * @property int $count
  * @property string $price
+ * @property string $price_tax
+ * @property string $holding_charge
+ * @property string $holding_charge_tax
  *
  * @property Order $order
  */
@@ -33,7 +36,7 @@ class OrderItems extends \yii\db\ActiveRecord
     {
         return [
             [['order_id', 'goods_id', 'count'], 'integer'],
-            [['price'], 'number'],
+            [['price','price_tax','holding_charge','holding_charge_tax'], 'number'],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
         ];
     }

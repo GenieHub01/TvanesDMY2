@@ -19,10 +19,7 @@ class m190930_091251_countries extends Migration
             'shortcode'=>$this->string(10),
             'tax'=>$this->integer(3),
             'shipping'=>$this->decimal(8,2),
-
-
-//            'tax_code'=>$this->smallInteger(2),
-//            'shipping_code'=>$this->smallInteger(2)
+            'created_ts'=>$this->integer(),
         ]);
 
     }

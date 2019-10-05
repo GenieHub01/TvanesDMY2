@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\BaseController;
+use common\models\Countries;
 use common\models\LoginForm;
 use common\models\Restaurant;
 use common\models\RestaurantFiles;
@@ -60,6 +61,20 @@ class SiteController extends BaseController
         ];
     }
 
+
+    public function actionSetCountry($id){
+        $country = Countries::findOne(['id'=>$id]);
+
+        if ($country){
+            $session = \Yii::$app->session;
+
+
+            $c  =  $session->set('country', $country->id);
+        }
+
+        return $this->goBack();
+
+    }
     public function actionEditProfile(){
         $model = new SettingsForm();
 

@@ -18,6 +18,7 @@ use yii\helpers\Html; ?>
         <?= $form->field($model,'last_name') ?>
 
         <h5>Shipping Address</h5>
+        <?= $form->field($model,'country_id')->dropDownList(\common\models\Countries::getList()) ?>
         <?= $form->field($model,'shipping_address') ?>
         <?= $form->field($model,'shipping_address_optional')->textarea() ?>
         <?= $form->field($model,'shipping_city') ?>

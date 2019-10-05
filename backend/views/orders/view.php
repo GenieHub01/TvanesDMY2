@@ -5,8 +5,8 @@
 
 $this->title = 'View Order';
 
-use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+
 ?>
 
 
@@ -44,7 +44,10 @@ use yii\helpers\Html;
                         'company_name',
                         'note',
                         'admin_note',
-                        'country',
+                        [
+                            'attribute' => 'country_id',
+                            'value' => $model->country->title
+                        ],
                         'address',
                         'address_optional',
                         'city',
@@ -57,6 +60,11 @@ use yii\helpers\Html;
                         'promocodes_id',
                         'created_ts:datetime',
                         'updated_ts:datetime',
+                         [
+                                'label'=>'total',
+                            'format'=>'currency',
+                            'value'=> ($model->total_sum_discount > 0 ? $model->total_sum_discount : $model->total_sum) + $model->shipping_cost
+                        ],
 
                         [
                                 'attribute'=>'status',
@@ -68,8 +76,21 @@ use yii\helpers\Html;
                 <div class="d-flex p-3 flex-column border-bottom ">
                     <?if ($model->orderItems):?>
                         <?foreach ($model->orderItems as $item):?>
-                            <div class="d-flex">
+
+                            <div class="mt-2 border-bottom border-warning">
+                                <div class="d-flex ">
                                 <?=  $item->goods->title?> | <?= Yii::$app->formatter->asCurrency($item->price) ?> | Count: <?= Yii::$app->formatter->asInteger($item->count)?> | Sum: <?= Yii::$app->formatter->asCurrency($item->price* $item->count) ?>
+                            </div>
+                                <? if ($item->holding_charge): ?>
+
+                                    <div class="d-flex">
+                                        Holding charge for <?= $item->goods->title ?>
+                                        | <?= Yii::$app->formatter->asCurrency($item->holding_charge) ?> |
+                                        Count: <?= Yii::$app->formatter->asInteger($item->count) ?> |
+                                        Sum: <?= Yii::$app->formatter->asCurrency($item->holding_charge * $item->count) ?>
+                                    </div>
+
+                                <? endif; ?>
                             </div>
                         <?endforeach;?>
                     <?endif;?>

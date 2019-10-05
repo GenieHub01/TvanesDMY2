@@ -2,19 +2,17 @@
 
 namespace backend\controllers;
 
-use backend\models\Order;
 use Yii;
-use backend\models\User;
-use backend\models\search\User as UserSearch;
-use yii\filters\AccessControl;
+use common\models\Countries;
+use backend\models\search\SearchCountries;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * CountriesController implements the CRUD actions for Countries model.
  */
-class UserController extends Controller
+class CountriesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -22,20 +20,6 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-//                    [
-//                        'actions' => ['login', 'error'],
-//                        'allow' => true,
-//                    ],
-                    [
-//                        'actions' => ['*'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -46,12 +30,12 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all Countries models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new SearchCountries();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -61,31 +45,26 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single Countries model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        $orders = Order::find()->andWhere(['user_id'=>$model->id])->orWhere(['email'=>$model->email])->orderBy('id desc')->all();
-
-
         return $this->render('view', [
-            'model' => $model,
-            'orders'=>$orders
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Countries model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new Countries();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -97,7 +76,7 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Countries model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -117,7 +96,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Countries model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -125,23 +104,21 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->updateAttributes([
-            'status'=>User::STATUS_DELETED
-        ]);
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Countries model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return Countries the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Countries::findOne($id)) !== null) {
             return $model;
         }
 

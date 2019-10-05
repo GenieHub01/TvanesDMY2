@@ -21,6 +21,7 @@ class SettingsForm extends Model
     public $shipping_city;
     public $shipping_postcode;
     public $shipping_phone;
+    public $country_id;
 
 
     private $_user;
@@ -43,6 +44,7 @@ class SettingsForm extends Model
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
             'username' => $this->user->username,
+            'country_id' => $this->user->country_id,
 //            'email'    => $this->user->email,
             'shipping_address' => $this->user->shipping_address,
             'shipping_address_optional' => $this->user->shipping_address_optional,
@@ -59,6 +61,7 @@ class SettingsForm extends Model
     public function rules()
     {
         return [
+            ['country_id', 'integer'],
             ['username', 'trim'],
 //            ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
@@ -83,6 +86,7 @@ class SettingsForm extends Model
     {
         return [
             'email' => 'Email',
+            'country_id' => 'Country',
 
         ];
     }
@@ -94,6 +98,7 @@ class SettingsForm extends Model
             $this->user->setAttributes([
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
+                'country_id' => $this->country_id,
                 'username' => $this->username,
                 'shipping_address' => $this->shipping_address,
                 'shipping_address_optional' => $this->shipping_address_optional,

@@ -80,7 +80,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
 
 //            ['password', 'required'],
-            'pass_length'=>['password', 'string', 'min' => 6],
+//            'pass_length'=>['password', 'string', 'min' => 6],
             [['first_name', 'last_name', 'shipping_address', 'shipping_address_optional'
                 , 'shipping_city', 'shipping_postcode', 'shipping_phone'], 'string', 'max' => 40],
 

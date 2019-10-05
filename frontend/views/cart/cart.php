@@ -2,8 +2,11 @@
 /**
  * @var $order \frontend\models\Order
  */
+
 use yii\bootstrap4\ActiveForm;
-use yii\helpers\Html; ?>
+use yii\helpers\Html;
+
+?>
 
 
 <div class="  border border-info  p-3 y-3 " style="min-height: 75vh">
@@ -34,21 +37,21 @@ use yii\helpers\Html; ?>
 
     <div class="d-flex justify-content-end my-2">
         <div class="w-50">
-            <?$sum =Yii::$app->cart->sum ?>
-            <?$tax =Yii::$app->cart->tax ?>
+<!--            --><?//$sum =Yii::$app->cart->sum ?>
+<!--            --><?//$tax =Yii::$app->cart->tax ?>
 <!--            --><?//= \yii\helpers\Html::a('Proceed To Checkout',['/cart/order'],['class'=>'btn btn-sm btn-primary float-right']) ?>
             <div>
-                Subtotal: <span class="cart_total_sum"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->sum) ?></span>
+                Subtotal: <span class="cart_total_sum"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->totalAmount) ?></span>
             </div>
             <div>
-                Tax: <span class="cart_total_tax"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->tax) ?></span>
+                incl. Tax (<?= Yii::$app->formatter->asPercent(Yii::$app->cart->tax/100) ?>): <span class="cart_total_tax"><?=Yii::$app->formatter->asCurrency(Yii::$app->cart->taxAmount)?></span>
             </div>
 
             <div>
-                Shipping: <?= Yii::$app->formatter->asCurrency(Yii::$app->params['SHIPPINGCOST']) ?>
+                Shipping to <?= Yii::$app->cart->country->title?>: <span id="shippingAmount"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->shippingAmount) ?></span>
             </div>
             <div>
-                Total: <span class="cart_total_sumtotal"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->sum + Yii::$app->params['SHIPPINGCOST']) ?></span>
+                Total: <span class="cart_total_sumtotal"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->shippingAmount + Yii::$app->cart->totalAmount) ?></span>
             </div>
             <div class="promocode_apply hidden border  border-warning p-2">
                 After Applied Promocode: <span id="promocodeSum"></span> <span id="promocodeDesc"></span>
@@ -77,7 +80,7 @@ use yii\helpers\Html; ?>
         <?= $form->field($order,'last_name') ?>
         <?= $form->field($order,'company_name') ?>
         <?= $form->field($order,'note')->textarea() ?>
-        <?= $form->field($order,'country') ?>
+        <?= $form->field($order,'country_id')->dropDownList(\common\models\Countries::getList(),['prompt'=>'-- Country --' ]) ?>
         <?= $form->field($order,'address') ?>
         <?= $form->field($order,'address_optional') ?>
         <?= $form->field($order,'city') ?>
@@ -116,6 +119,7 @@ $('#promocodeApply').on('beforeSubmit', function () {
                      // $('#id' + respond.id).replaceWith(respond.html);
                      $('#promocodeSum').html(respond.totalSum);
                      $('#promocodeDesc').html('code :'+respond.code+' -'+respond.desc);
+                     $('#shippingAmount').html( respond.shipping );
                      $('#order-promocode').val(respond.code);
                 
             })

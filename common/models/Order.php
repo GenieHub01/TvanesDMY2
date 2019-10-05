@@ -31,7 +31,10 @@ use yii\db\ActiveRecord;
  * @property int $status
  * @property int $shipping_cost
  * @property int $promocodes_id
+ * @property int $tax_percent
  * @property int $total_sum_discount
+ * @property string $total_tax_discount
+ * @property string $total_tax
  *
  * @property OrderItems[] $orderItems
  */
@@ -128,10 +131,10 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'country', 'address', 'city'], 'required'],
+            [['first_name', 'last_name', 'country_id', 'address', 'city'], 'required'],
 //            [['total_sum'], 'number'],
 
-            [['first_name', 'last_name', 'company_name', 'country', 'address', 'address_optional', 'city'], 'string', 'max' => 255],
+            [['first_name', 'last_name', 'company_name',   'address', 'address_optional', 'city'], 'string', 'max' => 255],
             [['note' ], 'string', 'max' => 250],
             [['postcode', 'phone', 'email'], 'string', 'max' => 40],
             ['email','email']
@@ -162,7 +165,7 @@ class Order extends \yii\db\ActiveRecord
             'company_name' => 'Company Name',
             'note' => 'Note',
             'admin_note' => 'Admin Note',
-            'country' => 'Country',
+            'country_id' => 'Country',
             'address' => 'Address',
             'address_optional' => 'Address Optional',
             'city' => 'City',
@@ -170,8 +173,8 @@ class Order extends \yii\db\ActiveRecord
             'phone' => 'Phone',
             'email' => 'Email',
             'total_sum' => 'Total Sum',
-            'created_ts' => 'Created Ts',
-            'updated_ts' => 'Updated Ts',
+            'created_ts' => 'Created',
+            'updated_ts' => 'Updated',
             'status' => 'Status',
         ];
     }
@@ -182,5 +185,13 @@ class Order extends \yii\db\ActiveRecord
     public function getOrderItems()
     {
         return $this->hasMany(OrderItems::className(), ['order_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCountry()
+    {
+        return $this->hasOne(Countries::className(), ['id' => 'country_id']);
     }
 }
