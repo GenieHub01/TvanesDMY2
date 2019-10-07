@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Codes;
 use Yii;
 use common\models\Goods;
 use backend\models\search\SearchGoods;
@@ -52,10 +53,14 @@ class ProductsController extends Controller
     {
         $searchModel = new SearchGoods();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $shippingCodes = Codes::getCodes(Codes::PRODUCT_EXTRA_SHIPPING_CODE);
+        $depositCodes = Codes::getCodes(Codes::HOLDING_CHARGE_CODE);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'shippingCodes'=>$shippingCodes,
+            'depositCodes'=>$depositCodes
         ]);
     }
 
@@ -69,10 +74,13 @@ class ProductsController extends Controller
     {
 
         $model = $this->findModel($id);
-
+        $shippingCodes = Codes::getCodes(Codes::PRODUCT_EXTRA_SHIPPING_CODE);
+        $depositCodes = Codes::getCodes(Codes::HOLDING_CHARGE_CODE);
 //        var_dump($model->attributes); exit;
         return $this->render('view', [
             'model' => $model,
+            'shippingCodes'=>$shippingCodes,
+            'depositCodes'=>$depositCodes
         ]);
     }
 
@@ -89,8 +97,12 @@ class ProductsController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $shippingCodes = Codes::getCodes(Codes::PRODUCT_EXTRA_SHIPPING_CODE);
+        $depositCodes = Codes::getCodes(Codes::HOLDING_CHARGE_CODE);
         return $this->render('create', [
             'model' => $model,
+            'shippingCodes'=>$shippingCodes,
+            'depositCodes'=>$depositCodes
         ]);
     }
 
@@ -108,9 +120,13 @@ class ProductsController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
+        $shippingCodes = Codes::getCodes(Codes::PRODUCT_EXTRA_SHIPPING_CODE);
+        $depositCodes = Codes::getCodes(Codes::HOLDING_CHARGE_CODE);
 
         return $this->render('update', [
             'model' => $model,
+            'shippingCodes'=>$shippingCodes,
+            'depositCodes'=>$depositCodes
         ]);
     }
 

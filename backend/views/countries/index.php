@@ -37,8 +37,36 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     'title',
                     'shortcode',
-                    'tax:integer',
-                    'shipping:currency',
+//                    'tax_id',
+                    [
+                        'attribute' => 'tax_id',
+                        'format' => 'raw',
+                        'value' => function ($model) use ($taxCodes) {
+                            return  isset($taxCodes[$model->tax_id]) ? $taxCodes[$model->tax_id]  : null;
+                        },
+                        'filter' => Html::activeDropDownList(
+                            $searchModel,
+                            'tax_id',
+                            $taxCodes,
+                            ['class' => 'form-control', 'prompt' => '-- All --']
+                        )
+                    ],
+                    [
+                        'attribute' => 'shipping_id',
+                        'format' => 'raw',
+                        'value' => function ($model) use ($shippingCodes) {
+                            return  isset($shippingCodes[$model->shipping_id]) ? $shippingCodes[$model->shipping_id]  : null;
+                        },
+                        'filter' => Html::activeDropDownList(
+                            $searchModel,
+                            'shipping_id',
+                            $shippingCodes,
+                            ['class' => 'form-control', 'prompt' => '-- All --']
+                        )
+                    ],
+//                    'shipping_id',
+//                    'tax:integer',
+//                    'shipping:currency',
                     //'created_ts',
 
                     ['class' => 'yii\grid\ActionColumn',

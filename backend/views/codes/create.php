@@ -3,14 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Goods */
+/* @var $model common\models\Codes */
 
-$this->title = 'Update Goods: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Goods', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Create Codes';
+$this->params['breadcrumbs'][] = ['label' => 'Codes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <div class="   border my-1 p-3 ">
 
     <div class="row">
@@ -23,8 +21,6 @@ $this->params['breadcrumbs'][] = 'Update';
 
             <?= $this->render('_form', [
                 'model' => $model,
-                'shippingCodes'=>$shippingCodes,
-                'depositCodes'=>$depositCodes
             ]) ?>
 
         </div>

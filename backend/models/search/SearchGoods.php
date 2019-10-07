@@ -18,6 +18,7 @@ class SearchGoods extends Goods
     {
         return [
             [['id', 'import_id', 'category_id', 'fuel', 'stock_status', 'tax_status', 'status', 'tax_id', 'use_holdingcharge'], 'integer'],
+            [[ 'holdingcharge_id','extra_shipping_id'], 'integer'],
             [['title', 'uri', 'description', 'images', 'brand', 'model', 'engine_type', 'add_info', 'oem_exchange', 'engine_capacity', 'engine_power', 'part_number_list', 'comparison_number_list', 'sku', 'category_string', 'years_string'], 'safe'],
             [['purchase_price', 'regular_price', 'sale_price'], 'number'],
         ];
@@ -66,6 +67,8 @@ class SearchGoods extends Goods
             'regular_price' => $this->regular_price,
             'sale_price' => $this->sale_price,
             'category_id' => $this->category_id,
+            'holdingcharge_id' => $this->holdingcharge_id,
+            'extra_shipping_id' => $this->extra_shipping_id,
             'fuel' => $this->fuel,
             'stock_status' => $this->stock_status,
             'tax_status' => $this->tax_status,

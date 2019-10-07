@@ -14,8 +14,8 @@ use yii\helpers\ArrayHelper;
  * @property int $id
  * @property string $title
  * @property string $shortcode
- * @property int $tax
- * @property string $shipping
+ * @property int $tax_id
+ * @property string $shipping_id
  * @property int $created_ts
  */
 class Countries extends \yii\db\ActiveRecord
@@ -79,11 +79,32 @@ class Countries extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tax', 'created_ts'], 'integer'],
-            [['shipping'], 'number'],
+            [['tax_id','shipping_id', 'created_ts'], 'integer'],
+            [['tax_id','shipping_id'],'required'],
+//            [[], 'number'],
             [['title'], 'string', 'max' => 100],
             [['shortcode'], 'string', 'max' => 10],
         ];
+    }
+
+    private $_tax;
+    public function getTax(){
+        if ($this->_tax !== null){
+            return $this->_tax;
+        }
+        $model = Codes::findOne(['id'=>$this->tax_id]);
+        $this->_tax = $model ? $model->value : 0;
+        return $this->_tax;
+    }
+
+    private $_shipping;
+    public function getShipping(){
+        if ($this->_shipping !== null){
+            return $this->_shipping;
+        }
+        $model = Codes::findOne(['id'=>$this->shipping_id]);
+        $this->_shipping = $model ? $model->value : 0;
+        return $this->_shipping;
     }
 
     /**
@@ -95,8 +116,8 @@ class Countries extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
             'shortcode' => 'Shortcode',
-            'tax' => 'Tax',
-            'shipping' => 'Shipping',
+            'tax_id' => 'Tax',
+            'shipping_id' => 'Shipping',
             'created_ts' => 'Created Ts',
         ];
     }

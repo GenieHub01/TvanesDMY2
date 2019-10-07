@@ -15,8 +15,8 @@ use yii\helpers\ArrayHelper;
  * @property string $purchase_price
  * @property string $regular_price
  * @property string $sale_price
- * @property string $holdingcharge
- * @property string $extra_shipping
+ * @property integer $holdingcharge_id
+ * @property integer $extra_shipping_id
  * @property array $images
  * @property int $category_id
  * @property string $brand
@@ -63,6 +63,27 @@ class Goods extends \yii\db\ActiveRecord
         return 'goods';
     }
 
+    private $_holdingcharge;
+    public function getHoldingcharge(){
+        if ($this->_holdingcharge !== null){
+            return $this->_holdingcharge;
+        }
+        $model = Codes::findOne(['id'=>$this->holdingcharge_id]);
+        $this->_holdingcharge = $model ? $model->value : 0;
+        return $this->_holdingcharge;
+    }
+    private $_extra_shipping;
+    public function getExtra_shipping(){
+        if ($this->_extra_shipping !== null){
+            return $this->_extra_shipping;
+        }
+        $model = Codes::findOne(['id'=>$this->extra_shipping_id]);
+        $this->_extra_shipping = $model ? $model->value : 0;
+        return $this->_extra_shipping;
+    }
+
+
+
 
     public function getPrice(){
         $price = $this->regular_price;
@@ -98,7 +119,8 @@ class Goods extends \yii\db\ActiveRecord
     {
         return [
             [['import_id', 'category_id', 'fuel', 'stock_status', 'tax_status', 'status'], 'integer'],
-            [['purchase_price', 'regular_price', 'sale_price','holdingcharge', 'extra_shipping'], 'number'],
+            [['holdingcharge_id', 'extra_shipping_id'], 'integer'],
+            [['purchase_price', 'regular_price', 'sale_price'], 'number'],
             [['images', 'part_number_list', 'comparison_number_list'], 'safe'],
             [['title', 'brand', 'model', 'add_info', 'years_string', 'category_string','uri'], 'string', 'max' => 255],
             [['images'], 'each', 'rule' => ['string']],
@@ -135,6 +157,8 @@ class Goods extends \yii\db\ActiveRecord
             'brand' => 'Brand',
             'model' => 'Model',
             'fuel' => 'Fuel',
+            'extra_shipping_id' => 'Extra Shipping',
+            'holdingcharge_id' => 'Holding Deposit',
             'engine_type' => 'Engine Type',
             'add_info' => 'Add Info',
             'oem_exchange' => 'Oem Exchange',

@@ -2,18 +2,18 @@
 
 namespace backend\controllers;
 
-use common\models\Codes;
 use Yii;
-use common\models\Countries;
-use backend\models\search\SearchCountries;
+use common\models\Codes;
+use backend\models\search\CodesSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CountriesController implements the CRUD actions for Countries model.
+ * CodesController implements the CRUD actions for Codes model.
  */
-class CountriesController extends Controller
+class CodesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -21,6 +21,20 @@ class CountriesController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+//                    [
+//                        'actions' => ['login', 'error'],
+//                        'allow' => true,
+//                    ],
+                    [
+//                        'actions' => ['*'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -31,69 +45,57 @@ class CountriesController extends Controller
     }
 
     /**
-     * Lists all Countries models.
+     * Lists all Codes models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SearchCountries();
+        $searchModel = new CodesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $shippingCodes = Codes::getCodes(Codes::COUNTRY_SHIPPING_CODE);
-        $taxCodes = Codes::getCodes(Codes::COUNTRY_TAX_CODE);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'taxCodes'=>$taxCodes,
-            'shippingCodes'=>$shippingCodes
         ]);
-
     }
 
     /**
-     * Displays a single Countries model.
-     * @param integer $id
+     * Displays a single Codes model.
+     * @param string $title
+     * @param integer $type
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $shippingCodes = Codes::getCodes(Codes::COUNTRY_SHIPPING_CODE);
-        $taxCodes = Codes::getCodes(Codes::COUNTRY_TAX_CODE);
-
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'taxCodes'=>$taxCodes,
-            'shippingCodes'=>$shippingCodes
         ]);
     }
 
     /**
-     * Creates a new Countries model.
+     * Creates a new Codes model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Countries();
+        $model = new Codes();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $shippingCodes = Codes::getCodes(Codes::COUNTRY_SHIPPING_CODE);
-        $taxCodes = Codes::getCodes(Codes::COUNTRY_TAX_CODE);
 
         return $this->render('create', [
             'model' => $model,
-            'taxCodes'=>$taxCodes,
-            'shippingCodes'=>$shippingCodes
         ]);
     }
 
     /**
-     * Updates an existing Countries model.
+     * Updates an existing Codes model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $title
+     * @param integer $type
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -104,40 +106,38 @@ class CountriesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $shippingCodes = Codes::getCodes(Codes::COUNTRY_SHIPPING_CODE);
-        $taxCodes = Codes::getCodes(Codes::COUNTRY_TAX_CODE);
 
         return $this->render('update', [
             'model' => $model,
-            'taxCodes'=>$taxCodes,
-            'shippingCodes'=>$shippingCodes
         ]);
     }
 
     /**
-     * Deletes an existing Countries model.
+     * Deletes an existing Codes model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $title
+     * @param integer $type
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($title, $type)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($title, $type)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Countries model based on its primary key value.
+     * Finds the Codes model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Countries the loaded model
+     * @param string $title
+     * @param integer $type
+     * @return Codes the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Countries::findOne($id)) !== null) {
+        if (($model = Codes::findOne(['id' => $id ])) !== null) {
             return $model;
         }
 

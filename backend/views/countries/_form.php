@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'shortcode')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tax')->textInput() ?>
+    <?= $form->field($model, 'tax_id')->dropDownList($taxCodes,['prompt'=>'Select TAX CODE']) ?>
 
-    <?= $form->field($model, 'shipping')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'shipping_id')->dropDownList($shippingCodes,['prompt'=>'Select shipping CODE']) ?>
 
 <!--    --><?//= $form->field($model, 'created_ts')->textInput() ?>
 

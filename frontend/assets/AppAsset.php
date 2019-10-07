@@ -24,7 +24,7 @@ class AppAsset extends AssetBundle
 
     ];
     public $js = [
-        'dist/bootstrap-4.3.1/dist/js/bootstrap.js',
+//        'dist/bootstrap-4.3.1/dist/js/bootstrap.js',
         'dist/bootstrap-4.3.1/dist/js/bootstrap.bundle.js',
         '/dist/growl/jquery.growl.js',
         '/dist/jquery-ui-custom.js',

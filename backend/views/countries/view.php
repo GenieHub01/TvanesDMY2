@@ -38,8 +38,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     'title',
                     'shortcode',
-                    'tax',
-                    'shipping:currency',
+                    [
+                        'attribute' => 'tax_id',
+                        'format' => 'raw',
+                        'value' => isset($taxCodes[$model->tax_id]) ? $taxCodes[$model->tax_id]  : null
+
+                    ],
+                    [
+                        'attribute' => 'shipping_id',
+                        'format' => 'raw',
+                        'value' => isset($shippingCodes[$model->shipping_id]) ? $shippingCodes[$model->shipping_id]  : null
+
+                    ],
+//                    'tax',
+//                    'shipping:currency',
                     'created_ts:date',
                 ],
             ]) ?>

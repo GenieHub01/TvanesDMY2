@@ -49,6 +49,33 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model',
                     'fuel',
                     'engine_type',
+
+                    [
+                        'attribute' => 'holdingcharge_id',
+                        'format' => 'raw',
+                        'value' => function ($model) use ($depositCodes) {
+                            return  isset($depositCodes[$model->holdingcharge_id]) ? $depositCodes[$model->holdingcharge_id]  : null;
+                        },
+                        'filter' => Html::activeDropDownList(
+                            $searchModel,
+                            'holdingcharge_id',
+                            $depositCodes,
+                            ['class' => 'form-control', 'prompt' => '-- All --']
+                        )
+                    ],
+                    [
+                        'attribute' => 'extra_shipping_id',
+                        'format' => 'raw',
+                        'value' => function ($model) use ($shippingCodes) {
+                            return  isset($shippingCodes[$model->extra_shipping_id]) ? $shippingCodes[$model->extra_shipping_id]  : null;
+                        },
+                        'filter' => Html::activeDropDownList(
+                            $searchModel,
+                            'extra_shipping_id',
+                            $shippingCodes,
+                            ['class' => 'form-control', 'prompt' => '-- All --']
+                        )
+                    ],
                     //'add_info',
                     //'oem_exchange',
                     //'engine_capacity',

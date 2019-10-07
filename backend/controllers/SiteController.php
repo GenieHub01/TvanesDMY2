@@ -34,7 +34,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','upload-image'],
+                        'actions' => ['logout', 'index','upload-image','ip'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -65,6 +65,10 @@ class SiteController extends Controller
         return parent::beforeAction($action);
     }
 
+
+    public function actionIp(){
+        echo Yii::$app->request->userIP;
+    }
     public function actionUploadImage()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;

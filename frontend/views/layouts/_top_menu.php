@@ -28,7 +28,7 @@ use yii\helpers\Html;
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?=Yii::$app->cart->country->title?>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
                     <?$countries = \common\models\Countries::getList()?>
                     <? foreach ($countries as $key=>$country):?>
                         <?= Html::a($country,['/site/set-country','id'=>$key],['class'=>'dropdown-item']) ?>

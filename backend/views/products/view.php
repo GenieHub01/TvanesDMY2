@@ -71,6 +71,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'add_info',
             'oem_exchange',
             'engine_capacity',
+                    [
+                        'attribute' => 'holdingcharge_id',
+                        'format' => 'raw',
+                        'value' => isset($depositCodes[$model->holdingcharge_id]) ? $depositCodes[$model->holdingcharge_id]  : null
+
+                    ],
+                    [
+                        'attribute' => 'extra_shipping_id',
+                        'format' => 'raw',
+                        'value' => isset($shippingCodes[$model->extra_shipping_id]) ? $shippingCodes[$model->extra_shipping_id]  : null
+
+                    ],
             'engine_power',
 
                     [
