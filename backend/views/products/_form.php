@@ -24,7 +24,7 @@ use kartik\widgets\Select2;
 
     <?= $form->field($model, 'regular_price')->textInput(['maxlength' => true])->hint('Price for product.') ?>
 
-    <?= $form->field($model, 'sale_price')->textInput(['maxlength' => true])->hint('Not worked.') ?>
+    <?= $form->field($model, 'sale_price')->textInput(['maxlength' => true])->hint('Field not currently used.') ?>
     <?= $form->field($model, 'holdingcharge_id')->dropDownList($depositCodes,['prompt'=>'-- Select -- ']) ?>
     <?= $form->field($model, 'extra_shipping_id')->dropDownList($shippingCodes,['prompt'=>'-- Select -- ']) ?>
 

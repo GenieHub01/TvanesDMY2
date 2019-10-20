@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\search\SearchGoods */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Goods';
+$this->title = 'Products';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -44,10 +44,35 @@ $this->params['breadcrumbs'][] = $this->title;
                     //'regular_price',
                     //'sale_price',
                     //'images',
-                    'category_id',
+//                    'category_id',
+                    [
+                        'attribute' => 'category_id',
+                        'format' => 'raw',
+                        'value' => function ($model) use ($categories) {
+                            return  isset($categories[$model->category_id]) ? $categories[$model->category_id]  : null;
+                        },
+                        'filter' => Html::activeDropDownList(
+                            $searchModel,
+                            'category_id',
+                            $categories,
+                            ['class' => 'form-control', 'prompt' => '-- All --']
+                        )
+                    ],
                     'brand',
                     'model',
-                    'fuel',
+                    [
+                        'attribute' => 'fuel',
+                        'format' => 'raw',
+                        'value' => function ($model)  {
+                            return  isset($model::$_fuel[$model->fuel]) ? $model::$_fuel[$model->fuel]  : null;
+                        },
+                        'filter' => Html::activeDropDownList(
+                            $searchModel,
+                            'fuel',
+                            $searchModel::$_fuel,
+                            ['class' => 'form-control', 'prompt' => '-- All --']
+                        )
+                    ],
                     'engine_type',
 
                     [

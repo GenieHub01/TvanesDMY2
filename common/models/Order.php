@@ -60,7 +60,7 @@ class Order extends \yii\db\ActiveRecord
 
     static $_status = [
       self::STATUS_NEW => 'New',
-      self::STATUS_END => 'END',
+      self::STATUS_END => 'Completed',
     ];
 
     public function behaviors()
@@ -163,6 +163,7 @@ class Order extends \yii\db\ActiveRecord
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'company_name' => 'Company Name',
+            'promocodes_id' => 'Promocode',
             'note' => 'Note',
             'admin_note' => 'Admin Note',
             'country_id' => 'Country',
@@ -193,5 +194,13 @@ class Order extends \yii\db\ActiveRecord
     public function getCountry()
     {
         return $this->hasOne(Countries::className(), ['id' => 'country_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPromocode()
+    {
+        return $this->hasOne(Promocodes::className(), ['id' => 'promocodes_id']);
     }
 }

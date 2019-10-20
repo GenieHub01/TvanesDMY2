@@ -55,9 +55,26 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
+
+            if (!$user || !$user->validatePassword($this->password)){
                 $this->addError($attribute, 'Incorrect username or password.');
+                return false;
             }
+
+
+            if ($user->status == User::STATUS_DELETED){
+                $this->addError($attribute, 'Your account has been locked out, please contact us.');
+                return false;
+            }
+
+            if ($user->status == User::STATUS_INACTIVE){
+                $this->addError($attribute, 'Your should validate email first.');
+                return false;
+            }
+
+
+
+
         }
     }
 
@@ -83,7 +100,7 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByEmail($this->email);
+            $this->_user = User::findByEmail2($this->email);
         }
 
         return $this->_user;

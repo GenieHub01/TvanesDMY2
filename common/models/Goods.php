@@ -45,6 +45,11 @@ class Goods extends \yii\db\ActiveRecord
     const FUEL_PETROL = 2;
     const FUEL_DIESEL = 3;
 
+    static $_fuel = [
+        self::FUEL_PETROL =>'Petrol',
+        self::FUEL_DIESEL =>'Diesel',
+    ];
+
     const STATUS_DISABLE= 1;
     const STATUS_ACTIVE = 10;
     const STATUS_DEFAULT = self::STATUS_ACTIVE;

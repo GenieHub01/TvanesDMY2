@@ -2,9 +2,13 @@
 
 namespace backend\controllers;
 
+use common\models\Countries;
+use common\models\Goods;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Yii;
 use common\models\Codes;
 use backend\models\search\CodesSearch;
+use yii\base\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -120,9 +124,36 @@ class CodesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($title, $type)
+    public function actionDelete($id)
     {
-        $this->findModel($title, $type)->delete();
+        $model = $this->findModel($id);
+
+        $target = false;
+        switch ($model->type){
+            case(Codes::COUNTRY_SHIPPING_CODE):
+                $target = Countries::findOne(['shipping_id'=>$model->id]);
+                break;
+            case(Codes::COUNTRY_TAX_CODE):
+                $target = Countries::findOne(['tax_id'=>$model->id]);
+                break;
+            break;
+            case(Codes::HOLDING_CHARGE_CODE):
+                $target = Goods::findOne(['holdingcharge_id'=>$model->id]);
+
+                break;
+            case(Codes::PRODUCT_EXTRA_SHIPPING_CODE):
+
+                $target = Goods::findOne(['extra_shipping_id'=>$model->id]);
+                break;
+        }
+
+        if ($target){
+            Yii::$app->session->setFlash('error', 'You cannot delete this item, while it uses by system.');
+            return $this->redirect(['/codes/view','id'=>$model->id]);
+//            throw new NotFoundHttpException('');
+        }
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }

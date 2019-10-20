@@ -24,10 +24,31 @@
     <div class="col-md-6">
         <?= \yii\helpers\Html::a('Add to CART','#',['class'=>'btn btn-primary add_to_cart ','data-id'=>$model->id])  ?>
 
+        <div class="row">
+            <div class="col-sm-6">
+                <p>QTY:<? echo \kartik\widgets\TouchSpin::widget([
+                        'id'=>'qty',
+                        'class'=>'2',
+                        'name' => 'qty',
+                        'value'=>1,
+                        'options' => ['class' => ' 1'],
+                        'pluginOptions' => [
+                            'class'=>'2',
+                            'buttonup_class' => 'btn-sm btn-primary',
+                            'buttondown_class' => 'btn-sm btn-info',
+                            'buttonup_txt' => '<i class="fas fa-plus"></i>',
+                            'buttondown_txt' => '<i class="fas fa-minus"></i>'
+                        ]
+                    ]);?></p>
+            </div>
+        </div>
+
+
         <p>Category: <?= $model->category_string ?></p>
-        <p>Price: <?= Yii::$app->formatter->asCurrency($model->total) ?> (incl. tax <?= Yii::$app->formatter->asCurrency($model->tax) ?>)</p>
+        <p>Price: <?= Yii::$app->formatter->asCurrency($model->price) ?> </p>
+<!--        <p>Tax:  --><?//= Yii::$app->formatter->asCurrency($model->tax) ?><!-- </p>-->
          <?php if ($model->virtualItem):?>
-            <p>Holding charge: <?= Yii::$app->formatter->asCurrency($model->virtualItem['total']) ?> (incl. tax <?= Yii::$app->formatter->asCurrency($model->virtualItem['tax']) ?>) </p>
+            <p>Holding charge: <?= Yii::$app->formatter->asCurrency($model->virtualItem['price']) ?>  </p>
 
         <?php endif; ?>
         <p>Description: <?= $model->description ?></p>
@@ -39,7 +60,11 @@
         <p>OEM excahne: <?= $model->oem_exchange ?></p>
         <p>Engine capacity: <?= $model->engine_capacity ?></p>
         <p>Engine power: <?= $model->engine_power ?></p>
-        <p>Part number list: <?= join(',',$model->part_number_list) ?></p>
-        <p>Comparison number list: <?= join(',',$model->comparison_number_list) ?></p>
+        <? if ($model->part_number_list): ?>
+            <p>Part number list: <?= join(',',$model->part_number_list) ?></p>
+        <? endif; ?>
+        <? if ($model->comparison_number_list): ?>
+            <p>Comparison number list: <?= join(',',$model->comparison_number_list) ?></p>
+        <? endif; ?>
     </div>
 </div>

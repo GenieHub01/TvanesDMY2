@@ -24,6 +24,9 @@ $this->title = 'Index';
                 <div>
                     <?= \yii\helpers\Html::dropDownList('year',null,$brandList,['class'=>'form-control','disabled'=>'disabled','prompt'=>'-- Year --']) ?>
                 </div>
+                <div>
+                    <?= \yii\helpers\Html::dropDownList('fuel',null,$brandList,['class'=>'form-control','disabled'=>'disabled','prompt'=>'-- Fuel --']) ?>
+                </div>
                 <div class="w-25">
                     <?= \yii\helpers\Html::dropDownList('product',null,$brandList,['class'=>'form-control','disabled'=>'disabled','prompt'=>'-- Product --']) ?>
                 </div>

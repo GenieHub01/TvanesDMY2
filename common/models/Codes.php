@@ -23,7 +23,7 @@ class Codes extends \yii\db\ActiveRecord
     static $_type = [
         self::COUNTRY_SHIPPING_CODE => 'COUNTRY SHIPPING CODE',
         self::COUNTRY_TAX_CODE => 'COUNTRY TAX CODE',
-        self::HOLDING_CHARGE_CODE => 'HOLDING CHARGE CODE',
+        self::HOLDING_CHARGE_CODE => 'HOLDING DEPOSIT CODE',
         self::PRODUCT_EXTRA_SHIPPING_CODE => 'PRODUCT EXTRA SHIPPING CODE',
 
     ];

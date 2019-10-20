@@ -47,7 +47,11 @@ class CodesSearch extends Codes
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['type'=>SORT_DESC]]
+            'sort' => ['defaultOrder' => [
+//                'type'=>SORT_DESC,
+                'title'=>SORT_ASC,
+//                'value'=>SORT_ASC
+            ]]
         ]);
 
         $this->load($params);

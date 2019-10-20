@@ -36,6 +36,7 @@ class CartController extends BaseController
             $models = Goods::find()->andWhere(['id' => array_keys($items)])->indexBy('id')->all();
         }
 
+
         $order = new Order();
         $order->setAttributes([
             'first_name' => $this->user->first_name,
@@ -47,12 +48,16 @@ class CartController extends BaseController
             'city' => $this->user->shipping_city,
             'postcode' => $this->user->shipping_postcode,
             'phone' => $this->user->shipping_phone,
+//            'promocode' =>  ,
+//            'promocode' => 213 ,
         ], false);
 
+        $order->promocode = Yii::$app->cart->promocode ?  Yii::$app->cart->promocode->code : '';
         if ($order->load(\Yii::$app->request->post()) && $items && $models  && $order->save()){
 
             Yii::$app->cart->updateCountry($order->country_id);
             $sum = 0;
+//            $sumPrice = 0;
             $tax = 0;
             $discountSum = 0;
             $shipping = Yii::$app->cart->shipping;
@@ -66,11 +71,11 @@ class CartController extends BaseController
                         $orderItem->link('goods',$models[$key]);
                         $orderItem->link('order',$order);
                         $orderItem->count = $count ;
-                        $orderItem->price = $models[$key]->total;
+                        $orderItem->price = $models[$key]->price;
                         $orderItem->price_tax = $models[$key]->tax;
 
                         if ($models[$key]->virtualItem) {
-                            $orderItem->holding_charge = $models[$key]->virtualItem['total'];
+                            $orderItem->holding_charge = $models[$key]->virtualItem['price'];
                             $orderItem->holding_charge_tax = $models[$key]->virtualItem['tax'];
 
                             $sum += $orderItem->holding_charge * $count;
@@ -85,23 +90,25 @@ class CartController extends BaseController
                 }
 
 
-                if ($order->promocodes_id){
-                    $promocode = Promocodes::find()
-//            ->andWhere(['>=','start_date',date('Y-m-d')])->orWhere(['start_date'=>null])
-                        ->andWhere("start_date<=".date('Y-m-d').' or start_date is null')
-                        ->andWhere(['id'=>$order->promocodes_id,'status'=>Promocodes::STATUS_ACTIVE])
-                        ->andWhere(['>=','end_date',date('Y-m-d')])->one();
+            $discountSum = Yii::$app->cart->promocode ?  Yii::$app->cart->promoTotal : '';
 
-                        if ($promocode){
-                            if ($promocode->sum){
-                                $discountSum = $sum - $promocode->sum;
-//                                $discountTax = $tax - $promocode->sum;
-                                $discountSum = $sum >0 ? $sum : 0;
-                            } elseif ($promocode->percent){
-                                $discountSum = $sum - ($sum*$promocode->percent/100);
-                            }
-                        }
-                }
+//                if ($order->promocodes_id){
+//                    $promocode = Promocodes::find()
+////            ->andWhere(['>=','start_date',date('Y-m-d')])->orWhere(['start_date'=>null])
+//                        ->andWhere("start_date<=".date('Y-m-d').' or start_date is null')
+//                        ->andWhere(['id'=>$order->promocodes_id,'status'=>Promocodes::STATUS_ACTIVE])
+//                        ->andWhere(['>=','end_date',date('Y-m-d')])->one();
+//
+//                        if ($promocode){
+//                            if ($promocode->sum){
+//                                $discountSum = $sum - $promocode->sum;
+////                                $discountTax = $tax - $promocode->sum;
+//                                $discountSum = $sum >0 ? $sum : 0;
+//                            } elseif ($promocode->percent){
+//                                $discountSum = $sum - ($sum*$promocode->percent/100);
+//                            }
+//                        }
+//                }
 
                 $order->updateAttributes([
                     'total_sum'=>$sum,
@@ -128,7 +135,7 @@ class CartController extends BaseController
 
     }
 
-    public function actionAddItem($id)
+    public function actionAddItem($id, $qty = 1)
     {
         \Yii::$app->response->format = 'json';
 
@@ -138,17 +145,42 @@ class CartController extends BaseController
             return self::returnError(self::ERROR_NOTFOUND, "Can't add item to cart");
         }
 
-        \Yii::$app->cart->addItem($id);
+        \Yii::$app->cart->addItem($id, $qty);
 
-        return [
-            'id' =>$id,
-            'count' => \Yii::$app->cart->count,
-            'sum' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->sum),
-            'shipping' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->shippingAmount),
-            'tax' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->taxAmount),
-            'sumtotal' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->sum + \Yii::$app->cart->shippingAmount),
-            'line'=>$this->renderPartial('_cart_view',['model'=>$model,'count'=>\Yii::$app->cart->getItemCount($id)])
-        ];
+        return
+
+            [
+                'item' => [
+                    'id' => $id,
+                    'html' => $this->renderPartial('_cart_view', ['model' => $model, 'count' => \Yii::$app->cart->getItemCount($id)])
+                ],
+
+                'cart' => \Yii::$app->cart->cartInfo()
+            ];
+    }
+
+    public function actionSetCountry($id){
+        $country = Countries::findOne(['id'=>$id]);
+
+        Yii::$app->response->format = 'json';
+        if ($country){
+            $session = \Yii::$app->session;
+            $c  =  $session->set('country', $country->id);
+            Yii::$app->cart->country_id = $country->id;
+            Yii::$app->cart->country = $country;
+
+        } else {
+            return self::returnError(self::ERROR_NOTFOUND);
+        }
+
+        return
+
+            [
+
+
+                'cart' => \Yii::$app->cart->cartInfo()
+            ];
+
     }
 
     public function actionPromocodeApply($promocode)
@@ -160,29 +192,17 @@ class CartController extends BaseController
         }
 
 
-        $sum = \Yii::$app->cart->sum;
-
-        if ($model->sum){
-            $totalSum = $sum - $model->sum;
-            $totalSum = $totalSum >0 ? $totalSum : 0;
-        } elseif ($model->percent){
-            $totalSum = $sum - ($sum*$model->percent/100);
-        }
+        $session = \Yii::$app->session;
+          $session->set('promocode', $promocode);
 
 
-        return [
-            'id' => $model->id,
-            'code' => $model->code,
-            'desc' => $model->sum ?  \Yii::$app->formatter->asCurrency($model->sum) : \Yii::$app->formatter->asPercent($model->percent/100),
-            'discount_sum' => \Yii::$app->formatter->asCurrency($model->sum),
-            'discount_percent' => \Yii::$app->formatter->asPercent($model->percent/100),
-            'shipping' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->shippingAmount),
-            'tax' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->taxAmount),
-            'sum'=>\Yii::$app->formatter->asCurrency($sum),
-            'sumtotal' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->tax +\Yii::$app->cart->shippingAmount), // todo rewrite this
-            'totalSum'=>\Yii::$app->formatter->asCurrency($totalSum),
+        return
+            [
+                'item' => null,
+                'cart' => \Yii::$app->cart->cartInfo()
+            ];
 
-        ];
+
 
 
     }
@@ -199,15 +219,16 @@ class CartController extends BaseController
 
         \Yii::$app->cart->deleteItem($id);
 
-        return [
-            'id' =>$id,
-            'count' => \Yii::$app->cart->count,
-            'sum' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->sum),
-            'tax' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->taxAmount),
-            'shipping' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->shippingAmount),
-            'sumtotal' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->sum + \Yii::$app->cart->shippingAmount),
-            'line'=>$this->renderPartial('_cart_view',['model'=>$model,'count'=>\Yii::$app->cart->getItemCount($id)])
-        ];
+        return
+
+            [
+                'item' => [
+                    'id' => $id,
+                    'html' => $this->renderPartial('_cart_view', ['model' => $model, 'count' => \Yii::$app->cart->getItemCount($id)])
+                ],
+
+                'cart' => \Yii::$app->cart->cartInfo()
+            ];
     }
 
     public function actionDeleteCart()

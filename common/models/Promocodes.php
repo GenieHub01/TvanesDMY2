@@ -30,6 +30,10 @@ class Promocodes extends \yii\db\ActiveRecord
     const STATUS_DISABLE = 1;
     const STATUS_DEFAULT  = self::STATUS_ACTIVE;
 
+    public function getDesc(){
+        " code :{$this->code} -". ($this->sum ? Yii::$app->formatter->asCurrency($this->sum) : Yii::$app->formatter->asPercent($this->percent/100));
+    }
+
     static $_status = [
 
         self::STATUS_ACTIVE=>'Active',
@@ -49,6 +53,8 @@ class Promocodes extends \yii\db\ActiveRecord
             ->andWhere(['>=','end_date',date('Y-m-d')])->one();
 
     }
+
+
     public function behaviors()
     {
         return [

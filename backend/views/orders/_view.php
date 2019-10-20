@@ -3,6 +3,13 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 
+$count = 0;
+if ($model->orderItems){
+    foreach ($model->orderItems as $item){
+
+      $count += $item->count;
+    }
+}
 /**
  * @var $model \backend\models\Order
  */
@@ -16,8 +23,8 @@ use yii\helpers\Html;
 
     </div>
     <div class="d-flex">
-        <div class="w-50">Total sum: <?= Yii::$app->formatter->asCurrency(100) ?></div>
-        <div class="w-25">Items: <?= Yii::$app->formatter->asInteger(5) ?></div>
+        <div class="w-50">Total sum: <?= Yii::$app->formatter->asCurrency($model->total_sum_discount ? $model->total_sum_discount  + $model->shipping_cost: $model->total_sum) ?></div>
+        <div class="w-25">Items: <?= Yii::$app->formatter->asInteger($count) ?></div>
         <div class="w-25">Email: <?= Yii::$app->formatter->asEmail($model->email) ?></div>
     </div>
     <div>

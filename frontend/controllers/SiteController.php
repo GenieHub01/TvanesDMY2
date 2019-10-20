@@ -8,7 +8,6 @@ use common\models\LoginForm;
 use common\models\Restaurant;
 use common\models\RestaurantFiles;
 use common\models\User;
-use frontend\models\Category;
 use frontend\models\ContactForm;
 use frontend\models\Goods;
 use frontend\models\PasswordResetRequestForm;
@@ -62,13 +61,72 @@ class SiteController extends BaseController
     }
 
 
+    public function actionComparsionImport()
+    {
+        set_time_limit(0);
+        $i = 1;
+        foreach (Goods::find()->orderBy('id')->andWhere(['import'=>0])->each(200) as $product) :
+
+            /**
+             * @var $product Goods
+             */
+            $i++;
+//            if ($i > 10) exit;
+
+            $options = explode(' | ', $product->description);
+//            var_dump($options);
+            if ($options):
+                foreach ($options as $option):
+                    $o = explode(': ', $option);
+
+
+                    if ($o) {
+
+                        if ($o[0] == 'Part-Number List'):
+
+                            $product->part_number_list = explode('|', $o[1]);
+                        endif;
+                        if ($o[0] == 'Comparison-Number List'):
+                            $product->comparison_number_list = explode('|', $o[1]);
+                        endif;
+                        if ($o[0] == 'OEM Exchange'):
+                            $product->oem_exchange = $o[1];
+                        endif;
+                        if ($o[0] == 'Additional Info'):
+                            $product->add_info = $o[1];
+                        endif;
+                        if ($o[0] == 'Engine Power(BHP)'):
+                            $product->engine_power = $o[1];
+                        endif;
+                    }
+
+                endforeach;
+//                echo '<hr>';
+            endif;
+            $product->import = 1;
+
+
+//            var_dump($product->part_number_list);
+//            echo '<hr>';
+
+//        echo $product->id;
+        if (!$product->save()){
+            var_dump($product->getFirstErrors());
+        }
+//             var_dump($product->save());
+//              $product->save();
+//            var_dump($product->getFirstErrors());
+//            exit;
+        endforeach;
+//        exi
+//        echo 1;
+    }
+
     public function actionSetCountry($id){
         $country = Countries::findOne(['id'=>$id]);
 
         if ($country){
             $session = \Yii::$app->session;
-
-
             $c  =  $session->set('country', $country->id);
         }
 
@@ -101,8 +159,10 @@ class SiteController extends BaseController
 
             if ($num <> 80) {
                 echo "<p> $num полей в строке $key: <br /></p>\n";
+
+
                 continue;
-//                    var_dump($data);
+
             }
 
 //                continue;
@@ -161,8 +221,13 @@ class SiteController extends BaseController
                                 $labels[$c] = $data[$c];
                         }
 
-                        echo $c . ') ' . $data[$c] . '<br>';
+                        // название колонок
+//                        echo $c . ') ' . $data[$c] . '<br>';
                     }
+                    foreach ($labels as $label) :
+                        echo $c . ') ' . $label . '<br>';
+                    endforeach;
+//                    exit;
                 }
                 else {
 
@@ -174,8 +239,6 @@ class SiteController extends BaseController
 //                            $out[$row][$labels[$c]] = explode(' | ',$data[$c]);
 //                        } else {
                         if (isset($labels[$c])) {
-
-
                             if ($labels[$c] == 'images' || $labels[$c] == 'part_number_list' || $labels[$c] == 'comparison_number_list') {
                                 if ($data[$c]) {
 
@@ -212,13 +275,13 @@ class SiteController extends BaseController
                             } elseif ($labels[$c] == 'category') {
 
 
-                                $category = Category::findOne(['title' => $data[$c]]);
-                                if (!$category) {
-                                    $category = new Category();
-                                    $category->title = $data[$c];
-                                    $category->save();
-                                }
-                                $out[$row]['category_id'] = $category->id;
+//                                $category = Category::findOne(['title' => $data[$c]]);
+//                                if (!$category) {
+//                                    $category = new Category();
+//                                    $category->title = $data[$c];
+//                                    $category->save();
+//                                }
+//                                $out[$row]['category_id'] = $category->id;
                                 $out[$row]['category_string'] = $data[$c];
 
                             } else {
@@ -236,7 +299,7 @@ class SiteController extends BaseController
 
 
                 if ($row == 10) {
-//                    break;
+                    break;
 
                 }
 
@@ -250,6 +313,10 @@ class SiteController extends BaseController
 //        var_dump($fuel); echo '<br>';
 ////
 ////
+//   foreach ($out as $item) {
+//       Yii::$app->formatter->asNtext(var_export($item));
+//       echo '<br>';
+//   }
 //        exit;
 
         unset($csv);
@@ -287,6 +354,47 @@ class SiteController extends BaseController
 
     public function actionYear(){
         set_time_limit(0);
+//        $models = Goods::find()->limit(10)->all();
+
+
+
+        $i = 1;
+        foreach (Goods::find()->orderBy('id')->andWhere(['import'=>0])->each(200) as $product) :
+//            foreach ($models as $model):
+            /**
+             * @var $product Goods;
+             */
+            $years = unserialize($product->p_year_list);
+            if ($years):
+
+                foreach ($years as $year) {
+                    $model = new Years();
+                    $model->goods_id = $product->id;
+                    $model->year = $year;
+
+                    try {
+                        $model->save(false);
+                    } catch (\Exception $exception) {
+                        echo $exception->getMessage() . '<br>';
+                    }
+                    $i++;
+
+                }
+             endif;
+
+                $product->updateAttributes(['import'=>1]);
+//            endforeach;
+        endforeach;
+
+
+        echo $i;
+
+
+    }
+
+    public function actfew()
+    {
+        set_time_limit(0);
         $sql = "select w.id, w.title, w.years_string, y.p_year_list from carparts.goods w  
 inner join wp.wp_products y on w.import_id=y.product_id 
  ";
@@ -298,15 +406,15 @@ inner join wp.wp_products y on w.import_id=y.product_id
             $years = unserialize($row['p_year_list']);
 
             foreach ($years as $year){
-              $model = new Years();
-              $model->goods_id = $row['id'];
-              $model->year = $year;
+                $model = new Years();
+                $model->goods_id = $row['id'];
+                $model->year = $year;
 
-              try{
-                  $model->save(false);
-              } catch (\Exception $exception){
-                  echo $exception->getMessage().'<br>';
-              }
+                try {
+                    $model->save(false);
+                } catch (\Exception $exception) {
+                    echo $exception->getMessage() . '<br>';
+                }
 
 
             }
@@ -431,7 +539,7 @@ inner join wp.wp_products y on w.import_id=y.product_id
         ]);
     }
 
-    public function actionProductSearch($brand, $model  = null, $capacity = null, $year = null){
+    public function actionProductSearch($brand, $model  = null, $capacity = null, $year = null, $fuel = null){
 
         if ($brand && !$model && !$capacity && !$year) {
             $sql = 'select  model from goods g
@@ -447,7 +555,7 @@ inner join wp.wp_products y on w.import_id=y.product_id
             return $this->asJson([
                 'items'=>$out
             ]);
-        } elseif ($brand && $model && !$capacity && !$year) {
+        } elseif ($brand && $model && !$capacity && !$year  && !$fuel ) {
             $sql = 'select  engine_capacity from goods g
         where brand=:brand and model=:model
         group by engine_capacity
@@ -465,7 +573,9 @@ inner join wp.wp_products y on w.import_id=y.product_id
             return $this->asJson([
                 'items'=>$out
             ]);
-        } elseif ($brand && $model && $capacity && !$year) {
+        } elseif ($brand && $model && $capacity && $year===null  && !$fuel ) {
+
+//            echo 1; exit;
             $sql = 'select  `year` from goods g
 inner join years y on  g.id=y.goods_id
         where brand=:brand and model=:model and engine_capacity=:capacity
@@ -485,12 +595,12 @@ inner join years y on  g.id=y.goods_id
             return $this->asJson([
                 'items'=>$out
             ]);
-        }elseif ($brand && $model && $capacity && $year && $year=='all') {
-            $sql = 'select  `id`, title from goods g
+        }elseif ($brand && $model && $capacity && $year!==null && $year=='all' && !$fuel ) {
+            $sql = 'select  fuel from goods g
  
         where brand=:brand and model=:model and engine_capacity=:capacity  
         
-        group by `id`, title
+        group by fuel
         
         ';
 
@@ -501,17 +611,26 @@ inner join years y on  g.id=y.goods_id
                         'model'=>$model,
                         'brand'=>$brand,
                         'capacity'=>$capacity
-                    ])->queryAll(),'id','title' );
+                    ])->queryAll(),function($model){
+                    return $model['fuel'] ? $model['fuel'] : 'na';
+                },function($model){
+                        return isset(Goods::$_fuel[$model['fuel']]) ? Goods::$_fuel[$model['fuel']] : 'N/A';
+                });
 
             return $this->asJson([
                 'items'=>$out
             ]);
-        }elseif ($brand && $model && $capacity && $year) {
-            $sql = 'select  `id`, title from goods g
+
+        }elseif ($brand && $model && $capacity && $year!==null && !$fuel) {
+
+
+            $sql = 'select   fuel from goods g
 inner join years y on  g.id=y.goods_id
         where brand=:brand and model=:model and engine_capacity=:capacity and `year`=:year
+       
+        group by   fuel
+         
         
-        group by `id`, title
         
         ';
 
@@ -523,12 +642,77 @@ inner join years y on  g.id=y.goods_id
                         'brand'=>$brand,
                         'capacity'=>$capacity,
                         'year'=>$year,
-                    ])->queryAll(),'id','title' );
+                    ])->queryAll(), function($model){
+                    return $model['fuel'] ? $model['fuel'] : 'na';
+                },function($model){
+                    return isset(Goods::$_fuel[$model['fuel']]) ? Goods::$_fuel[$model['fuel']] : 'N/A';
+                } );
 
             return $this->asJson([
                 'items'=>$out
             ]);
-        } else {
+        } elseif ($brand && $model && $capacity   && $fuel=='na') {
+
+//            echo 1; exit;
+            $sql = 'select  `id`, title, fuel from goods g
+inner join years y on  g.id=y.goods_id
+        where brand=:brand and model=:model and engine_capacity=:capacity and `year`=:year   and fuel is null
+       
+        group by `id`, title, fuel
+         order by fuel, title
+        
+        
+        ';
+
+
+            $out =
+                ArrayHelper::map(
+                    Yii::$app->db->createCommand($sql,[
+                        'model'=>$model,
+                        'brand'=>$brand,
+//                        'fuel'=>$fuel,
+                        'capacity'=>$capacity,
+                        'year'=>$year,
+                    ])->queryAll(),'id',function($model){
+                    return $model['title']
+//                            .(isset(\common\models\Goods::$_fuel[$model['fuel']]) ? ' ('.\common\models\Goods::$_fuel[$model['fuel']].')' : '')
+                        ;
+                } );
+
+            return $this->asJson([
+                'items'=>$out
+            ]);
+        } elseif ($brand && $model && $capacity   && $fuel) {
+//            echo 1; exit;
+            $sql = 'select  `id`, title, fuel from goods g
+inner join years y on  g.id=y.goods_id
+        where brand=:brand and model=:model and engine_capacity=:capacity and `year`=:year and `fuel`=:fuel
+       
+        group by `id`, title, fuel
+         order by fuel, title
+        
+        
+        ';
+
+
+            $out =
+                ArrayHelper::map(
+                    Yii::$app->db->createCommand($sql,[
+                        'model'=>$model,
+                        'brand'=>$brand,
+                        'fuel'=>$fuel,
+                        'capacity'=>$capacity,
+                        'year'=>$year,
+                    ])->queryAll(),'id',function($model){
+                    return $model['title']
+//                            .(isset(\common\models\Goods::$_fuel[$model['fuel']]) ? ' ('.\common\models\Goods::$_fuel[$model['fuel']].')' : '')
+                        ;
+                } );
+
+            return $this->asJson([
+                'items'=>$out
+            ]);
+        }else {
             return self::returnError(self::ERROR_BADREQUEST);
         }
 

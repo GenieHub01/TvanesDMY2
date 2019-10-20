@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * @var $promocode \common\models\Promocodes
+ */
 namespace frontend\components;
 
 use Codeception\Exception\ConfigurationException;
 use common\models\Countries;
+use common\models\Promocodes;
 use frontend\models\Goods;
+use Yii;
 use yii\helpers\Json;
 
 class Cart extends \yii\base\Component
@@ -19,9 +24,15 @@ class Cart extends \yii\base\Component
     public $tax = 0;
     public $shipping = 0;
 
+    public $promocode;
     public function init()
     {
         $session = \Yii::$app->session;
+
+
+        $promocode = $session->get('promocode');
+        $this->promocode = Promocodes::findPromocode($promocode);
+
 
 
         $country = null;
@@ -31,13 +42,11 @@ class Cart extends \yii\base\Component
             $country = Countries::findOne(['id' => $c]);
         }
 
-
         if (!$country && !\Yii::$app->user->isGuest) {
             $country = Countries::findOne(['id' => \Yii::$app->user->identity->country_id]);
         }
 
         if (!$country && !\Yii::$app->params['default_country']) {
-
 //            echo 1;
             throw new ConfigurationException('Default country not set.');
         }
@@ -94,14 +103,9 @@ class Cart extends \yii\base\Component
     public function addItem($id, $count = 1)
     {
         $session = \Yii::$app->session;
-
-
         $this->_models[$id] = Goods::find()->andWhere(['id' => $id])->limit(1)->one();
-        $this->_cart[$id] = isset($this->_cart[$id]) ? $this->_cart[$id] + 1 : 1;
-
+        $this->_cart[$id] = isset($this->_cart[$id]) ? $this->_cart[$id] + $count : $count;
         $session->set('cart', Json::encode($this->_cart));
-
-
     }
 
 
@@ -155,6 +159,7 @@ class Cart extends \yii\base\Component
     private $_models;
 
 
+
     protected function loadModels()
     {
         if ($this->_models === null) {
@@ -167,6 +172,59 @@ class Cart extends \yii\base\Component
 
     public function getTotalAmount()
     {
+        return $this->getSubAmount() + $this->getSubHoldingDeposit() + $this->getTaxAmount();
+    }
+
+
+    public function cartInfo()
+    {
+        return [
+            'subTotal' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->subAmount),
+            'holdingDeposit' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->subHoldingDeposit),
+            'taxAmount' => \Yii::$app->formatter->asCurrency($this->taxAmount),
+            'extraShippingAmount' => $this->extraShippingAmount > 0 ? \Yii::$app->formatter->asCurrency($this->extraShippingAmount) : null,
+            'baseShippingAmount' => \Yii::$app->formatter->asCurrency($this->baseShippingAmount),
+            'shippingAmount' => \Yii::$app->formatter->asCurrency($this->shippingAmount),
+
+            'promocode' => $this->getPromoTotal() !== null ?
+                [
+                    'code' => $this->promocode->code,
+                    'desc' => $this->promocode->desc,
+//                    'promoTotal' => \Yii::$app->formatter->asCurrency($this->promoTotal)
+                    'promoTotal' => \Yii::$app->formatter->asCurrency($this->promoTotal ),
+                    'promoTotalShipping' => \Yii::$app->formatter->asCurrency($this->promoTotal + $this->getShippingAmount())
+                ]
+
+                :
+                null,
+
+            'cartTotal' => \Yii::$app->formatter->asCurrency(\Yii::$app->cart->sum),
+            'count' => $this->count
+        ];
+    }
+
+    public function getPromoTotal()
+    {
+
+        $model = $this->promocode;
+        if (!$model) {
+            return null;
+        }
+
+        $sum = Yii::$app->cart->subAmount+ $this->getTaxAmount();
+
+        if ($model->sum) {
+            $totalSum = $sum - $model->sum;
+            $totalSum = $totalSum > 0 ? $totalSum : 0;
+        } elseif ($model->percent) {
+            $totalSum = $sum - ($sum * $model->percent / 100);
+        }
+
+        return $totalSum   + $this->getSubHoldingDeposit() ;
+    }
+
+    public function getSubAmount()
+    {
         $sum = 0;
 
         $models = $this->_models;
@@ -174,9 +232,29 @@ class Cart extends \yii\base\Component
         if ($this->_cart) {
             foreach ($this->_cart as $key => $count) {
                 if (isset($models[$key])) {
-                    $sum += $models[$key]->total * $count;
+                    $sum += $models[$key]->price * $count;
+//                    if ($models[$key]->virtualItem) {
+//                        $sum += $models[$key]->virtualItem['total'] * $count;
+//                    }
+                }
+            }
+        }
+
+        return $sum;
+    }
+
+    public function getSubHoldingDeposit()
+    {
+        $sum = 0;
+
+        $models = $this->_models;
+
+        if ($this->_cart) {
+            foreach ($this->_cart as $key => $count) {
+                if (isset($models[$key])) {
+//                    $sum += $models[$key]->total * $count;
                     if ($models[$key]->virtualItem) {
-                        $sum += $models[$key]->virtualItem['total'] * $count;
+                        $sum += $models[$key]->virtualItem['price'] * $count;
                     }
                 }
             }
@@ -185,7 +263,25 @@ class Cart extends \yii\base\Component
         return $sum;
     }
 
+
 //    public function getTotalAmount(){  }
+
+    public function getTaxItemsAmount()
+    {
+        $sum = 0;
+        $models = $this->_models;
+        if ($this->_cart) {
+            foreach ($this->_cart as $key => $count) {
+                if (isset($models[$key])) {
+                    $sum += $models[$key]->tax * $count;
+//                    if ($models[$key]->virtualItem) {
+////                        $sum += $models[$key]->virtualItem['tax'] * $count;
+//                    }
+                }
+            }
+        }
+        return $sum;
+    }
 
     public function getTaxAmount()
     {
@@ -207,9 +303,19 @@ class Cart extends \yii\base\Component
 
     public function getShippingAmount()
     {
+        return $this->getBaseShippingAmount() + $this->extraShippingAmount;
+    }
+
+    public function getBaseShippingAmount()
+    {
+        return $this->shipping;
+    }
 
 
-        $sum = $this->shipping;
+    public function getExtraShippingAmount()
+    {
+        $sum = 0;
+//        $sum = $this->shipping;
         $models = $this->_models;
 //        var_dump($models[105]->attributes);
 //        var_dump($models[106]->attributes);
@@ -219,7 +325,9 @@ class Cart extends \yii\base\Component
 
                 if (isset($models[$key]) && $models[$key]->extra_shipping) {
 //                    var_dump($models[$key]->title);
-                    $sum += $models[$key]->extra_shipping*$count;
+
+//                    $sum += $models[$key]->extra_shipping*$count;
+                    $sum =  $models[$key]->extra_shipping > $sum  ? $models[$key]->extra_shipping  : $sum ;
 //                    echo  $models[$key]->extra_shipping.'-';
 //                    echo  $key.'-';
 //                    if ($models[$key]->virtualItem){
@@ -234,7 +342,7 @@ class Cart extends \yii\base\Component
 
     public function getSum()
     {
-        return $this->totalAmount;
+        return $this->totalAmount + $this->shippingAmount;
     }
 
 }

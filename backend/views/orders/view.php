@@ -7,6 +7,18 @@ $this->title = 'View Order';
 
 use yii\helpers\Html;
 
+$hc = 0;
+$sub = 0;
+if ($model->orderItems):
+    foreach ($model->orderItems as $item):
+        $sub += $item->price * $item->count;
+        if ($item->holding_charge) {
+            $hc += $item->holding_charge * $item->count;
+
+        }
+
+    endforeach;
+endif;
 ?>
 
 
@@ -49,21 +61,36 @@ use yii\helpers\Html;
                             'value' => $model->country->title
                         ],
                         'address',
+
                         'address_optional',
                         'city',
                         'postcode',
                         'phone',
                         'email:email',
+                        [
+                            'label'=>'Holding Deposit',
+                            'format'=> 'currency',
+                            'value'=>$hc
+                        ],
                         'total_sum:currency',
                         'total_sum_discount:currency',
                         'shipping_cost:currency',
-                        'promocodes_id',
+//                        'promocodes_id',
+                        [
+                                'attribute'=>'promocodes_id',
+                            'value'=>$model->promocode ? $model->promocode->code : null
+                        ],
                         'created_ts:datetime',
                         'updated_ts:datetime',
                          [
-                                'label'=>'total',
+                                'label'=>'total with shipping',
                             'format'=>'currency',
-                            'value'=> ($model->total_sum_discount > 0 ? $model->total_sum_discount : $model->total_sum) + $model->shipping_cost
+                            'value'=>   $model->total_sum + $model->shipping_cost
+                        ],
+                        [
+                            'label'=>'total with shipping after discount',
+                            'format'=>'currency',
+                            'value'=> $model->total_sum_discount > 0  ? $model->total_sum_discount + $model->shipping_cost : null
                         ],
 
                         [

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Category;
 use common\models\Codes;
 use Yii;
 use common\models\Goods;
@@ -55,12 +56,13 @@ class ProductsController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $shippingCodes = Codes::getCodes(Codes::PRODUCT_EXTRA_SHIPPING_CODE);
         $depositCodes = Codes::getCodes(Codes::HOLDING_CHARGE_CODE);
-
+        $categories = \common\models\Category::getDropDownArray();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'shippingCodes'=>$shippingCodes,
-            'depositCodes'=>$depositCodes
+            'depositCodes'=>$depositCodes,
+            'categories'=>$categories
         ]);
     }
 
@@ -76,11 +78,13 @@ class ProductsController extends Controller
         $model = $this->findModel($id);
         $shippingCodes = Codes::getCodes(Codes::PRODUCT_EXTRA_SHIPPING_CODE);
         $depositCodes = Codes::getCodes(Codes::HOLDING_CHARGE_CODE);
+        $categories = \common\models\Category::getDropDownArray();
 //        var_dump($model->attributes); exit;
         return $this->render('view', [
             'model' => $model,
             'shippingCodes'=>$shippingCodes,
-            'depositCodes'=>$depositCodes
+            'depositCodes'=>$depositCodes,
+
         ]);
     }
 

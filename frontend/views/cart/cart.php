@@ -41,20 +41,24 @@ use yii\helpers\Html;
 <!--            --><?//$tax =Yii::$app->cart->tax ?>
 <!--            --><?//= \yii\helpers\Html::a('Proceed To Checkout',['/cart/order'],['class'=>'btn btn-sm btn-primary float-right']) ?>
             <div>
-                Subtotal: <span class="cart_total_sum"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->totalAmount) ?></span>
+                Subtotal: <span id="subTotal" class="subTotal"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->subAmount) ?></span>
             </div>
             <div>
-                incl. Tax (<?= Yii::$app->formatter->asPercent(Yii::$app->cart->tax/100) ?>): <span class="cart_total_tax"><?=Yii::$app->formatter->asCurrency(Yii::$app->cart->taxAmount)?></span>
+                Holding Deposit: <span class="holdingDeposit"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->subHoldingDeposit) ?></span>
+            </div>
+            <div>
+                Tax: <span class="taxAmount"><?=Yii::$app->formatter->asCurrency(Yii::$app->cart->taxAmount)?></span>
             </div>
 
+
             <div>
-                Shipping to <?= Yii::$app->cart->country->title?>: <span id="shippingAmount"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->shippingAmount) ?></span>
+                Shipping: <span  class="shippingAmount" id="shippingAmount"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->shippingAmount) ?></span> <?=  (Yii::$app->cart->extraShippingAmount>0) ? '<span class="extraShipping" id="extraShipping">*</span>' : '<span class="extraShipping" id="extraShipping" style="display: none;">*</span>' ?>
             </div>
             <div>
-                Total: <span class="cart_total_sumtotal"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->shippingAmount + Yii::$app->cart->totalAmount) ?></span>
+                Total: <span id="cartTotal" class="cartTotal"><?= Yii::$app->formatter->asCurrency(Yii::$app->cart->shippingAmount + Yii::$app->cart->totalAmount) ?></span>
             </div>
-            <div class="promocode_apply hidden border  border-warning p-2">
-                After Applied Promocode: <span id="promocodeSum"></span> <span id="promocodeDesc"></span>
+            <div class="promocodeBlock   border  border-warning p-2" <?= Yii::$app->cart->promocode ? '' : 'style="display: none" '?>  >
+                After Applied Promocode: <span class="promocodeTotal" id="promocodeTotal"><?= Yii::$app->cart->promocode ? \Yii::$app->formatter->asCurrency(Yii::$app->cart->getPromoTotal() + Yii::$app->cart->getShippingAmount()) : '' ?></span> <span id="promocodeDesc" class="promocodeDesc"><?= Yii::$app->cart->promocode ? Yii::$app->cart->promocode->desc : '' ?></span>
             </div>
             <br>
             <br>
@@ -62,7 +66,7 @@ use yii\helpers\Html;
             <?php $form = ActiveForm::begin(['id' => 'promocodeApply','action'=>'/cart/promocode-apply']); ?>
             Do you have Promocode?
             <div class="d-flex">
-                <?= Html::textInput('promocode','',['class'=>'form-control','placeholder'=>'Promocode']) ?>
+                <?= Html::textInput('promocode',Yii::$app->cart->promocode ? Yii::$app->cart->promocode->code : null,['class'=>'form-control','placeholder'=>'Promocode']) ?>
                 <?= Html::submitButton('Apply',['class'=>'btn btn-primary']) ?>
             </div>
             <?php ActiveForm::end(); ?>
@@ -117,11 +121,10 @@ $('#promocodeApply').on('beforeSubmit', function () {
                     // data is saved
                     $.growl({ title: "Success", message: "Promocode applied!" });
                      // $('#id' + respond.id).replaceWith(respond.html);
-                     $('#promocodeSum').html(respond.totalSum);
-                     $('#promocodeDesc').html('code :'+respond.code+' -'+respond.desc);
-                     $('#shippingAmount').html( respond.shipping );
-                     $('#order-promocode').val(respond.code);
-                
+                     updateCartCount(respond.cart.count);
+                    updateCartLine(respond.item);
+                    updateCart(respond.cart);
+                 $('#order-promocode').val(respond.cart.promocode.code);
             })
             .fail(function (xhr, status, error) {
                 showError(xhr, status, error);

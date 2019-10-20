@@ -13,7 +13,8 @@ function updateCartCount(count) {
 $('a.add_to_cart').click(function (e) {
     e.preventDefault();
     var data = {
-        id: $(this).attr('data-id')
+        id: $(this).attr('data-id'),
+        qty: $('#qty').val()
     };
 
     $.get(
@@ -30,16 +31,80 @@ $('a.add_to_cart').click(function (e) {
     });
 });
 
-function updateCartLine(id, line, sum, tax, sumtotal, shipping) {
-    var idDiv = '#cartItem_' + id;
-    $(idDiv).replaceWith(line);
-    $('.cart_total_sum').html(sum);
-    $('.cart_total_tax').html(tax);
-    $('.cart_total_sumtotal').html(sumtotal);
-    $('#shippingAmount').html(  shipping );
+function updateCartLine(item) {
+    if (item){
+        var idDiv = '#cartItem_' + item.id;
+        $(idDiv).replaceWith(item.html);
+    }
 
+    // updateCart(respond);
 }
 
+function updateCart(respond){
+    // if (respond.item){
+    //     updateCartLine(respond.item);
+    // }
+
+
+    $('.subTotal').html(respond.subTotal);
+    $('.holdingDeposit').html(respond.holdingDeposit);
+    $('.taxAmount').html(respond.taxAmount);
+    $('.shippingAmount').html(respond.shippingAmount);
+
+    if (respond.extraShippingAmount){
+        $('.extraShipping').show();
+        $('.extraShippingAmount').html(respond.extraShippingAmount);
+    } else {
+        $('.extraShipping').hide();
+    }
+
+
+
+    $('.baseShippingAmount').html(respond.baseShippingAmount);
+
+    $('.cartTotal').html(respond.cartTotal);
+
+    if (respond.promocode) {
+
+        $('.promocodeBlock').show();
+        $('.promocodeTotal').html(respond.promocode.promoTotalShipping);
+        $('.promocodeDesc').html(respond.promocode.desc);
+
+    } else {
+        $('.promocodeBlock').hide();
+    }
+        // $('.promocodeSum').html(respond.promocodeSum);
+
+    //
+    // $('.cart_total_sum').html(sum);
+    // $('.cart_total_tax').html(tax);
+    // $('.cart_total_sumtotal').html(sumtotal);
+    // $('#shippingAmount').html(  shipping );
+    // $('.cart_holding').html( deposit);
+    // $('#extraShipping').html(extraShipping );
+}
+
+$('body').on('change', '#order-country_id', function (e) {
+    $obj = $(this);
+    $.get(
+        '/cart/set-country',
+        {
+            id: $obj.val()
+        }
+        ,
+        function (respond) {
+            $.growl({title: "Cart", message: "Country settings changed. Check total Sum." });
+            // $.growl({title: "Cart", message: "Item added." });
+            // updateCartCount(respond.cart.count);
+            // updateCartLine(respond.item);
+            updateCart(respond.cart);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+
+});
 $('body').on('click', 'a.cart-plus-item', function (e) {
     e.preventDefault();
     var data = {
@@ -52,8 +117,9 @@ $('body').on('click', 'a.cart-plus-item', function (e) {
         ,
         function (respond) {
             // $.growl({title: "Cart", message: "Item added." });
-            updateCartCount(respond.count);
-            updateCartLine(respond.id, respond.line, respond.sum, respond.tax,respond.sumtotal, respond.shipping);
+            updateCartCount(respond.cart.count);
+            updateCartLine(respond.item);
+            updateCart(respond.cart);
 
         },
     ).fail(function (xhr, status, error) {
@@ -74,8 +140,9 @@ $('body').on('click', 'a.cart-minus-item', function (e) {
         ,
         function (respond) {
             // $.growl({title: "Cart", message: "Item added." });
-            updateCartCount(respond.count);
-            updateCartLine(respond.id, respond.line, respond.sum, respond.tax,respond.sumtotal, respond.shipping);
+            updateCartCount(respond.cart.count);
+            updateCartLine(respond.item);
+            updateCart(respond.cart);
 
         },
     ).fail(function (xhr, status, error) {
@@ -110,6 +177,7 @@ $('select[name="brand"]').change(function(){
     $('select[name="model"]').prop("disabled", true);
     $('select[name="capacity"]').prop("disabled", true);
     $('select[name="year"]').prop("disabled", true);
+    $('select[name="fuel"]').prop("disabled", true);
     $('select[name="product"]').prop("disabled", true);
 
     if (!$(this).val()){
@@ -144,6 +212,8 @@ $('select[name="model"]').change(function(){
     $('select[name="capacity"]').append('<option value="">-- Engine Capacity --</option>"');
     $('select[name="year"]').prop("disabled", true);
     $('select[name="year"]').append('<option value="">-- Year --</option>"');
+    $('select[name="fuel"]').prop("disabled", true);
+    $('select[name="fuel"]').append('<option value="">-- Fuel --</option>"');
     $('select[name="product"]').prop("disabled", true);
     $('select[name="product"]').append('<option value="">-- Product --</option>"');
 
@@ -183,6 +253,8 @@ $('select[name="capacity"]').change(function(){
     // $('select[name="capacity"]').append('<option value="">-- Engine Capacity --</option>"');
     $('select[name="year"]').prop("disabled", true);
     $('select[name="year"]').append('<option value="">-- Year --</option>"');
+    $('select[name="fuel"]').prop("disabled", true);
+    $('select[name="fuel"]').append('<option value="">-- Fuel --</option>"');
     $('select[name="product"]').prop("disabled", true);
     $('select[name="product"]').append('<option value="">-- Product --</option>"');
 
@@ -222,6 +294,9 @@ $('select[name="year"]').change(function(){
     // $('select[name="capacity"]').append('<option value="">-- Engine Capacity --</option>"');
     // $('select[name="year"]').prop("disabled", true);
     // $('select[name="year"]').append('<option value="">-- Year --</option>"');
+
+$('select[name="fuel"]').prop("disabled", true);
+$('select[name="fuel"]').append('<option value="">-- Fuel --</option>"');
     $('select[name="product"]').prop("disabled", true);
     $('select[name="product"]').append('<option value="">-- Product --</option>"');
 
@@ -233,6 +308,48 @@ $('select[name="year"]').change(function(){
         brand: $('select[name="brand"]').val(),
         model:$('select[name="model"]').val(),
         year:$('select[name="year"]').val(),
+        capacity:$('select[name="capacity"]').val()
+
+    };
+    $.get(
+        '/site/product-search',
+        data
+        ,
+        function (respond) {
+            $('select[name="fuel"]').find('option').remove();
+            $('select[name="fuel"]').append('<option value="">-- Fuel --</option>"');
+            $.each(respond.items,function(key, value){
+
+                $('select[name="fuel"]').append('<option value=' + key + '>' + value + '</option>');
+            });
+            $('select[name="fuel"]').prop("disabled", false);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
+
+$('select[name="fuel"]').change(function(){
+    // $('select[name="model"]').prop("disabled", true);
+    // $('select[name="capacity"]').prop("disabled", true);
+    // $('select[name="capacity"]').append('<option value="">-- Engine Capacity --</option>"');
+    // $('select[name="year"]').prop("disabled", true);
+    // $('select[name="year"]').append('<option value="">-- Year --</option>"');
+
+    $('select[name="product"]').prop("disabled", true);
+    $('select[name="product"]').append('<option value="">-- Product --</option>"');
+
+
+    if (!$(this).val()){
+        return false;
+    }
+    var data = {
+        brand: $('select[name="brand"]').val(),
+        model:$('select[name="model"]').val(),
+        year:$('select[name="year"]').val(),
+        fuel:$('select[name="fuel"]').val(),
         capacity:$('select[name="capacity"]').val()
 
     };

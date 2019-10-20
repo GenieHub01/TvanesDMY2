@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'code') ?>
         </div>
         <div class="col-sm-6">
-            <?php  echo $form->field($model, 'status') ?>
+            <?= $form->field($model, 'status')->dropDownList($model::$_status) ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

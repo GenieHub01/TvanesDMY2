@@ -40,7 +40,7 @@ class User extends ActiveRecord implements IdentityInterface
     ];
     static $_status = [
         self::STATUS_DELETED => 'Deleted',
-        self::STATUS_INACTIVE => 'Inactive',
+        self::STATUS_INACTIVE => 'Email verification required',
         self::STATUS_ACTIVE => 'Active',
 
     ];
@@ -135,6 +135,11 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByEmail($email)
     {
         return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    public static function findByEmail2($email)
+    {
+        return static::findOne(['email' => $email]);
     }
     /**
      * Finds user by password reset token
