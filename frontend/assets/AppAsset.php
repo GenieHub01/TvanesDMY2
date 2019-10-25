@@ -33,6 +33,8 @@ class AppAsset extends AssetBundle
         '/dist/SimpleAjaxUploader.js',
         '/dist/fancybox/jquery.fancybox.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.2/jsrender.min.js',
+        'https://cdn.worldpay.com/v1/worldpay.js'
+
     ];
     public $depends = [
         'yii\web\JqueryAsset',
