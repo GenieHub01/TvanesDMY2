@@ -93,12 +93,17 @@ use yii\helpers\Html;
         <?= $form->field($order,'phone') ?>
         <?= $form->field($order,'email') ?>
 
+
+
         <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+            <div id='paymentSection'></div>
+            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'onclick' => 'Worldpay.submitTemplateForm()']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
     </div>
+
+
 
     <?}else {?>
         <h5>Cart is empty</h5>
@@ -107,7 +112,28 @@ use yii\helpers\Html;
 
 </div>
 
-
+<script type='text/javascript'>
+    window.onload = function() {
+        Worldpay.useTemplateForm({
+            'clientKey':'<?= Yii::$app->params['worldpay_api_client_key'] ?>',
+            'form':'newOrder',
+            'paymentSection':'paymentSection',
+            'saveButton':false,
+            'display':'inline',
+            'reusable':false,
+            'callback': function(obj) {
+                if (obj && obj.token) {
+                    var _el = document.createElement('input');
+                    _el.value = obj.token;
+                    _el.type = 'hidden';
+                    _el.name = 'token';
+                    document.getElementById('newOrder').appendChild(_el);
+                    document.getElementById('newOrder').submit();
+                }
+            }
+        });
+    }
+</script>
 <?
 $js = <<<JS
 $('#promocodeApply').on('beforeSubmit', function () {
@@ -136,3 +162,4 @@ JS;
 $this->registerJs($js, \yii\web\View::POS_READY);
 
 ?>
+

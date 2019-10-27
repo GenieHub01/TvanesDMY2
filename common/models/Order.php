@@ -35,6 +35,8 @@ use yii\db\ActiveRecord;
  * @property int $total_sum_discount
  * @property string $total_tax_discount
  * @property string $total_tax
+ * @property string $worldpay_order_id
+ *@property string $worldpay_order_status
  *
  * @property OrderItems[] $orderItems
  */
@@ -135,7 +137,7 @@ class Order extends \yii\db\ActiveRecord
 //            [['total_sum'], 'number'],
 
             [['first_name', 'last_name', 'company_name',   'address', 'address_optional', 'city'], 'string', 'max' => 255],
-            [['note' ], 'string', 'max' => 250],
+            [['note','worldpay_order_id', 'worldpay_order_status' ], 'string', 'max' => 250],
             [['postcode', 'phone', 'email'], 'string', 'max' => 40],
             ['email','email']
         ];

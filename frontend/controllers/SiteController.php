@@ -38,10 +38,10 @@ class SiteController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup','edit-profile', 'worldpay', 'pay'],
+                'only' => ['logout', 'signup','edit-profile' ],
                 'rules' => [
                     [
-                        'actions' => ['signup', 'worldpay', 'pay'],
+                        'actions' => ['signup'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],

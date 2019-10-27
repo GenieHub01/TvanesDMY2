@@ -9,6 +9,9 @@ use common\models\Promocodes;
 use frontend\models\Goods;
 use frontend\models\Order;
 use Yii;
+use Worldpay\Worldpay;
+use Worldpay\WorldpayException;
+
 
 /**
  * Site controller
@@ -36,6 +39,9 @@ class CartController extends BaseController
             $models = Goods::find()->andWhere(['id' => array_keys($items)])->indexBy('id')->all();
         }
 
+        if(Yii::$app->request->isPost){
+
+        }
 
         $order = new Order();
         $order->setAttributes([
@@ -54,6 +60,20 @@ class CartController extends BaseController
 
         $order->promocode = Yii::$app->cart->promocode ?  Yii::$app->cart->promocode->code : '';
         if ($order->load(\Yii::$app->request->post()) && $items && $models  && $order->save()){
+
+            $request = Yii::$app->request;
+            $token = $request->post('token');
+            $worldpay = new Worldpay(Yii::$app->params['worldpay_api_service_key']);
+
+            $billing_address = array(
+                "address1"=>$order->address,
+                "address2"=> $order->address_optional,
+                "address3"=> '',
+                "postalCode"=> $order->postcode,
+                "city"=> $order->city,
+                "state"=> 'ffsdfsd',
+                "countryCode"=> 'GB',
+            );
 
             Yii::$app->cart->updateCountry($order->country_id);
             $sum = 0;
@@ -118,6 +138,34 @@ class CartController extends BaseController
                     'total_sum_discount'=>$discountSum,
                     'shipping_cost' => $shipping,
                 ]);
+
+            try {
+                $response = $worldpay->createOrder(array(
+                    'token' => $token,
+                    'amount' => $order->total_sum*100,
+                    'currencyCode' => 'GBP',
+                    'name' => $this->user->first_name . ' ' . $this->user->last_name,
+                    'billingAddress' => $billing_address,
+                    'orderDescription' => $order->note ? $order->note : 'Description',
+                    'customerOrderCode' => $order->id
+                ));
+                if ($response['paymentStatus'] === 'SUCCESS') {
+                    $worldpayOrderCode = $response['orderCode'];
+                    $order->worldpay_order_id = $worldpayOrderCode;
+
+                } else {
+                    throw new WorldpayException(print_r($response, true));
+                }
+            } catch (WorldpayException $e) {
+                echo 'Error code: ' .$e->getCustomCode() .'
+                    HTTP status code:' . $e->getHttpStatusCode() . '
+                    Error description: ' . $e->getDescription()  . '
+                    Error message: ' . $e->getMessage();
+            } catch (Exception $e) {
+                echo 'Error message: '. $e->getMessage();
+            }
+            $order->worldpay_order_status = $response['paymentStatus'];
+            $order->save();
 
             Yii::$app->cart->destroyCart();
             Yii::$app
