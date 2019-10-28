@@ -11,6 +11,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Worldpay\Worldpay;
+use Worldpay\WorldpayException;
 
 /**
  * OrdersController implements the CRUD actions for Order model.
@@ -165,5 +167,44 @@ class OrdersController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Refund money order
+     * If
+     * @param integer $worldpay_order_id
+     * @return
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionRefund($worldpay_order_id) {
+
+        $worldpay = new Worldpay(Yii::$app->params['worldpay_api_service_key']);
+
+        // Sometimes your SSL doesnt validate locally
+        // DONT USE IN PRODUCTION
+        $worldpay->disableSSLCheck(true);
+
+        $worldpayOrderCode = $worldpay_order_id;
+
+        try {
+
+            $worldpay->refundOrder($worldpayOrderCode);
+            $model = Order::find()
+                ->where(['worldpay_order_id' => $worldpay_order_id])
+                ->one();
+            if ($model) {
+                $model->worldpay_order_status = 'REFUNDED';
+                $model->save();
+            }
+
+        }
+        catch (WorldpayException $e) {
+            // Worldpay has thrown an exception
+            echo 'Error code: ' . $e->getCustomCode() . '<br/>
+                HTTP status code:' . $e->getHttpStatusCode() . '<br/>
+                Error description: ' . $e->getDescription()  . ' <br/>
+                 Error message: ' . $e->getMessage();
+        }
+        return $this->redirect(['index']);
     }
 }
