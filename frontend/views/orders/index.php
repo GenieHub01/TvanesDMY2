@@ -17,6 +17,13 @@
                         <?= Yii::$app->formatter->asCurrency($model->total_sum) ?>
                     </div>
                     <div class="px-3">
+                        <?php if($model->worldpay_order_status !== 'SUCCESS'): ?>
+                            <div style="color:red">UNPAID: <?= $model->worldpay_order_status ?></div>
+                        <?php else: ?>
+                            <div style="color:green">PAID: <?= $model->worldpay_order_id ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="px-3">
                         <?= \yii\helpers\Html::a('link',$model->url) ?>
                     </div>
                 </div>

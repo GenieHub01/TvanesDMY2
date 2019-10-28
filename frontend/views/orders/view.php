@@ -35,6 +35,12 @@ endif;
             <div>Shipping: <?=Yii::$app->formatter->asCurrency($model->shipping_cost)?></div>
             <div>Total: <?= Yii::$app->formatter->asCurrency($model->total_sum+ $model->shipping_cost) ?></div>
 
+            <?php if($model->worldpay_order_status !== 'SUCCESS'): ?>
+                <div style="color:red">UNPAID: <?= $model->worldpay_order_status ?></div>
+            <?php else: ?>
+                <div style="color:green">PAID: <?= $model->worldpay_order_id ?></div>
+            <?php endif; ?>
+
 <!--            <div>Total: --><?//= Yii::$app->formatter->asCurrency(($model->total_sum_discount > 0 ? $model->total_sum_discount :( $model->total_sum + $model->shipping_cost )) ) ?><!--</div>-->
 
             <? if ($model->total_sum_discount > 0): ?>

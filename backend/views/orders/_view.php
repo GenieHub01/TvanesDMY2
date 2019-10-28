@@ -27,18 +27,23 @@ if ($model->orderItems){
     <div class="d-flex">
         <div class="w-50">
             Total sum: <?= Yii::$app->formatter->asCurrency($model->total_sum_discount ? $model->total_sum_discount  + $model->shipping_cost: $model->total_sum) ?>
-            <? if (!empty($model->worldpay_order_id)): ?>
-                <br>
-                <? if ($model->worldpay_order_status == 'SUCCESS'): ?>
-                    Wordplay_code: <?= Html::a($model->worldpay_order_id,['/orders/refund','worldpay_order_id'=>$model->worldpay_order_id],['class'=>' ','title' => 'Refund']) ?>
-                <? else: ?>
-                    Wordplay_code: <?= $model->worldpay_order_id; ?>
-                <? endif; ?>
-            <? endif; ?>
+
         </div>
+
         <div class="w-25">Items: <?= Yii::$app->formatter->asInteger($count) ?></div>
         <div class="w-25">Email: <?= Yii::$app->formatter->asEmail($model->email) ?></div>
     </div>
+    <? if (!empty($model->worldpay_order_id)): ?>
+        <? if ($model->worldpay_order_status == 'SUCCESS'): ?>
+            Wordplay_code: <?= $model->worldpay_order_id ?>
+            <div>
+                <a href="<?= Url::toRoute(['orders/refund', 'worldpay_order_id' => $model->worldpay_order_id]);?>" class="btn btn-warning" role="button">Refund</a>
+            </div>
+        <? else: ?>
+            Wordplay_code: <?= $model->worldpay_order_id; ?>
+        <? endif; ?>
+    <? endif; ?>
+
     <div>
 
     </div>
