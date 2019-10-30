@@ -144,7 +144,7 @@ class CartController extends BaseController
             try {
                 $response = $worldpay->createOrder(array(
                     'token' => $token,
-                    'amount' => $order->total_sum*100 + $order->shipping_cost*100,
+                    'amount' => $order->total_sum*100 + $order->shipping_cost*100 - $order->total_sum_discount*100,
                     'currencyCode' => 'GBP',
                     'name' => $this->user->first_name . ' ' . $this->user->last_name,
                     'billingAddress' => $billing_address,
