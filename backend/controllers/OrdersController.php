@@ -195,6 +195,14 @@ class OrdersController extends Controller
             if ($model) {
                 $model->worldpay_order_status = 'REFUNDED';
                 $model->save();
+                Yii::$app
+                    ->mailer
+                    ->compose()
+                    ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+                    ->setTo($model->email)
+                    ->setSubject('Refund on order #'.$model->id  )
+                    ->setTextBody('Dear username. We refund you amount '.($model->total_sum+$model->shipping_cost).' GBP, for orderOrder refunded for you.')
+                    ->send();
             }
 
         }
