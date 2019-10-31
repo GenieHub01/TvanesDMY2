@@ -201,7 +201,7 @@ class OrdersController extends Controller
                     ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
                     ->setTo($model->email)
                     ->setSubject('Refund on order #'.$model->id  )
-                    ->setTextBody('Dear username. We refund you amount '.($model->total_sum+$model->shipping_cost).' GBP, for orderOrder refunded for you.')
+                    ->setTextBody('Dear ' . $model->first_name . ' ' . $model->last_name .' We refund you amount '.($model->total_sum+$model->shipping_cost).' GBP, for orderOrder refunded for you.')
                     ->send();
             }
 
