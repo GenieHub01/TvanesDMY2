@@ -11,6 +11,8 @@ use frontend\models\Order;
 use Yii;
 use Worldpay\Worldpay;
 use Worldpay\WorldpayException;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 
 /**
@@ -20,6 +22,23 @@ class CartController extends BaseController
 {
 
     private $_user;
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index'],
+                'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function getUser()
     {
