@@ -32,7 +32,7 @@ use yii\helpers\Html;
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="home-page.html"><img src="./img/turbo-vanes-logo-new.png" class="th-logo" alt="turbo-vanes-logo-new"> </a>
+            <a class="navbar-brand" href="<?= \yii\helpers\Url::base(true);  ?>"><img src="./img/turbo-vanes-logo-new.png" class="th-logo" alt="turbo-vanes-logo-new"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="toggle-menuu">
                         <i></i>
@@ -59,30 +59,30 @@ use yii\helpers\Html;
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">ABOUT</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('about') ?>">ABOUT</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="#">SUPPORT <i class="fas fa-chevron-down down-ico"></i> <span class="sr-only">(current)</span></a>
 
                         <div class="down-menu">
-                            <p class="eac-item"><a href="return-policy.html">RETURNS POLICY</a></p>
-                            <p class="eac-item"><a href="turbo-problrems.html">TURBO PROBLEMS</a></p>
-                            <p class="eac-item"><a href="delivery.html">DELIVERY</a></p>
+                            <p class="eac-item"><a href="return-policy">RETURNS POLICY</a></p>
+                            <p class="eac-item"><a href="turbo-problems">TURBO PROBLEMS</a></p>
+                            <p class="eac-item"><a href="delivery">DELIVERY</a></p>
                         </div>
 
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="news.html">NEWS</a>
+                        <a class="nav-link" href="news">NEWS</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">CONTACT</a>
+                        <a class="nav-link" href="contact">CONTACT</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="FAQ.html">FAQS</a>
+                        <a class="nav-link" href="FAQ">FAQS</a>
                     </li>
 
                     <li class="nav-item shop-cartt">
