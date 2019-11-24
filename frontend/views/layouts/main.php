@@ -46,7 +46,16 @@ AppAsset::register($this);
     </script>
 
 </head>
-<body <?= empty($this->context->brandList) ? 'class="side-pages"' : null?> >
+<?
+    $styles = '';
+    if(empty($this->context->brandList)) {
+        $styles = 'side-pages';
+    }
+    if(!empty($this->context->stylesName)) {
+        $styles .= ' '.$this->context->stylesName;
+    }
+?>
+<body <?= $styles != '' ? 'class="'.$styles.'"' : null?> >
 <?php $this->beginBody() ?>
     <?= $this->render('header') ?>
     <?= \common\widgets\Alert::widget() ?>

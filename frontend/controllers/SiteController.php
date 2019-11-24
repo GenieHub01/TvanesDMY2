@@ -34,6 +34,7 @@ class SiteController extends BaseController
      * {@inheritdoc}
      */
     public $brandList;
+    public $stylesName;
 
     public function behaviors()
     {
@@ -740,8 +741,10 @@ inner join years y on  g.id=y.goods_id
      *
      * @return mixed
      */
+
     public function actionLogin()
     {
+        $this->stylesName = 'login';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

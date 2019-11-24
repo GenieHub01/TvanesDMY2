@@ -8,56 +8,47 @@
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = Yii::t('app','Login');
+$this->title = Yii::t('app','MY ACCOUNT');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="regular-page clear-filter page-header-small">
+
+<div class="inner-pag">
+
     <div class="container">
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6 border-left border-right">
-                <h1><?= Html::encode($this->title) ?></h1>
 
-                <p><?= Yii::t('app','Please fill out the following fields to login:') ?></p>
+        <h1 class="my-account"><?= Html::encode($this->title) ?></h1>
 
 
-                <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+        <div class="al-login">
+            <p class="log">LOGIN</p>
+            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <div class="login-box">
 
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
-<!--                --><?//= $form->field($model, 'rememberMe')->checkbox([
-//                        'class'=>'check'
-//                ]) ?>
-                <?= \common\widgets\checkbox\SingleCheckboxWidget::widget([
-                    'model' => $model,
-                    'attribute' => 'rememberMe'
-                ]) ?>
-
-
-                <div style="color:#999;margin:1em 0">
-                   <?=Yii::t('app','If you forgot your password you can')?> <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                    <br>
-                    <?=Yii::t('app','Need new verification email?')?> <?= Html::a('Resend', ['site/resend-verification-email']) ?>
+                <div class="log-form">
+                    <p class="form-nam">Username or email address <span>*</span></p>
+                    <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'class' => 'inp-form'])->label(false) ?>
                 </div>
 
+                <div class="log-form">
+                    <p class="form-nam">Password <span>*</span></p>
+                    <?= $form->field($model, 'password')->passwordInput(['class' => 'inp-form'])->label(false) ?>
+                </div>
 
-                    <div class="form-group" style="width:100%">
-                        <div class="row">
-                        <div class="col-md-6 col-sm-6 col-lg-6 text-left">
-                            <?= Html::a('Sign Up', ['/site/signup'], ['class' => 'btn btn-link'] ) ?>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-lg-6 text-right">
-                            <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                        </div>
-
+                <div class="log-form">
+                    <div class="bt-inline">
+                        <?= Html::submitButton('Log In', ['class' => 'log-in hvr-bounce-to-top', 'name' => 'login-button']) ?>
+                    </div>
+                    <div class="bt-inline">
+                        <?= Html::activeCheckbox($model, 'rememberMe', ['class' => 'check-inp', 'id'=>'check-inp', 'label'=> false]) ?>
+                        <?= Html::activeLabel($model, 'rememberMe', ['class' => 'remember']) ?>
                     </div>
                 </div>
-
+                    <?= Html::a(Yii::t('app','Lost your password?'), ['site/request-password-reset'],['class'=>'lost-pas']) ?>
                 <?php ActiveForm::end(); ?>
-
             </div>
+
         </div>
+
     </div>
+
 </div>
