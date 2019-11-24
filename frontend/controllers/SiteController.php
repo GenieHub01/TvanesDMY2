@@ -33,6 +33,8 @@ class SiteController extends BaseController
     /**
      * {@inheritdoc}
      */
+    public $brandList;
+
     public function behaviors()
     {
         return [
@@ -526,14 +528,12 @@ inner join wp.wp_products y on w.import_id=y.product_id
      *
      * @return mixed
      */
+
     public function actionIndex()
     {
-
-
         $sql = 'select brand from goods group by brand having brand <> ""';
         $brandList = ArrayHelper::map(Yii::$app->db->createCommand($sql)->queryAll(),'brand','brand');
-
-
+        $this->brandList = $brandList;
 
         return $this->render('index',[
             'brandList'=>$brandList

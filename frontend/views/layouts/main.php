@@ -19,31 +19,39 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="electric turbo actuator, turbo actuator, turbo vanes, turbo parts, wastegate, garret turbo, turbo wastegate, turbo car, turbo kit, turbocharger, mondeo turbo actuator, jaguar turbo actuator, ford turbo actuator, mercedes turbo actuator, turbo actuator bmw, turbo actuator replacement, turbo actuator audi, how a turbo actuator works, changing a turbo actuator">
+    <meta name="description" content="Turbo Vanes sell a wide range of turbo actuators. We are based in Birmingham, UK. Also sell electronic turbo actuators, vacuum turbocharger wastegate and turbo gaskets. Branded turbo actuator on sale!">
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
     <?php $this->registerCsrfMetaTags() ?>
     <title><?=  Yii::$app->name.' - '.Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 
+    <script>
+
+        var looper;
+        var degrees = 0;
+        function rotateAnimation(el,speed){
+            var elem = document.getElementById(el);
+            elem.style.transform = "rotate("+degrees+"deg)";
+
+            looper = setTimeout('rotateAnimation(\''+el+'\','+speed+')',speed);
+            degrees++;
+            if(degrees > 359){
+                degrees = 1;
+            }
+        }
+
+    </script>
+
 </head>
-<body class="index-page sidebar-collapse">
+<body <?= empty($this->context->brandList) ? 'class="side-pages"' : null?> >
 <?php $this->beginBody() ?>
-<div class="wrapper" >
-    <?= $this->render('_top_menu',[
-          'options'=>[
-                  'transparent'=>false,
-                    'color_on_scroll'=>false
-          ]
-    ]) ?>
-    <main class="container">
-        <?= \common\widgets\Alert::widget() ?>
-        <?= $content ?>
-
-    </main>
+    <?= $this->render('header') ?>
+    <?= \common\widgets\Alert::widget() ?>
+    <?= $content ?>
     <?= $this->render('footer') ?>
-
-</div>
 <?php $this->endBody() ?>
 </body>
 </html>
