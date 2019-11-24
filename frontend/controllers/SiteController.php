@@ -920,4 +920,20 @@ inner join years y on  g.id=y.goods_id
             'model' => $model
         ]);
     }
+
+    public function actionReturnPolicy()
+    {
+        return $this->render('return-policy');
+    }
+
+    public function actionTurboProblems()
+    {
+        return $this->render('turbo-problems');
+    }
+
+    public function actionDelivery()
+    {
+        return $this->render('delivery');
+    }
+
 }

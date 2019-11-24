@@ -15,6 +15,10 @@ class ContactForm extends Model
     public $subject;
     public $body;
     public $verifyCode;
+    public $vinNumber;
+    public $partNumber;
+    public $make;
+    public $carReg;
 
 
     /**
@@ -27,6 +31,7 @@ class ContactForm extends Model
             [['name', 'email', 'subject', 'body'], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
+            [['vinNumber','partNumber','make','carReg'], 'string'],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];

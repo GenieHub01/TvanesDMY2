@@ -55,6 +55,11 @@ return [
             'rules' => [
                 'login'=>'/site/login',
                 'signup'=>'/site/signup',
+                'about'=>'/site/about',
+                'return-policy' => '/site/return-policy',
+                'turbo-problems' => '/site/turbo-problems',
+                'delivery' => '/site/delivery',
+                'contact' => '/site/contact',
             ],
         ],
         'assetManager' => [

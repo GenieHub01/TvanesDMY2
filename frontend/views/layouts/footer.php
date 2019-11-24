@@ -46,10 +46,10 @@
 
             <div class="col-lg-3 col-md-6 eac-col">
                 <p class="det-titl">USEFUL LINKS</p>
-                <a href="products.html" class="th-links">Shop</a>
-                <a href="about.html" class="th-links">About</a>
-                <a href="blog.html" class="th-links">Blog</a>
-                <a href="login.html" class="th-links">My Account</a>
+                <a href="products" class="th-links">Shop</a>
+                <a href="about" class="th-links">About</a>
+                <a href="blog" class="th-links">Blog</a>
+                <a href="login" class="th-links">My Account</a>
             </div>
 
             <div class="col-lg-3 col-md-6 eac-col">
@@ -74,9 +74,9 @@
                 <span class="copyright">©Copyright 2019</span> <a href="home-page.html" class="bottom-links">Turbovanes Ltd</a>
             </div>
             <div class="col-md-8 text-right right-hand">
-                <a href="privacy-policy.html" class="bottom-links">Privacy Policy</a>
-                <a href="terms-conditions.html" class="bottom-links">Terms and Conditions</a>
-                <a href="contact.html" class="bottom-links">Contact Us</a>
+                <a href="privacy-policy" class="bottom-links">Privacy Policy</a>
+                <a href="terms-conditions" class="bottom-links">Terms and Conditions</a>
+                <a href="contact" class="bottom-links">Contact Us</a>
                 <a href="https://www.google.com/maps/place/Turbovanes+LTD/@52.484392,-1.968021,16z/data=!4m5!3m4!1s0x0:0x49feb214bc351b7d!8m2!3d52.4843923!4d-1.9680207?hl=en" class="bottom-links">Sitemap</a>
             </div>
         </div>
