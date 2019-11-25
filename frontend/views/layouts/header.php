@@ -59,7 +59,7 @@ use yii\helpers\Html;
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('about') ?>">ABOUT</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('/site/about') ?>">ABOUT</a>
                     </li>
 
                     <li class="nav-item">
@@ -74,15 +74,15 @@ use yii\helpers\Html;
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="news">NEWS</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('/site/news') ?>">NEWS</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="contact">CONTACT</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('/site/contact') ?>">CONTACT</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="FAQ">FAQS</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('/site/faq') ?>">FAQS</a>
                     </li>
 
                     <li class="nav-item shop-cartt">

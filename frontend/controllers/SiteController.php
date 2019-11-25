@@ -936,4 +936,9 @@ inner join years y on  g.id=y.goods_id
         return $this->render('delivery');
     }
 
+    public function actionFaq()
+    {
+        return $this->render('faq');
+    }
+
 }

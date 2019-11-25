@@ -60,6 +60,8 @@ return [
                 'turbo-problems' => '/site/turbo-problems',
                 'delivery' => '/site/delivery',
                 'contact' => '/site/contact',
+                'faq' => '/site/faq',
+                'cart/delete-item/<id:\d+>' => 'cart/delete-item'
             ],
         ],
         'assetManager' => [

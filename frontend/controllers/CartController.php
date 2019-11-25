@@ -282,26 +282,33 @@ class CartController extends BaseController
 
     public function actionDeleteItem($id)
     {
-        \Yii::$app->response->format = 'json';
+        if (\Yii::$app->request->isAjax) {
 
-        $model = Goods::findOne(['id' => $id]);
+            \Yii::$app->response->format = 'json';
 
-        if (!$model) {
-            return self::returnError(self::ERROR_NOTFOUND, "Can't add item to cart");
+
+            $model = Goods::findOne(['id' => $id]);
+
+            if (!$model) {
+                return self::returnError(self::ERROR_NOTFOUND, "Can't delete item from cart. Item not found");
+            }
+
+            \Yii::$app->cart->deleteItem($id);
+
+
+            $return =
+
+                [
+                    'item' => [
+                        'id' => $id,
+                        'html' => "Removed item $id from cart"
+                    ],
+
+                    'cart' => \Yii::$app->cart->cartInfo()
+                ];
+
+            return $return;
         }
-
-        \Yii::$app->cart->deleteItem($id);
-
-        return
-
-            [
-                'item' => [
-                    'id' => $id,
-                    'html' => $this->renderPartial('_cart_view', ['model' => $model, 'count' => \Yii::$app->cart->getItemCount($id)])
-                ],
-
-                'cart' => \Yii::$app->cart->cartInfo()
-            ];
     }
 
     public function actionDeleteCart()
