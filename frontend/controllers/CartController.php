@@ -332,7 +332,7 @@ class CartController extends BaseController
                         'quantity' => $quantity,
                         'price' => $good->regular_price,
                     ];
-                    $total_sum += $good->regular_price;
+                    $total_sum += $quantity * $good->regular_price;
                 }
             }
             $response_data['code'] = 200;
