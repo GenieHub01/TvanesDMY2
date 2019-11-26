@@ -315,6 +315,33 @@ class CartController extends BaseController
     {
     }
 
+    public function actionGetCart()
+    {
+        $items = \Yii::$app->cart->items;
+
+        $response_data = [];
+        \Yii::$app->response->format = 'json';
+        if(!empty($items))
+        {
+            $total_sum = 0;
+            foreach ($items as $id=>$quantity){
+                $good = Goods::findOne($id);
+                if(!empty($good)){
+                    $response_data[] = [
+                        'title'=>$good->title,
+                        'quantity' => $quantity,
+                        'price' => $good->regular_price,
+                    ];
+                    $total_sum += $good->regular_price;
+                }
+            }
+            $response_data['code'] = 200;
+            $response_data['total_sum'] = $total_sum;
+            return $response_data;
+        }
+        $response_data['code'] = 440;
+    }
+
 
 
 }

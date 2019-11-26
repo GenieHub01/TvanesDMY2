@@ -61,7 +61,8 @@ return [
                 'delivery' => '/site/delivery',
                 'contact' => '/site/contact',
                 'faq' => '/site/faq',
-                'cart/delete-item/<id:\d+>' => 'cart/delete-item'
+                'cart/delete-item/<id:\d+>' => 'cart/delete-item',
+                'cart/get-cart' => 'cart/get-cart'
             ],
         ],
         'assetManager' => [
