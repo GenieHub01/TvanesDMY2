@@ -1,3 +1,5 @@
+<? $this->registerJsFile('@web/js/FAQ.js', ['depends' => 'yii\web\JqueryAsset', 'position' => \yii\web\View::POS_END]) ?>
+<? $this->title = 'FAQS'; ?>
 <div class="product-p side-pages">
 
     <div class="inner-pag">

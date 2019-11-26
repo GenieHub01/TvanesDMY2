@@ -32,7 +32,7 @@ use yii\helpers\Html;
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="<?= \yii\helpers\Url::base(true);  ?>"><img src="./img/turbo-vanes-logo-new.png" class="th-logo" alt="turbo-vanes-logo-new"> </a>
+            <a class="navbar-brand" href="<?= \yii\helpers\Url::base(true);  ?>"><img src="/img/turbo-vanes-logo-new.png" class="th-logo" alt="turbo-vanes-logo-new"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="toggle-menuu">
                         <i></i>

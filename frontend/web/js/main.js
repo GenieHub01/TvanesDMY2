@@ -31,6 +31,43 @@ $('a.add_to_cart').click(function (e) {
     });
 });
 
+$('input.prod-number').change(function (e) {
+    var data = {
+        id: $(this).attr('data-id'),
+        qty: $(this).val(),
+    };
+    $.get(
+        '/cart/change-quantity',
+        data
+        ,
+        function (respond) {
+            $.growl({title: "Cart", message: "Item added."});
+            updateCartCount(respond.count);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
+$('.js-remove-item').click(function (e) {
+    var data = {
+        id: $(this).attr('data-id'),
+    };
+    $.get(
+        '/cart/delete-item-full',
+        data
+        ,
+        function (respond) {
+            $.growl({title: "Cart", message: "Item deleted."});
+            updateCartCount(respond.count);
+
+        },
+    ).fail(function (xhr, status, error) {
+        showError(xhr, status, error);
+    });
+});
+
 function updateCartLine(item) {
     if (item){
         var idDiv = '#cartItem_' + item.id;

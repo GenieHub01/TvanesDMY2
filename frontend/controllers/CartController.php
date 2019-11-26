@@ -232,6 +232,30 @@ class CartController extends BaseController
             ];
     }
 
+    public function actionChangeQuantity($id, $qty = 1)
+    {
+        \Yii::$app->response->format = 'json';
+
+        $model = Goods::findOne(['id' => $id]);
+
+        if (!$model) {
+            return self::returnError(self::ERROR_NOTFOUND, "Can't add item to cart");
+        }
+
+        \Yii::$app->cart->setQuantity($id, $qty);
+
+        return
+
+            [
+                'item' => [
+                    'id' => $id,
+                    'html' => $this->renderPartial('_cart_view', ['model' => $model, 'count' => \Yii::$app->cart->getItemCount($id)])
+                ],
+
+                'cart' => \Yii::$app->cart->cartInfo()
+            ];
+    }
+
     public function actionSetCountry($id){
         $country = Countries::findOne(['id'=>$id]);
 
@@ -294,6 +318,37 @@ class CartController extends BaseController
             }
 
             \Yii::$app->cart->deleteItem($id);
+
+
+            $return =
+
+                [
+                    'item' => [
+                        'id' => $id,
+                        'html' => "Removed item $id from cart"
+                    ],
+
+                    'cart' => \Yii::$app->cart->cartInfo()
+                ];
+
+            return $return;
+        }
+    }
+
+    public function actionDeleteItemFull($id)
+    {
+        if (\Yii::$app->request->isAjax) {
+
+            \Yii::$app->response->format = 'json';
+
+
+            $model = Goods::findOne(['id' => $id]);
+
+            if (!$model) {
+                return self::returnError(self::ERROR_NOTFOUND, "Can't delete item from cart. Item not found");
+            }
+
+            \Yii::$app->cart->deleteItemFull($id);
 
 
             $return =

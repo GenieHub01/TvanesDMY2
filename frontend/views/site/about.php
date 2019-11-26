@@ -1,3 +1,4 @@
+<? $this->title = 'ABOUT'; ?>
 
 <div class="product-p side-pages">
 
@@ -9,7 +10,7 @@
             <!--start welcom -->
 
             <div class="welcom text-center">
-                <h1 class="welcom-stat">WELCOME TO TURBO VANES LTD <span class="before-stat"></span><span class="after-stat"></span> </h1>
+                <h1 class="welcom-stat">WELCOME TO TURBO VANES LTD <span class="before-stat" style="left: 510px;"></span><span class="after-stat" style="left: 490px;"></span> </h1>
 
                 <p class="about-sum">Turbovanes LTD is UK based Turbo VNT specialists and offer replacement, repairs and full support for all turbocharged vehicles. We supply brand new replacement of Vacuum Turbo Actuator, Electronic Turbo Actuator, Turbo Vane Cleaner and Turbocharger Vanes. We have turbocharger for sale and offer turbo actuator repair too for all types of car makes and models. Get 12 months Warranty on all Turbos and Actuators.</p>
             </div>

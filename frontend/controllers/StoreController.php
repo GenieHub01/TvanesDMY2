@@ -11,11 +11,11 @@ use yii\web\NotFoundHttpException;
  */
 class StoreController extends BaseController
 {
-
+    public $stylesName;
 
     public function actionView($id){
         $model = Goods::findOne(['id'=>$id]);
-
+        $this->stylesName = 'product-p';
         if (!$model){
             throw  new NotFoundHttpException('Not Found');
         }

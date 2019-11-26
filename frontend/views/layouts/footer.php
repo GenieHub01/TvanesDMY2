@@ -88,5 +88,5 @@
 <!--car img -->
 
 <div class="car-up">
-    <img src="./img/car.png" alt="car" class="carr">
+    <img src="/img/car.png" alt="car" class="carr">
 </div>

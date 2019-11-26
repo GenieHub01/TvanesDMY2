@@ -1,7 +1,9 @@
 <?php
 
-use yii\captcha\Captcha;
-use yii\widgets\ActiveForm;
+    use yii\captcha\Captcha;
+    use yii\widgets\ActiveForm;
+
+    $this->title = 'CONTACT';
 ?>
 <div class="product-p side-pages">
     <div class="inner-pag">

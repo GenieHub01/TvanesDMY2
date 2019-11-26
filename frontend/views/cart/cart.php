@@ -3,8 +3,10 @@
  * @var $order \frontend\models\Order
  */
 
-use yii\bootstrap4\ActiveForm;
-use yii\helpers\Html;
+    use yii\bootstrap4\ActiveForm;
+    use yii\helpers\Html;
+
+    $this->title = 'CART';
 
 ?>
 

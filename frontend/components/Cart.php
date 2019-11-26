@@ -108,6 +108,14 @@ class Cart extends \yii\base\Component
         $session->set('cart', Json::encode($this->_cart));
     }
 
+    public function setQuantity($id, $count = 1)
+    {
+        $session = \Yii::$app->session;
+        $this->_models[$id] = Goods::find()->andWhere(['id' => $id])->limit(1)->one();
+        $this->_cart[$id] = $count;
+        $session->set('cart', Json::encode($this->_cart));
+    }
+
 
     public function deleteItem($id, $count = 1)
     {
