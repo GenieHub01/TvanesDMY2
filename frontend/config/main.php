@@ -63,7 +63,9 @@ return [
                 'faq' => '/site/faq',
                 'logout' => '/site/logout',
                 'cart/delete-item/<id:\d+>' => 'cart/delete-item',
-                'cart/get-cart' => 'cart/get-cart'
+                'cart/get-cart' => 'cart/get-cart',
+                'products' => '/store/products',
+                'turbo-actuator' => '/store/turbo-actuator',
             ],
         ],
         'assetManager' => [

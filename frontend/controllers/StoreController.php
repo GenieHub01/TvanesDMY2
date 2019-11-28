@@ -4,6 +4,9 @@ namespace frontend\controllers;
 
 use common\components\BaseController;
 use frontend\models\Goods;
+use yii\bootstrap4\LinkPager;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -23,5 +26,21 @@ class StoreController extends BaseController
         return $this->render('view',['model'=>$model]);
     }
 
+    public function actionProducts()
+    {
+        return $this->render('products');
+    }
 
+    public function actionTurboActuator()
+    {
+        $query = Goods::find()->where(['category_id' => 5]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+
+        ]);
+        return $this->render('turbo-actuator', ['dataProvider' => $dataProvider]);
+    }
 }
