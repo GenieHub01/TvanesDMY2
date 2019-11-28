@@ -41,10 +41,10 @@ class SiteController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup','edit-profile' ],
+                'only' => ['logout', 'signup','edit-profile', 'login' ],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['signup','login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -55,12 +55,14 @@ class SiteController extends BaseController
                     ],
                 ],
             ],
+            /*
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
                 ],
             ],
+            */
         ];
     }
 
@@ -768,7 +770,7 @@ inner join years y on  g.id=y.goods_id
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+        Yii::$app->user->logout(false);
 
         return $this->goHome();
     }
@@ -815,6 +817,8 @@ inner join years y on  g.id=y.goods_id
     public function actionSignup()
     {
         $model = new SignupForm();
+        $model->email = '';
+        $model->password = '';
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();

@@ -3,41 +3,49 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
 
-/* @var $model \frontend\models\SignupForm */
+/* @var $model \common\models\LoginForm */
 
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+use yii\web\View;
 
-$this->title = 'Signup';
+$this->title = Yii::t('app','SIGN UP');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="regular-page clear-filter page-header-small">
+<div class="inner-pag">
+
     <div class="container">
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6 border-left border-right">
 
-                <h1><?= Html::encode($this->title) ?></h1>
-
-                <p>Please fill out the following fields to signup:</p>
+        <h1 class="my-account"><?= Html::encode($this->title) ?></h1>
 
 
-                        <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+        <div class="al-login">
+            <p class="log">LOGIN</p>
+            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+            <div class="login-box">
 
-<!--                        --><?//= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <div class="log-form">
+                    <p class="form-nam">Username or email address <span>*</span></p>
+                    <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'class' => 'inp-form'])->label(false) ?>
+                </div>
 
-                        <?= $form->field($model, 'email') ?>
+                <div class="log-form">
+                    <p class="form-nam">Password <span>*</span></p>
+                    <?= $form->field($model, 'password')->passwordInput(['class' => 'inp-form'])->label(false) ?>
+                </div>
 
-                        <?= $form->field($model, 'password')->passwordInput() ?>
-
-                        <div class="form-group">
-                            <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                        </div>
-
-                        <?php ActiveForm::end(); ?>
-
+                <div class="log-form">
+                    <div class="bt-inline">
+                        <?= Html::submitButton('Sign Up', ['class' => 'log-in hvr-bounce-to-top', 'name' => 'signup-button']) ?>
+                    </div>
+                </div>
+                <?= Html::a(Yii::t('app','Lost your password?'), ['site/request-password-reset'],['class'=>'lost-pas']) ?>
+                <?php ActiveForm::end(); ?>
             </div>
+
         </div>
+
     </div>
+
 </div>

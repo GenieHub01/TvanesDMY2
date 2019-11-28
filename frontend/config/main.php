@@ -61,6 +61,7 @@ return [
                 'delivery' => '/site/delivery',
                 'contact' => '/site/contact',
                 'faq' => '/site/faq',
+                'logout' => '/site/logout',
                 'cart/delete-item/<id:\d+>' => 'cart/delete-item',
                 'cart/get-cart' => 'cart/get-cart'
             ],
