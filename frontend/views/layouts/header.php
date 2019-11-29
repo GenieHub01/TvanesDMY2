@@ -96,55 +96,7 @@ use yii\helpers\Html;
                         <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('/site/faq') ?>">FAQS</a>
                     </li>
 
-                    <li class="nav-item shop-cartt">
-                        <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> <span class="num-in">2</span> </a>
-
-                        <div class="down-menu">
-                            <p class="eac-item no-prods disp-no">No products in the cart.</p>
-                            <div class="prods">
-                                <div class="eac-prod">
-                                    <img src="images/Electric-Actuator-G-33-752406-6NW009206-767933-1-100x100.jpg" class="prod-img" alt="Electric-Actuator">
-
-                                    <p class="prod-det">Electronic Turbo Actuator for Ford S-Max 1.8 Diesel QYWA 123 Garrett 742110-5007S</p>
-                                    <span class="num-pri"><span>1</span>x<span>?144.00</span> <i class="fas fa-times remove-prod"></i></span>
-
-                                </div>
-
-                                <div class="eac-prod">
-                                    <img src="images/Electric-Actuator-G-33-752406-6NW009206-767933-1-100x100.jpg" class="prod-img" alt="Electric-Actuator">
-
-                                    <p class="prod-det">Electronic Turbo Actuator for Ford S-Max 1.8 Diesel QYWA 123 Garrett 742110-5007S</p>
-                                    <span class="num-pri"><span>1</span>x<span>?144.00</span> <i class="fas fa-times remove-prod"></i></span>
-
-                                </div>
-                            </div>
-
-                            <div class="sub-tot">
-                                <p class="sub">Subtotal:</p>
-
-                                <p class="tot">?<span class="num">144.00</span></p>
-
-                            </div>
-
-                            <div class="view-check row">
-                                <div class="col-6">
-                                    <a href="cart.html">
-                                        <button class="view hvr-bounce-to-top">VIEW CART</button>
-                                    </a>
-                                </div>
-
-                                <div class="col-6">
-                                    <a href="checkout.html">
-                                        <button class="chec">CHECKOUT</button>
-
-                                    </a>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    </li>
+                    <?= \frontend\widgets\headerCart\HeaderCart::widget()?>
 
                     <li class="nav-item search-on">
                         <div class="nav-link" href="#"><i class="fas fa-search th-search"></i></div>

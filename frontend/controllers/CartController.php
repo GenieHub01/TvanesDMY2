@@ -373,25 +373,31 @@ class CartController extends BaseController
     public function actionGetCart()
     {
         $items = \Yii::$app->cart->items;
-
         $response_data = [];
         \Yii::$app->response->format = 'json';
+        $products = [];
+        $total_sum = 0;
+        $count = 0;
+
         if(!empty($items))
         {
-            $total_sum = 0;
             foreach ($items as $id=>$quantity){
                 $good = Goods::findOne($id);
                 if(!empty($good)){
-                    $response_data[] = [
-                        'title'=>$good->title,
-                        'quantity' => $quantity,
-                        'price' => $good->regular_price,
-                    ];
+                    $count += $quantity;
+                    $product = new \stdClass();
+                    $product->id = $id;
+                    $product->title = $good->title;
+                    $product->quantity = $quantity;
+                    $product->price = \Yii::$app->formatter->asCurrency($good->regular_price);
+                    $products[] = $product;
                     $total_sum += $quantity * $good->regular_price;
                 }
             }
             $response_data['code'] = 200;
-            $response_data['total_sum'] = $total_sum;
+            $response_data['products']= $products;
+            $response_data['count']= $count;
+            $response_data['total_sum'] = \Yii::$app->formatter->asCurrency($total_sum);
             return $response_data;
         }
         $response_data['code'] = 440;

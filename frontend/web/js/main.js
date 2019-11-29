@@ -10,6 +10,43 @@ function updateCartCount(count) {
     $('.cart_count').html(count > 0 ? count : '');
 }
 
+
+const createHeaderCartItem = (product) => {
+    const htmlTemplate = `
+        <div class="eac-prod" data-id="${product.id}">
+            <p class="prod-det">${product.title}</p>
+            <span class="num-pri">
+                <span>${product.quantity}</span>
+                x
+                <span>${product.price}</span>
+                <i class="fas fa-times remove-prod" data-id="${product.id}"></i>
+            </span>
+        </div>
+    `;
+    return $('<div/>').html(htmlTemplate).contents();
+};
+
+const onCartUpdateHandler = (response)=>{
+    if(response.code ===  440) {
+        const noItemsString = ` <p class="eac-item no-prods">No products in the cart.</p>`;
+        $('#head-cart-products').parent().html(noItemsString);
+        return;
+    }
+    console.log(response);
+    let container = $('<div/>');
+    response.products.forEach((product)=> {
+        container.append(createHeaderCartItem(product));
+    });
+    $('#head-cart-products').html(container.contents());
+    $('#head-cart-count').text(response.count);
+    $('#head-cart-total').text(response.total)
+};
+
+const updateHeaderCart = () => {
+    $.get('/cart/get-cart',onCartUpdateHandler)
+        .fail((xhr, status, error) =>  showError(xhr, status, error));
+};
+
 $('a.add_to_cart').click(function (e) {
     e.preventDefault();
     var data = {
@@ -22,14 +59,15 @@ $('a.add_to_cart').click(function (e) {
         data
         ,
         function (respond) {
-            $.growl({title: "Cart", message: "Item added."});
-            updateCartCount(respond.count);
+            updateHeaderCart();
 
         },
     ).fail(function (xhr, status, error) {
         showError(xhr, status, error);
     });
 });
+
+
 
 $('input.prod-number').change(function (e) {
     var data = {
@@ -41,9 +79,7 @@ $('input.prod-number').change(function (e) {
         data
         ,
         function (respond) {
-            $.growl({title: "Cart", message: "Item added."});
-            updateCartCount(respond.count);
-
+            updateHeaderCart();
         },
     ).fail(function (xhr, status, error) {
         showError(xhr, status, error);
@@ -59,8 +95,7 @@ $('.js-remove-item').click(function (e) {
         data
         ,
         function (respond) {
-            $.growl({title: "Cart", message: "Item deleted."});
-            updateCartCount(respond.count);
+            updateHeaderCart();
 
         },
     ).fail(function (xhr, status, error) {
