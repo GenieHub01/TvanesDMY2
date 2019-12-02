@@ -1,5 +1,7 @@
 <?php
 use yii\widgets\ListView;
+
+$this->title = 'TURBO ACTUATOR';
 ?>
 <div class="inner-pag products-drop">
 
@@ -106,7 +108,9 @@ use yii\widgets\ListView;
                     ListView::widget([
                         'dataProvider' => $dataProvider,
                         'itemView' => '/store/items/_turbo_actuator_item',
-                        'layout' => "{summary}\n{items}\n{summary}",
+                        'layout' => "{items}",
+                        'itemOptions' => ['tag' => false],
+                        'options' => ['tag' => false],
                     ]);
                  ?>
             </div>
@@ -119,6 +123,7 @@ use yii\widgets\ListView;
                             'linkOptions' => ['class' => 'page-link'],
                             'hideOnSinglePage' => true,
                             'pagination' => $dataProvider->pagination,
+                            'options' => ['tag' => false]
                         ])
                     ?>
             </div>

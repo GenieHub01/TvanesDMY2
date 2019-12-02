@@ -51,7 +51,7 @@ $('a.add_to_cart').click(function (e) {
     e.preventDefault();
     var data = {
         id: $(this).attr('data-id'),
-        qty: $('#qty').val()
+        qty: ($('#qty').val() > 1 ? $('#qty').val() : 1)
     };
 
     $.get(

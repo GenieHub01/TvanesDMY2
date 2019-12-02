@@ -66,6 +66,7 @@ return [
                 'cart/get-cart' => 'cart/get-cart',
                 'products' => '/store/products',
                 'turbo-actuator' => '/store/turbo-actuator',
+                'store/view' => '/store/view'
             ],
         ],
         'assetManager' => [
