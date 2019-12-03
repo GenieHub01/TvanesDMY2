@@ -60,7 +60,7 @@ use yii\helpers\Html;
 
                         <div class="down-menu">
                             <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-actuator') ?>">TURBO ACTUATOR</a></p>
-                            <p class="eac-item"><a href="position-sensor.html">TURBO ACTUATOR POSITION SENSOR
+                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-actuator-position-sensor') ?>">TURBO ACTUATOR POSITION SENSOR
                                 </a></p>
                             <p class="eac-item"><a href="turbo-charger.html">TURBO CHARGER</a></p>
                             <p class="eac-item"><a href="turbo-cleaner.html">TURBO CLEANER</a></p>

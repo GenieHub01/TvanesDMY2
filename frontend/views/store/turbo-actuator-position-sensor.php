@@ -7,26 +7,9 @@ $this->title = $title;
 
     <div class="container">
 
-        <h1 class="first-titl">TURBO ACTUATOR</h1>
+        <h1 class="first-titl">TURBO ACTUATOR POSITION SENSOR
+        </h1>
 
-        <h1 class="sec-titl">TURBO ACTUATORS</h1>
-
-        <p class="the-detail">We provide highest quality electronic turbo actuator, variable geometry turbocharger actuator, vacuum actuator and wastegate actuator at Turbovanes Ltd, nothing less. We also offer an expert turbo fitting service, get in touch with us today to find out our offerings on Turbo Actuators.</p>
-
-        <p class="the-detail">Have a look at our available range of Actuators for more information.
-
-        </p>
-        <p class="the-detail question">WHAT DOES A TURBO ACTUATOR DO ?
-        </p>
-        <p class="the-detail">The turbo actuator works by opening and closing the turbo wastegate or turbo vanes, therefore controlling the amount of exhaust gases that passes the turbine wheel and regulates the turbo boost output.
-
-        </p>
-        <p class="the-detail">Turbo actuators are a mechanism that supplies a switching or actuation force to the turbo vanes / turbo wastegate through a nipple on the actuator. The more vacuum that is applied to the turbocharger actuator the more the turbo vanes or turbo wastegate will open or close.
-
-        </p>
-
-        <p class="the-detail">The vacuum turbocharger actuators consists of small, sealed chamber which is equipped with a close-fitting piston or captive diaphragm. An actuator arm ( mechanical link )  is then connected to the turbo vane control pin or turbo rod.
-        </p>
 
 
 
@@ -105,29 +88,29 @@ $this->title = $title;
 
             <div class="row th-cards width-full">
                 <?=
-                    ListView::widget([
-                        'dataProvider' => $dataProvider,
-                        'itemView' => '/store/items/_turbo_actuator_item',
-                        'layout' => "{items}",
-                        'itemOptions' => ['tag' => false],
-                        'options' => ['tag' => false],
-                    ]);
-                 ?>
+                ListView::widget([
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '/store/items/_turbo_actuator_item',
+                    'layout' => "{items}",
+                    'itemOptions' => ['tag' => false],
+                    'options' => ['tag' => false],
+                ]);
+                ?>
             </div>
 
             <!--end products -->
-            <div class="paginationn text-center">
-                    <?=
-                        \yii\bootstrap4\LinkPager::widget([
-                            'pageCssClass' => 'page-item',
-                            'linkOptions' => ['class' => 'page-link'],
-                            'hideOnSinglePage' => true,
-                            'pagination' => $dataProvider->pagination,
-                            'options' => ['tag' => false]
-                        ])
-                    ?>
-            </div>
 
+            <div class="paginationn text-center">
+                <?=
+                \yii\bootstrap4\LinkPager::widget([
+                    'pageCssClass' => 'page-item',
+                    'linkOptions' => ['class' => 'page-link'],
+                    'hideOnSinglePage' => true,
+                    'pagination' => $dataProvider->pagination,
+                    'options' => ['tag' => false]
+                ])
+                ?>
+            </div>
 
         </div>
 

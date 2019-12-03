@@ -66,7 +66,8 @@ return [
                 'cart/get-cart' => 'cart/get-cart',
                 'products' => '/store/products',
                 'turbo-actuator' => '/store/turbo-actuator',
-                'store/view' => '/store/view'
+                'store/view' => '/store/view',
+                'turbo-actuator-position-sensor' => '/store/turbo-actuator-position-sensor',
             ],
         ],
         'assetManager' => [

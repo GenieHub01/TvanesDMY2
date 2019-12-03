@@ -41,6 +41,21 @@ class StoreController extends BaseController
             ],
 
         ]);
-        return $this->render('turbo-actuator', ['dataProvider' => $dataProvider]);
+        $title = 'TURBO ACTUATOR';
+        return $this->render('turbo-actuator', ['dataProvider' => $dataProvider, 'title' => $title]);
+    }
+
+    public function actionTurboActuatorPositionSensor()
+    {
+        $query = Goods::find()->where(['category_id' => 6]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 12,
+            ],
+
+        ]);
+        $title = 'TURBO ACTUATOR POSITION SENSOR';
+        return $this->render('turbo-actuator-position-sensor', ['dataProvider' => $dataProvider, 'title' => $title]);
     }
 }
