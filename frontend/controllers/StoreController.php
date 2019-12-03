@@ -58,4 +58,32 @@ class StoreController extends BaseController
         $title = 'TURBO ACTUATOR POSITION SENSOR';
         return $this->render('turbo-actuator-position-sensor', ['dataProvider' => $dataProvider, 'title' => $title]);
     }
+
+    public function actionTurboCharger()
+    {
+        $query = Goods::find()->where(['category_id' => 7]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 12,
+            ],
+
+        ]);
+        $title = 'TURBO CHARGER';
+        return $this->render('turbo-charger', ['dataProvider' => $dataProvider, 'title' => $title]);
+    }
+
+    public function actionTurboCleaner()
+    {
+        $query = Goods::find()->where(['category_id' => 8]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 12,
+            ],
+
+        ]);
+        $title = 'TURBO CLEANER';
+        return $this->render('turbo-cleaner', ['dataProvider' => $dataProvider, 'title' => $title]);
+    }
 }

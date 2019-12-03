@@ -90,7 +90,7 @@ $this->title = $title;
                 <?=
                 ListView::widget([
                     'dataProvider' => $dataProvider,
-                    'itemView' => '/store/items/_turbo_actuator_item',
+                    'itemView' => '/store/items/_item',
                     'layout' => "{items}",
                     'itemOptions' => ['tag' => false],
                     'options' => ['tag' => false],

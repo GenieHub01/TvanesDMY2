@@ -68,6 +68,8 @@ return [
                 'turbo-actuator' => '/store/turbo-actuator',
                 'store/view' => '/store/view',
                 'turbo-actuator-position-sensor' => '/store/turbo-actuator-position-sensor',
+                'turbo-charger' => '/store/turbo-charger',
+                'turbo-cleaner' => '/store/turbo-cleaner',
             ],
         ],
         'assetManager' => [
