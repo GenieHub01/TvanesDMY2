@@ -148,27 +148,23 @@ $this->registerJsFile('@web/js/the-product.js', ['depends' => 'yii\web\JqueryAss
                 <h1 class="category-stat">PRODUCT CATEGORIES</h1>
 
                 <ul class="th-listt">
-                    <a href="turbo-actuator.html">
+                    <a href="<?= \yii\helpers\Url::toRoute('turbo-actuator') ?>">
                         <li class="eac-catt">Turbo Actuator</li>
                     </a>
 
-                    <a href="position-sensor.html">
+                    <a href="<?= \yii\helpers\Url::toRoute('turbo-actuator-position-sensor') ?>">
                         <li class="eac-catt">Turbo Actuator Position Sensor</li>
                     </a>
 
-                    <a href="turbo-actuator.html">
-                        <li class="eac-catt">Turbo Actuator</li>
-                    </a>
-
-                    <a href="turbo-charger.html">
+                    <a href="<?= \yii\helpers\Url::toRoute('turbo-charger') ?>">
                         <li class="eac-catt">Turbo Charger</li>
                     </a>
 
-                    <a href="turbo-cleaner.html">
+                    <a href="<?= \yii\helpers\Url::toRoute('turbo-cleaner') ?>">
                         <li class="eac-catt">Turbo Cleaner</li>
                     </a>
 
-                    <a href="turbo-vanes.html">
+                    <a href="<?= \yii\helpers\Url::toRoute('/') ?>">
                         <li class="eac-catt">Turbo Vanes Ltd</li>
                     </a>
                 </ul>
