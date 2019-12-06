@@ -85,7 +85,7 @@ use yii\helpers\Html;
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('/site/news') ?>">NEWS</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('news') ?>">NEWS</a>
                     </li>
 
                     <li class="nav-item">
