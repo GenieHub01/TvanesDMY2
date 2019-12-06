@@ -3,7 +3,7 @@
         <i class="fas fa-shopping-cart"></i>
         <span class="num-in" id="head-cart-count"><?= $product_count ?></span>
     </a>
-    <div class="down-menu">
+    <div class="down-menu <?= ($product_count <= 0)? 'no-products': null?>" id="head-cart-inner">
         <? if($product_count > 0): ?>
             <div class="prods" id="head-cart-products">
                 <? foreach ($products as $product):?>
@@ -47,7 +47,33 @@
                     </a>
                 </div>
             </div>
+            <p class="eac-item no-prods"></p>
         <? else: ?>
+            <div class="prods" id="head-cart-products">
+            </div>
+            <div class="sub-tot">
+                <p class="sub">Subtotal:</p>
+
+                <p class="tot">
+                    <span class="num" id="head-cart-total"></span>
+                </p>
+
+            </div>
+
+            <div class="view-check row">
+                <div class="col-6">
+                    <a href="/cart">
+                        <button class="view hvr-bounce-to-top">VIEW CART</button>
+                    </a>
+                </div>
+
+                <div class="col-6">
+                    <a href="/cart">
+                        <button class="chec">CHECKOUT</button>
+
+                    </a>
+                </div>
+            </div>
             <p class="eac-item no-prods">No products in the cart.</p>
         <? endif; ?>
     </div>

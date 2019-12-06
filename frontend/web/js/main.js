@@ -28,11 +28,11 @@ const createHeaderCartItem = (product) => {
 
 const onCartUpdateHandler = (response)=>{
     if(response.code ===  440) {
-        const noItemsString = ` <p class="eac-item no-prods">No products in the cart.</p>`;
-        $('#head-cart-products').parent().html(noItemsString);
+        $('#head-cart-inner').addClass('no-products');
         return;
     }
     console.log(response);
+    $('#head-cart-inner').removeClass('no-products');
     let container = $('<div/>');
     response.products.forEach((product)=> {
         container.append(createHeaderCartItem(product));

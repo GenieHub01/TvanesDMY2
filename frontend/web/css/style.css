@@ -5174,3 +5174,19 @@ table.prods-table{
 
 
 /************ end manufacture page ***************/
+
+
+
+.shop-cartt .no-products .prods,
+.shop-cartt .no-products .sub-tot,
+.shop-cartt .no-products .view-check{
+    display: none;
+}
+
+.shop-cartt .no-prods {
+    display: none;
+}
+
+.shop-cartt .no-products .no-prods {
+    display: block;
+}
