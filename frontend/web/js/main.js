@@ -39,7 +39,7 @@ const onCartUpdateHandler = (response)=>{
     });
     $('#head-cart-products').html(container.contents());
     $('#head-cart-count').text(response.count);
-    $('#head-cart-total').text(response.total)
+    $('#head-cart-total').text(response.total_sum)
 };
 
 const updateHeaderCart = () => {
