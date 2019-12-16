@@ -77,7 +77,7 @@ $this->title = 'Index';
 
                     <p class="eac-det">Electronic turbo actuators are now the chosen control unit of the turbocharger Wastegate for both passenger and commercial vehicles with diesel engines from as small as 1000 cc turbo engine to over 6500cc size engines.</p>
 
-                    <p class="eac-det">Turbochargers which have electronic turbo actuators can be identified with an electronic ‘black box’ which would be bolted onto the compressor cover of the turbo’s which in turn would be connected to an actuator rod inside the turbocharger.</p>
+                    <p class="eac-det">Turbochargers which have electronic turbo actuators can be identified with an electronic ï¿½black boxï¿½ which would be bolted onto the compressor cover of the turboï¿½s which in turn would be connected to an actuator rod inside the turbocharger.</p>
 
                     <p class="eac-det">This type of electronic turbo actuator offer faster response than the vacuum turbo actuator, Turbo control is a lot more precise due to the turbo position sensor, this therefore helps to improve engine performance and fuel economy.</p>
 
@@ -115,7 +115,7 @@ $this->title = 'Index';
                         <a href="the-product.html">
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -141,7 +141,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -167,7 +167,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -193,7 +193,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -219,7 +219,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -245,7 +245,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -271,7 +271,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -297,7 +297,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -323,7 +323,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -350,7 +350,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -386,7 +386,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -412,7 +412,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -438,7 +438,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -464,7 +464,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -490,7 +490,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -516,7 +516,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -542,7 +542,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -568,7 +568,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -594,7 +594,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
@@ -621,7 +621,7 @@ $this->title = 'Index';
 
                             <img class="prod-img" src="./img/turbo-product-banner-11-300x300.png">
 
-                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL — 552 BORGWARNER 53169880012</p>
+                            <p class="text-center prod-details">TURBO CHARGER FOR BENTLEY CONTINENTAL 6 PETROL ï¿½ 552 BORGWARNER 53169880012</p>
                             <p class="prod-price text-center">?0.00</p>
                         </a>
                         <div class="text-center">
