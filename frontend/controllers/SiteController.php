@@ -544,7 +544,7 @@ inner join wp.wp_products y on w.import_id=y.product_id
     }
 
     public function actionProductSearch($brand, $model  = null, $capacity = null, $year = null, $fuel = null){
-
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         if ($brand && !$model && !$capacity && !$year) {
             $sql = 'select  model from goods g
         where brand=:brand 
