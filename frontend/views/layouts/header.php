@@ -22,14 +22,14 @@ use yii\helpers\Html;
                     <p class="eac-contact"><a href="https://www.turbovanesltd.com/#"><i class="fab fa-linkedin-in"></i></a> </p>
                     <p class="eac-contact">
                         <?php if ((Yii::$app->user->isGuest)):?>
-                            <a href="<?= \yii\helpers\Url::to('/login') ?>"><i class="fas fa-lock"></i> Login</a>
+                            <a href="<?= \yii\helpers\Url::toRoute('/login') ?>"><i class="fas fa-lock"></i> Login</a>
                         <?php else: ?>
-                            <a href="<?= \yii\helpers\Url::to('/logout') ?>"><i class="fas fa-lock"></i> Logout</a>
+                            <a href="<?= \yii\helpers\Url::toRoute('/logout') ?>"><i class="fas fa-lock"></i> Logout</a>
                         <?php endif; ?>
                     </p>
                     <p class="eac-contact">
                         <?php if ((Yii::$app->user->isGuest)):?>
-                            <a href="<?= \yii\helpers\Url::to('/signup') ?>"><i class="fas fa-user-plus"></i> Signup</a>
+                            <a href="<?= \yii\helpers\Url::toRoute('/signup') ?>"><i class="fas fa-user-plus"></i> Signup</a>
                         <?php endif; ?>
                     </p>
                 </div>
