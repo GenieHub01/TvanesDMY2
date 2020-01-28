@@ -10,7 +10,7 @@ use yii\web\AssetBundle;
 class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
-    public $baseUrl = '@web/shop';
+    public $baseUrl = '@web/';
 
     public $css = [
         'dist/bootstrap-4.3.1/dist/css/bootstrap.css',
@@ -19,9 +19,9 @@ class AppAsset extends AssetBundle
 //        'css/site.css',
 
         'https://use.fontawesome.com/releases/v5.4.1/css/all.css',
-        '/dist/growl/jquery.growl.css',
-        '/css/all.css',
-        '/css/style.css',
+        'dist/growl/jquery.growl.css',
+        'css/all.css',
+        'css/style.css',
 //        '/dist/fancybox/jquery.fancybox.min.css',
 
 
@@ -29,14 +29,14 @@ class AppAsset extends AssetBundle
     public $js = [
 //        'dist/bootstrap-4.3.1/dist/js/bootstrap.js',
         'dist/bootstrap-4.3.1/dist/js/bootstrap.bundle.js',
-        '/dist/growl/jquery.growl.js',
-        '/dist/jquery-ui-custom.js',
-        '/js/slimscroll.js',
-        '/js/main.js',
-        '/js/all.js',
-        '/js/turbo-changer.js',
-        '/dist/SimpleAjaxUploader.js',
-        '/dist/fancybox/jquery.fancybox.min.js',
+        'dist/growl/jquery.growl.js',
+        'dist/jquery-ui-custom.js',
+        'js/slimscroll.js',
+        'js/main.js',
+        'js/all.js',
+        'js/turbo-changer.js',
+        'dist/SimpleAjaxUploader.js',
+        'dist/fancybox/jquery.fancybox.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.2/jsrender.min.js',
         'https://cdn.worldpay.com/v1/worldpay.js'
 
