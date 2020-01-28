@@ -43,7 +43,7 @@ const onCartUpdateHandler = (response)=>{
 };
 
 const updateHeaderCart = () => {
-    $.get('/cart/get-cart',onCartUpdateHandler)
+    $.get('./cart/get-cart',onCartUpdateHandler)
         .fail((xhr, status, error) =>  showError(xhr, status, error));
 };
 
@@ -55,7 +55,7 @@ $('a.add_to_cart').click(function (e) {
     };
 
     $.get(
-        '/cart/add-item',
+        './cart/add-item',
         data
         ,
         function (respond) {
@@ -75,7 +75,7 @@ $('input.prod-number').change(function (e) {
         qty: $(this).val(),
     };
     $.get(
-        '/cart/change-quantity',
+        './cart/change-quantity',
         data
         ,
         function (respond) {
@@ -91,7 +91,7 @@ $('.js-remove-item').click(function (e) {
         id: $(this).attr('data-id'),
     };
     $.get(
-        '/cart/delete-item-full',
+        './cart/delete-item-full',
         data
         ,
         function (respond) {
@@ -159,7 +159,7 @@ function updateCart(respond){
 $('body').on('change', '#order-country_id', function (e) {
     $obj = $(this);
     $.get(
-        '/cart/set-country',
+        './cart/set-country',
         {
             id: $obj.val()
         }
@@ -184,7 +184,7 @@ $('body').on('click', 'a.cart-plus-item', function (e) {
     };
 
     $.get(
-        '/cart/add-item',
+        './cart/add-item',
         data
         ,
         function (respond) {
@@ -207,7 +207,7 @@ $('body').on('click', 'a.cart-minus-item', function (e) {
     };
 
     $.get(
-        '/cart/delete-item',
+        './cart/delete-item',
         data
         ,
         function (respond) {
@@ -452,5 +452,5 @@ $('#showproduct').click(function(e){
     if (!val){
         return false;
     }
-    window.location.replace("/store/view?id="+val);
+    window.location.replace("./store/view?id="+val);
 });
