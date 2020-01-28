@@ -43,7 +43,7 @@ const onCartUpdateHandler = (response)=>{
 };
 
 const updateHeaderCart = () => {
-    $.get('./cart/get-cart',onCartUpdateHandler)
+    $.get('/shop/cart/get-cart',onCartUpdateHandler)
         .fail((xhr, status, error) =>  showError(xhr, status, error));
 };
 
@@ -75,7 +75,7 @@ $('input.prod-number').change(function (e) {
         qty: $(this).val(),
     };
     $.get(
-        './cart/change-quantity',
+        '/shop/cart/change-quantity',
         data
         ,
         function (respond) {
@@ -159,7 +159,7 @@ function updateCart(respond){
 $('body').on('change', '#order-country_id', function (e) {
     $obj = $(this);
     $.get(
-        './cart/set-country',
+        '/shop/cart/set-country',
         {
             id: $obj.val()
         }
@@ -259,7 +259,7 @@ $('select[name="brand"]').change(function(){
         brand: $(this).val()
     };
     $.get(
-        './site/product-search',
+        '/shop/site/product-search',
         data
         ,
         function (respond) {
@@ -298,7 +298,7 @@ $('select[name="model"]').change(function(){
         model: $(this).val()
     };
     $.get(
-        './site/product-search',
+        '/shop/site/product-search',
         data
         ,
         function (respond) {
@@ -340,7 +340,7 @@ $('select[name="capacity"]').change(function(){
         capacity: $(this).val()
     };
     $.get(
-        './site/product-search',
+        '/shop/site/product-search',
         data
         ,
         function (respond) {
@@ -384,7 +384,7 @@ $('select[name="fuel"]').append('<option value="">-- Fuel --</option>"');
 
     };
     $.get(
-        './site/product-search',
+        '/shop/site/product-search',
         data
         ,
         function (respond) {
@@ -426,7 +426,7 @@ $('select[name="fuel"]').change(function(){
 
     };
     $.get(
-        './site/product-search',
+        '/shop/site/product-search',
         data
         ,
         function (respond) {
