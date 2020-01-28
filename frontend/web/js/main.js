@@ -259,7 +259,7 @@ $('select[name="brand"]').change(function(){
         brand: $(this).val()
     };
     $.get(
-        '/site/product-search',
+        './site/product-search',
         data
         ,
         function (respond) {
@@ -298,7 +298,7 @@ $('select[name="model"]').change(function(){
         model: $(this).val()
     };
     $.get(
-        '/site/product-search',
+        './site/product-search',
         data
         ,
         function (respond) {
@@ -340,7 +340,7 @@ $('select[name="capacity"]').change(function(){
         capacity: $(this).val()
     };
     $.get(
-        '/site/product-search',
+        './site/product-search',
         data
         ,
         function (respond) {
@@ -384,7 +384,7 @@ $('select[name="fuel"]').append('<option value="">-- Fuel --</option>"');
 
     };
     $.get(
-        '/site/product-search',
+        './site/product-search',
         data
         ,
         function (respond) {
@@ -426,7 +426,7 @@ $('select[name="fuel"]').change(function(){
 
     };
     $.get(
-        '/site/product-search',
+        './site/product-search',
         data
         ,
         function (respond) {
