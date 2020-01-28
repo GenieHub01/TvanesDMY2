@@ -35,13 +35,13 @@
 
             <div class="view-check row">
                 <div class="col-6">
-                    <a href="/cart">
+                    <a href="<?= \yii\helpers\Url::toRoute('/cart') ?>">
                         <button class="view hvr-bounce-to-top">VIEW CART</button>
                     </a>
                 </div>
 
                 <div class="col-6">
-                    <a href="/cart">
+                    <a href="<?= \yii\helpers\Url::toRoute('/cart') ?>">
                         <button class="chec">CHECKOUT</button>
 
                     </a>
@@ -62,13 +62,13 @@
 
             <div class="view-check row">
                 <div class="col-6">
-                    <a href="/cart">
+                    <a href="<?= \yii\helpers\Url::toRoute('/cart') ?>">
                         <button class="view hvr-bounce-to-top">VIEW CART</button>
                     </a>
                 </div>
 
                 <div class="col-6">
-                    <a href="/cart">
+                    <a href="<?= \yii\helpers\Url::toRoute('/cart') ?>">
                         <button class="chec">CHECKOUT</button>
 
                     </a>

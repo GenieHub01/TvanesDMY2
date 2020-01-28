@@ -452,5 +452,5 @@ $('#showproduct').click(function(e){
     if (!val){
         return false;
     }
-    window.location.replace("./store/view?id="+val);
+    window.location.replace("/shop/store/view?id="+val);
 });
