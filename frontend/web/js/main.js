@@ -43,7 +43,7 @@ const onCartUpdateHandler = (response)=>{
 };
 
 const updateHeaderCart = () => {
-    $.get('cart/get-cart',onCartUpdateHandler)
+    $.get('/cart/get-cart',onCartUpdateHandler)
         .fail((xhr, status, error) =>  showError(xhr, status, error));
 };
 
