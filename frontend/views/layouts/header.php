@@ -59,11 +59,11 @@ use yii\helpers\Html;
                         <a class="nav-link" href="#">PRODUCTS <i class="fas fa-chevron-down down-ico"></i></a>
 
                         <div class="down-menu">
-                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-actuator') ?>">TURBO ACTUATOR</a></p>
-                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-actuator-position-sensor') ?>">TURBO ACTUATOR POSITION SENSOR
+                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/turbo-actuator') ?>">TURBO ACTUATOR</a></p>
+                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/turbo-actuator-position-sensor') ?>">TURBO ACTUATOR POSITION SENSOR
                                 </a></p>
-                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-charger') ?>">TURBO CHARGER</a></p>
-                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-cleaner') ?>">TURBO CLEANER</a></p>
+                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/turbo-charger') ?>">TURBO CHARGER</a></p>
+                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/turbo-cleaner') ?>">TURBO CLEANER</a></p>
                         </div>
 
                     </li>
