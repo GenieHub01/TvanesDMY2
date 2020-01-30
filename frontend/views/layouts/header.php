@@ -22,14 +22,14 @@ use yii\helpers\Html;
                     <p class="eac-contact"><a href="https://www.turbovanesltd.com/#"><i class="fab fa-linkedin-in"></i></a> </p>
                     <p class="eac-contact">
                         <?php if ((Yii::$app->user->isGuest)):?>
-                            <a href="<?= \yii\helpers\Url::toRoute('/login') ?>"><i class="fas fa-lock"></i> Login</a>
+                            <a href="<?= \yii\helpers\Url::to('/login') ?>"><i class="fas fa-lock"></i> Login</a>
                         <?php else: ?>
-                            <a href="<?= \yii\helpers\Url::toRoute('/logout') ?>"><i class="fas fa-lock"></i> Logout</a>
+                            <a href="<?= \yii\helpers\Url::to('/logout') ?>"><i class="fas fa-lock"></i> Logout</a>
                         <?php endif; ?>
                     </p>
                     <p class="eac-contact">
                         <?php if ((Yii::$app->user->isGuest)):?>
-                            <a href="<?= \yii\helpers\Url::toRoute('/signup') ?>"><i class="fas fa-user-plus"></i> Signup</a>
+                            <a href="<?= \yii\helpers\Url::to('/signup') ?>"><i class="fas fa-user-plus"></i> Signup</a>
                         <?php endif; ?>
                     </p>
                 </div>
@@ -59,18 +59,18 @@ use yii\helpers\Html;
                         <a class="nav-link" href="#">PRODUCTS <i class="fas fa-chevron-down down-ico"></i></a>
 
                         <div class="down-menu">
-                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-actuator') ?>">TURBO ACTUATOR</a></p>
-                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-actuator-position-sensor') ?>">TURBO ACTUATOR POSITION SENSOR
+                            <p class="eac-item"><a href="<?= \yii\helpers\Url::to('/store/turbo-actuator') ?>">TURBO ACTUATOR</a></p>
+                            <p class="eac-item"><a href="<?= \yii\helpers\Url::to('/store/turbo-actuator-position-sensor') ?>">TURBO ACTUATOR POSITION SENSOR
                                 </a></p>
-                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-charger') ?>">TURBO CHARGER</a></p>
-                            <p class="eac-item"><a href="<?= \yii\helpers\Url::toRoute('/store/turbo-cleaner') ?>">TURBO CLEANER</a></p>
+                            <p class="eac-item"><a href="<?= \yii\helpers\Url::to('/store/turbo-charger') ?>">TURBO CHARGER</a></p>
+                            <p class="eac-item"><a href="<?= \yii\helpers\Url::to('/store/turbo-cleaner') ?>">TURBO CLEANER</a></p>
                         </div>
 
                     </li>
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('/site/about') ?>">ABOUT</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::to('/site/about') ?>">ABOUT</a>
                     </li>
 
                     <li class="nav-item">
@@ -85,15 +85,15 @@ use yii\helpers\Html;
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('news') ?>">NEWS</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::to('/news') ?>">NEWS</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('/site/contact') ?>">CONTACT</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::to('/site/contact') ?>">CONTACT</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::toRoute('/site/faq') ?>">FAQS</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::to('/site/faq') ?>">FAQS</a>
                     </li>
 
                     <?= \frontend\widgets\headerCart\HeaderCart::widget()?>

@@ -148,23 +148,23 @@ $this->registerJsFile('@web/js/the-product.js', ['depends' => 'yii\web\JqueryAss
                 <h1 class="category-stat">PRODUCT CATEGORIES</h1>
 
                 <ul class="th-listt">
-                    <a href="<?= \yii\helpers\Url::toRoute('turbo-actuator') ?>">
+                    <a href="<?= \yii\helpers\Url::to('turbo-actuator') ?>">
                         <li class="eac-catt">Turbo Actuator</li>
                     </a>
 
-                    <a href="<?= \yii\helpers\Url::toRoute('turbo-actuator-position-sensor') ?>">
+                    <a href="<?= \yii\helpers\Url::to('turbo-actuator-position-sensor') ?>">
                         <li class="eac-catt">Turbo Actuator Position Sensor</li>
                     </a>
 
-                    <a href="<?= \yii\helpers\Url::toRoute('turbo-charger') ?>">
+                    <a href="<?= \yii\helpers\Url::to('turbo-charger') ?>">
                         <li class="eac-catt">Turbo Charger</li>
                     </a>
 
-                    <a href="<?= \yii\helpers\Url::toRoute('turbo-cleaner') ?>">
+                    <a href="<?= \yii\helpers\Url::to('turbo-cleaner') ?>">
                         <li class="eac-catt">Turbo Cleaner</li>
                     </a>
 
-                    <a href="<?= \yii\helpers\Url::toRoute('/') ?>">
+                    <a href="<?= \yii\helpers\Url::to('/') ?>">
                         <li class="eac-catt">Turbo Vanes Ltd</li>
                     </a>
                 </ul>
