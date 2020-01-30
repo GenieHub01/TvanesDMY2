@@ -55,7 +55,7 @@ $('a.add_to_cart').click(function (e) {
     };
 
     $.get(
-        '/shop/cart/add-item',
+        '/cart/add-item',
         data
         ,
         function (respond) {
@@ -75,7 +75,7 @@ $('input.prod-number').change(function (e) {
         qty: $(this).val(),
     };
     $.get(
-        '/shop/cart/change-quantity',
+        '/cart/change-quantity',
         data
         ,
         function (respond) {
@@ -91,7 +91,7 @@ $('.js-remove-item').click(function (e) {
         id: $(this).attr('data-id'),
     };
     $.get(
-        '/shop/cart/delete-item-full',
+        '/cart/delete-item-full',
         data
         ,
         function (respond) {
@@ -159,7 +159,7 @@ function updateCart(respond){
 $('body').on('change', '#order-country_id', function (e) {
     $obj = $(this);
     $.get(
-        '/shop/cart/set-country',
+        '/cart/set-country',
         {
             id: $obj.val()
         }
@@ -184,7 +184,7 @@ $('body').on('click', 'a.cart-plus-item', function (e) {
     };
 
     $.get(
-        '/shop/cart/add-item',
+        '/cart/add-item',
         data
         ,
         function (respond) {
@@ -207,7 +207,7 @@ $('body').on('click', 'a.cart-minus-item', function (e) {
     };
 
     $.get(
-        '/shop/cart/delete-item',
+        '/cart/delete-item',
         data
         ,
         function (respond) {
@@ -259,7 +259,7 @@ $('select[name="brand"]').change(function(){
         brand: $(this).val()
     };
     $.get(
-        '/shop/site/product-search',
+        '/site/product-search',
         data
         ,
         function (respond) {
@@ -298,7 +298,7 @@ $('select[name="model"]').change(function(){
         model: $(this).val()
     };
     $.get(
-        '/shop/site/product-search',
+        '/site/product-search',
         data
         ,
         function (respond) {
@@ -340,7 +340,7 @@ $('select[name="capacity"]').change(function(){
         capacity: $(this).val()
     };
     $.get(
-        '/shop/site/product-search',
+        '/site/product-search',
         data
         ,
         function (respond) {
@@ -384,7 +384,7 @@ $('select[name="fuel"]').append('<option value="">-- Fuel --</option>"');
 
     };
     $.get(
-        '/shop/site/product-search',
+        '/site/product-search',
         data
         ,
         function (respond) {
@@ -426,7 +426,7 @@ $('select[name="fuel"]').change(function(){
 
     };
     $.get(
-        '/shop/site/product-search',
+        '/site/product-search',
         data
         ,
         function (respond) {
@@ -452,5 +452,5 @@ $('#showproduct').click(function(e){
     if (!val){
         return false;
     }
-    window.location.replace("/shop/store/view?id="+val);
+    window.location.replace("/store/view?id="+val);
 });
