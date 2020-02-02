@@ -54,6 +54,9 @@ use yii\helpers\Html;
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= \yii\helpers\Url::home() ?>">HOME</a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="#">PRODUCTS <i class="fas fa-chevron-down down-ico"></i></a>
