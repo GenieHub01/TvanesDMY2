@@ -86,8 +86,13 @@ class CartController extends BaseController
             $tax = 0;
             $discountSum = 0;
             $shipping = Yii::$app->cart->shipping;
+            $mailItems = [];
                 foreach ($items  as $key => $count) {
                     if (isset($models[$key])) {
+                        $mailItems[] = [
+                            'title' => $models[$key]['title'],
+                            'price' => $models[$key]['regular_price']
+                        ];
                         $sum += $models[$key]->total * $count;
                         $tax += $models[$key]->tax * $count;
                         $shipping += $models[$key]->extra_shipping* $count;
@@ -195,12 +200,15 @@ class CartController extends BaseController
 
             Yii::$app
                 ->mailer
-                ->compose()
+                ->compose('orderDetails-html',[
+                    'items' => $mailItems
+                    ])
                 ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
                 ->setTo($order->email)
                 ->setSubject('New order at ' . Yii::$app->name)
-                ->setTextBody('New order #'.$this->id)
+                ->setHtmlBody('New order #'.$this->id)
                 ->send();
+
             return $this->redirect($order->url);
         }
 

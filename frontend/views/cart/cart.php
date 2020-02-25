@@ -110,9 +110,6 @@
                         </tr>
                         </tbody>
                     </table>
-                    <a href="checkout.html">
-                        <button class="proceed-check hvr-bounce-to-top">Proceed To Checkout</button>
-                    </a>
                 </div>
             </div>
 
@@ -131,7 +128,7 @@
                                     <?= $form->field($order,'first_name')->textInput(['class' => 'inp-form'])->label(false) ?>
                                 </div>
                                 <div class="col-6">
-                                    <p class="form-nam">First name <span  data-toggle="tooltip" data-placement="right" title="Required">*</span></p>
+                                    <p class="form-nam">Last name <span  data-toggle="tooltip" data-placement="right" title="Required">*</span></p>
                                     <?= $form->field($order,'last_name')->textInput(['class' => 'inp-form'])->label(false) ?>
                                 </div>
                             </div>
