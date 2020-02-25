@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         <div class="al-login">
-            <p class="log">LOGIN</p>
+            <p class="log">SIGN UP</p>
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
             <div class="login-box">
 
