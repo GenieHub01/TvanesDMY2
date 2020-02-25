@@ -206,7 +206,6 @@ class CartController extends BaseController
                 ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
                 ->setTo($order->email)
                 ->setSubject('New order at ' . Yii::$app->name)
-                ->setHtmlBody('New order #'.$this->id)
                 ->send();
 
             return $this->redirect($order->url);
