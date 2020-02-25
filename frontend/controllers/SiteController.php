@@ -594,8 +594,6 @@ inner join years y on  g.id=y.goods_id
                         'capacity'=>$capacity
                     ])->queryAll(),'year','year' );
 
-            $out['all']='all';
-
             return $this->asJson([
                 'items'=>$out
             ]);
