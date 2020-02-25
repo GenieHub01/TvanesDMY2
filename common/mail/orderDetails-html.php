@@ -5,13 +5,17 @@ use yii\helpers\Html;
 $i = 1;
 ?>
 <div class="verify-email">
-    <th>#</th>
-    <th>Product</th>
-    <th>Price</th>
-    <?php foreach ($items as $item): ?>
-        <?= "<tr>" . $i . "</tr>>" ?>
-        <?= "<tr>" . $item['title'] . "</tr>>" ?>
-        <?= "<tr>" . $item['price'] . "</tr>>" ?>
-        <?php $i++; ?>
-    <?php endforeach; ?>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Product</th>
+            <th>Price</th>
+        </tr>
+        <?php foreach ($items as $item): ?>
+            <tr>
+                <td>$i</td><td><?= $item['title'] ?></td><td><?=$item['price']?></td>
+            </tr>
+            <?php $i++; ?>
+        <?php endforeach; ?>
+    </table>
 </div>

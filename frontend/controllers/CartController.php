@@ -197,7 +197,9 @@ class CartController extends BaseController
 
             $order->save();
 
-
+            $string = Yii::$app->mailer->compose('orderDetails-html',[
+                'items' => $mailItems
+            ]);
             Yii::$app
                 ->mailer
                 ->compose('orderDetails-html',[
