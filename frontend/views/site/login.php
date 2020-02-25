@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                     <?= Html::a(Yii::t('app','Lost your password?'), ['site/request-password-reset'],['class'=>'lost-pas']) ?>
+                <?= Html::a('Sign Up','/site/signup' ,['class' => 'log-in hvr-bounce-to-top', 'name' => 'login-button']) ?>
                 <?php ActiveForm::end(); ?>
             </div>
 
