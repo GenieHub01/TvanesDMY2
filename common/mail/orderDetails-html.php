@@ -13,7 +13,7 @@ $i = 1;
         </tr>
         <?php foreach ($items as $item): ?>
             <tr>
-                <td>$i</td><td><?= $item['title'] ?></td><td><?=$item['price']?></td>
+                <td><?=$i ?></td><td><?= $item['title'] ?></td><td><?=$item['price']?></td>
             </tr>
             <?php $i++; ?>
         <?php endforeach; ?>
