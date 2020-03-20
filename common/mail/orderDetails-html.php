@@ -18,24 +18,24 @@ $i = 1;
             <?php $i++; ?>
         <?php endforeach; ?>
         <tr>
-            <th>#</th>
-            <th>Holding Deposit</th>
-            <th><?= $holding_deposit ?></th>
+            <td>#</td>
+            <td>Holding Deposit</td>
+            <td><?= $holding_deposit ?></td>
         </tr>
         <tr>
-            <th>#</th>
-            <th>Tax</th>
-            <th><?= $total_tax ?></th>
+            <td>#</td>
+            <td>Tax</td>
+            <td><?= $total_tax ?></td>
         </tr>
         <tr>
-            <th>#</th>
-            <th>Shipping</th>
-            <th><?= $shipping_cost ?></th>
+            <td>#</td>
+            <td>Shipping</td>
+            <td><?= $shipping_cost ?></td>
         </tr>
         <tr>
-            <th>#</th>
-            <th>Total</th>
-            <th><?= $shipping_cost+$total_tax+$holding_deposit+$total_sum ?></th>
+            <td>#</td>
+            <td>Total</td>
+            <td><?= $shipping_cost+$total_tax+$holding_deposit+$total_sum ?></td>
         </tr>
     </table>
 </div>
