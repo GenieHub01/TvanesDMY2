@@ -197,14 +197,27 @@ class CartController extends BaseController
 
             $order->save();
 
-            $string = Yii::$app->mailer->compose('orderDetails-html',[
-                'items' => $mailItems
-            ]);
+            /*
+            $body = Yii::$app->view->renderFile ( '@common/mail/orderDetails-html.php' , [
+                'total_sum' => $order->total_sum,
+                    'total_tax' => $order->total_tax,
+                    'tax_percent' => $order->tax_percent,
+                    'shipping_cost' => $order->shipping_cost,
+                    'holding_deposit' =>  Yii::$app->cart->subHoldingDeposit ? Yii::$app->cart->subHoldingDeposit : 0,
+                    'items' => $mailItems
+            ] );
+            */
+
             Yii::$app
                 ->mailer
                 ->compose('orderDetails-html',[
+                    'total_sum' => $order->total_sum,
+                    'total_tax' => $order->total_tax,
+                    'tax_percent' => $order->tax_percent,
+                    'shipping_cost' => $order->shipping_cost,
+                    'holding_deposit' =>  Yii::$app->cart->subHoldingDeposit ? Yii::$app->cart->subHoldingDeposit : 0,
                     'items' => $mailItems
-                    ])
+                ])
                 ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
                 ->setTo($order->email)
                 ->setSubject('New order at ' . Yii::$app->name)
